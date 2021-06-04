@@ -257,147 +257,74 @@ class General_model extends CI_Model {
 		}
 	}
 
-		/**
-		 * Consultar registros de procesos
-		 * @since 18/5/2021
-		 */
-		public function get_procesos()
-		{
-				$this->db->select();
-				$this->db->order_by('P.id_proceso', 'asc');
+	/**
+	 * Contar registros de un usuario para el año actual
+	 * si es administrador cuenta todo
+	 * @author BMOTTAG
+	 * @since  14/11/2016
+	 */
+	public function countPayroll()
+	{
+		$userRol = $this->session->userdata("rol");
+		$idUser = $this->session->userdata("id");
 
-				$query = $this->db->get('procesos P');
+		$year = date('Y');
+		$firstDay = date('Y-m-d', mktime(0,0,0, 1, 1, $year));
 
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
+		$sql = "SELECT count(id_payroll) CONTEO";
+		$sql.= " FROM payroll";
+		$sql.= " WHERE start >= '$firstDay'";
+		
+		if($userRol == 7){ //If it is a normal user, just show the records of the user session
+			$sql.= " AND fk_id_user = $idUser";
 		}
 
-		/**
-		 * Consultar registros de procesos
-		 * @since 19/5/2021
-		 */
-		public function get_procesos_info($arrData)
-		{
-				$this->db->select();
-				$this->db->join('procesos_informacion I', 'I.fk_id_proceso = P.id_proceso', 'INNER');
-				if (array_key_exists("idProceso", $arrData)) {
-					$this->db->where('P.id_proceso ', $arrData["idProceso"]);
-				}
-				if (array_key_exists("codigo", $arrData)) {
-					$this->db->where('I.codigo', $arrData["codigo"]);
-				}
-				if (array_key_exists("idProcesoInfo", $arrData)) {
-					$this->db->where('I.id_proceso_informacion', $arrData["idProcesoInfo"]);
-				}
-				$this->db->order_by('P.id_proceso, I.codigo', 'asc');
+        $query = $this->db->query($sql);
+        $row = $query->row();
+        return $row->CONTEO;
+	}
 
-				$query = $this->db->get('procesos P');
+    /**
+     * Task´s list
+     * Modules: Dashboard - Payroll
+     * @since 10/11/2016
+     */
+    public function get_payroll($arrData) 
+	{
+        $this->db->select('T.*, id_user, first_name, last_name, log_user, J.job_description job_start, H.job_description job_finish');
+        $this->db->join('user U', 'U.id_user = T.fk_id_user', 'INNER');
+		$this->db->join('param_jobs J', 'J.id_job = T.fk_id_job', 'INNER');
+		$this->db->join('param_jobs H', 'H.id_job = T.fk_id_job_finish', 'LEFT');
+		
+        if (array_key_exists("idEmployee", $arrData)) {
+            $this->db->where('U.id_user', $arrData["idEmployee"]);
+        }
 
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
+		if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
+			$this->db->where('T.start >=', $arrData["from"]);
+		}				
+		if (array_key_exists("to", $arrData) && $arrData["to"] != '' && $arrData["from"] != '') {
+			$this->db->where('T.start <', $arrData["to"]);
 		}
-
-		/**
-		 * Consultar registros de historial de procesos
-		 * @since 19/5/2021
-		 */
-		public function get_procesos_historial($arrData)
-		{
-				$this->db->select("A.*, CONCAT(first_name, ' ', last_name) name");
-				$this->db->join('usuarios U', 'U.id_user = A.fk_id_usuario_api ', 'INNER');
-				if (array_key_exists("idProcesoInfo", $arrData)) {
-					$this->db->where('A.fk_id_proceso_informacion_api', $arrData["idProcesoInfo"]);
-				}
-				$this->db->order_by('A.id_auditoria_proceso_informacion', 'desc');
-
-				$query = $this->db->get('auditoria_procesos_informacion A');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
+		if (array_key_exists("fecha", $arrData)) {
+			$this->db->like('T.start', $arrData["fecha"]); 
 		}
-
-		/**
-		 * Consultar registros de temas
-		 * @since 18/5/2021
-		 */
-		public function get_temas($arrData)
-		{
-				$this->db->select();
-				if (array_key_exists("idTema", $arrData)) {
-					$this->db->where('T.id_tema', $arrData["idTema"]);
-				}
-				$this->db->order_by('T.id_tema', 'asc');
-
-				$query = $this->db->get('temas T');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar ducumentos de proceso
-		 * @since 25/5/2021
-		 */
-		public function get_documentos_procesos($arrData)
-		{
-				$this->db->select();
-				if (array_key_exists("idDocumento", $arrData)) {
-					$this->db->where('D.id_procesos_documento', $arrData["idDocumento"]);
-				}
-				if (array_key_exists("idProcesoInfo", $arrData)) {
-					$this->db->where('D.fk_id_proceso_informacion', $arrData["idProcesoInfo"]);
-				}
-				if (array_key_exists("idTema", $arrData)) {
-					$this->db->where('D.fk_id_tema', $arrData["idTema"]);
-				}
-				if (array_key_exists("estado", $arrData)) {
-					$this->db->where('D.estado', $arrData["estado"]);
-				}
-				$this->db->order_by('D.orden', 'asc');
-
-				$query = $this->db->get('procesos_documentos D');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
+		
+		$this->db->order_by('id_payroll', 'desc');
+		
+        if (array_key_exists("limit", $arrData)) {
+            $query = $this->db->get('payroll T', $arrData["limit"]);
+        }else{
+        	$query = $this->db->get('payroll T');
+        }
 
 
-		/**
-		 * Consultar registros de historial de documentos
-		 * @since 28/5/2021
-		 */
-		public function get_documentos_historial($arrData)
-		{
-				$this->db->select("A.*, CONCAT(first_name, ' ', last_name) name");
-				$this->db->join('usuarios U', 'U.id_user = A.fk_id_usuario', 'INNER');
-				if (array_key_exists("idDocumento", $arrData)) {
-					$this->db->where('A.fk_id_proceso_documento', $arrData["idDocumento"]);
-				}
-				$this->db->order_by('A.id_auditoria_documento', 'desc');
-
-				$query = $this->db->get('auditoria_documentos A');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
 
 
 
