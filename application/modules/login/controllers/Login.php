@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	public function index($id = 'x')
 	{
 			$this->session->sess_destroy();
-			$this->load->view('login', $data);
+			$this->load->view('login');
 	}
 	
 	public function validateUser()
