@@ -1,222 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="bmottag">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="MottaClick">
 	<meta name="baseurl" content="<?php echo base_url()?>" />
+	<title>PAYROLL</title>
 
-    <title>JBB-APP</title>
-	<link rel="icon" type="image/png" href="<?php echo base_url("images/favicon.ico"); ?>" />
-	
-    <!-- Bootstrap Core CSS -->
-	<link href="<?php echo base_url("assets/bootstrap/vendor/bootstrap/css/bootstrap.min.css"); ?>" rel="stylesheet">
-    <!-- MetisMenu CSS -->
-    <link href="<?php echo base_url("assets/bootstrap/vendor/metisMenu/metisMenu.min.css"); ?>" rel="stylesheet">
-    <!-- Social Buttons CSS -->
-    <link href="<?php echo base_url("assets/bootstrap/vendor/bootstrap-social/bootstrap-social.css"); ?>" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="<?php echo base_url("assets/bootstrap/dist/css/sb-admin-2.css"); ?>" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="<?php echo base_url("assets/bootstrap/vendor/font-awesome/css/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css">
-    <!-- DataTables CSS -->
-    <link href="<?php echo base_url("assets/bootstrap/vendor/datatables-plugins/dataTables.bootstrap.css"); ?>" rel="stylesheet">
-    <!-- DataTables Responsive CSS -->
-    <link href="<?php echo base_url("assets/bootstrap/vendor/datatables-responsive/dataTables.responsive.css"); ?>" rel="stylesheet">
+	<!-- Google Font: Source Sans Pro -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/fontawesome-free/css/all.min.css"); ?>">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Tempusdominus Bootstrap 4 -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"); ?>">
+	<!-- iCheck -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/icheck-bootstrap/icheck-bootstrap.min.css"); ?>">
+	<!-- JQVMap -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/jqvmap/jqvmap.min.css"); ?>">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/dist/css/adminlte.min.css"); ?>">
+	<!-- overlayScrollbars -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/overlayScrollbars/css/OverlayScrollbars.min.css"); ?>">
+	<!-- Daterange picker -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/daterangepicker/daterangepicker.css"); ?>">
+	<!-- summernote -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/summernote/summernote-bs4.min.css"); ?>">
+	</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
 
-    <!-- jQuery -->
-    <script src="<?php echo base_url("assets/bootstrap/vendor/jquery/jquery.min.js"); ?>"></script>
-	<!-- jQuery validate-->
-	<script type="text/javascript" src="<?php echo base_url("assets/js/general/general.js"); ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url("assets/js/general/jquery.validate.js"); ?>"></script>
-	
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-    <body>
-		
-		<div id="wrapper">
-		
-			<?php
-			//consultar enlaces de videos
-			$ci = &get_instance();
-			$ci->load->model("general_model");
-			
-			$leftMenu = '';
-			$topMenu = '';
-			$itemsLeftMenu = FALSE;
-			$itemsTopMenu = FALSE;
-
-			$userRole = $this->session->role;
-			//Left MENU 
-			$arrParam = array(
-				"idRole" => $userRole,
-				"menuType" => 1,
-				"menuState" => 1
-			);
-			$itemsLeftMenu = $this->general_model->get_role_menu($arrParam);
-
-			//Top MENU 
-			$arrParam = array(
-				"idRole" => $userRole,
-				"menuType" => 2,
-				"menuState" => 1
-			);
-			$itemsTopMenu = $this->general_model->get_role_menu($arrParam);		
-
-			if($itemsLeftMenu)
-			{
-				foreach ($itemsLeftMenu as $item):
-							
-					if($item['menu_url'] && $item['menu_url'] != '')
-					{
-						$menuURL = base_url($item['menu_url']);
-						
-						$leftMenu .= '<li>';
-						$leftMenu .= '<a href="' . $menuURL . '"><i class="fa ' . $item['menu_icon'] . ' fa-fw"></i> ' . $item['menu_name'] . '</a>';
-						$leftMenu .= '</li>';
-						
-					}else{
-						//enlaces del menu
-						$arrParam = array(
-							"idRole" => $userRole,
-							"idMenu" => $item['fk_id_menu'],
-							"linkState" => 1,
-							"menuType" => 1
-						);
-						$links = $this->general_model->get_role_access($arrParam);		
-
-						if($links){							
-							$leftMenu .= '<li>';
-							$leftMenu .= '<a href="#">';
-							$leftMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <span class="fa arrow"></span>';
-							$leftMenu .= '</a>';
-							
-							$leftMenu .= '<ul class="nav nav-second-level">';
-							
-							foreach ($links as $list):
-								//System URL
-								if($list['link_type'] == 1){
-									$linkURL = base_url($list['link_url']);
-									
-									$leftMenu .= '<li>';
-									$leftMenu .= '<a href="' . $linkURL . '" > ' . $list['link_name'] . '</a>';
-									$leftMenu .= '</li>';
-								//Complete URL
-								}elseif($list['link_type'] == 2 || $list['link_type'] == 4 || $list['link_type'] == 5){
-									$linkURL = $list['link_url'];
-									
-									$leftMenu .= '<li>';
-									$leftMenu .= '<a href="' . $linkURL . '" target="_blank"> ' . $list['link_name'] . '</a>';
-									$leftMenu .= '</li>';
-								//Complete DIVIDER
-								}else{
-									$linkURL = base_url($list['link_url']);
-									$leftMenu .= '<li class="divider"></li>';
-								}
-							endforeach;
-							
-							$leftMenu .= '</ul>';
-							$leftMenu .= '</li>';						
-						}
-					}
-				endforeach;
-			}
-			
-			if($itemsTopMenu)
-			{						
-				foreach ($itemsTopMenu as $item):
-								
-					if($item['menu_url'] && $item['menu_url'] != '')
-					{
-						$menuURL = base_url($item['menu_url']);
-						
-						$topMenu .= '<li>';
-						$topMenu .= '<a href="' . $menuURL . '"><i class="fa ' . $item['menu_icon'] . ' fa-fw"></i> ' . $item['menu_name'] . '</a>';
-						$topMenu .= '</li>';
-						
-					}else{
-						//enlaces del menu
-						$arrParam = array(
-							"idRole" => $userRole,
-							"idMenu" => $item['fk_id_menu'],
-							"linkState" => 1,
-							"menuType" => 2
-						);
-						$links = $this->general_model->get_role_access($arrParam);		
-
-						if($links){
-							$topMenu .= '<li class=dropdown>';
-							$topMenu .= '<a class="dropdown-toggle" data-toggle="dropdown" href="#">';
-							$topMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <i class="fa fa-caret-down"></i>';
-							$topMenu .= '</a>';
-							
-							$topMenu .= '<ul class="dropdown-menu dropdown-messages">';
-							
-							foreach ($links as $list):
-								//System URL
-								if($list['link_type'] == 1){
-									$linkURL = base_url($list['link_url']);
-									
-									$topMenu .= '<li>';
-									$topMenu .= '<a href="' . $linkURL . '" ><i class="fa ' . $list['link_icon'] . ' fa-fw"></i> ' . $list['link_name'] . '</a>';
-									$topMenu .= '</li>';
-								//Complete URL
-								}elseif($list['link_type'] == 2 || $list['link_type'] == 4 || $list['link_type'] == 5){
-									$linkURL = $list['link_url'];
-									
-									$topMenu .= '<li>';
-									$topMenu .= '<a href="' . $linkURL . '" target="_blank"><i class="fa ' . $list['link_icon'] . ' fa-fw"></i> ' . $list['link_name'] . '</a>';
-									$topMenu .= '</li>';
-								//Complete DIVIDER
-								}else{
-									$linkURL = base_url($list['link_url']);
-									$topMenu .= '<li class="divider"></li>';
-								}
-							
-
-							endforeach;
-							
-							$topMenu .= '</ul>';
-							$topMenu .= '</li>';						
-						}
-					}
-				endforeach;
-			}
-			
-			$data["leftMenu"] = $leftMenu;
-			$data["topMenu"] = $topMenu;
-			?>
-		
-		
-			<?php $this->load->view("template/menu", $data); ?>
-		
-			<!-- Start of content -->
-			<?php
-			if (isset($view) && ($view != '')) {
-				$this->load->view($view);
-			}
-			?>
-			<!-- End of content -->
+		<!-- 
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
 		</div>
+Preloader -->
+		<?php
+		//consultar enlaces
+		$ci = &get_instance();
+		$ci->load->model("general_model");
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo base_url("assets/bootstrap/vendor/bootstrap/js/bootstrap.min.js"); ?>"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="<?php echo base_url("assets/bootstrap/vendor/metisMenu/metisMenu.min.js"); ?>"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="<?php echo base_url("assets/bootstrap/dist/js/sb-admin-2.js"); ?>"></script>
-    <!-- DataTables JavaScript -->
-    <script src="<?php echo base_url("assets/bootstrap/vendor/datatables/js/jquery.dataTables.min.js"); ?>"></script>
-    <script src="<?php echo base_url("assets/bootstrap/vendor/datatables-plugins/dataTables.bootstrap.min.js"); ?>"></script>
-    <script src="<?php echo base_url("assets/bootstrap/vendor/datatables-responsive/dataTables.responsive.js"); ?>"></script>
-	
-	</body>
+		$leftMenu = '';
+		$topMenu = '';
+		$itemsLeftMenu = FALSE;
+		$itemsTopMenu = FALSE;
+
+		$userRole = $this->session->role;
+		//Left MENU 
+		$arrParam = array(
+			"idRole" => $userRole,
+			"menuType" => 1,
+			"menuState" => 1
+		);
+		$itemsLeftMenu = $this->general_model->get_role_menu($arrParam);
+
+		//Top MENU 
+		$arrParam = array(
+			"idRole" => $userRole,
+			"menuType" => 2,
+			"menuState" => 1
+		);
+		$itemsTopMenu = $this->general_model->get_role_menu($arrParam);		
+
+		if($itemsLeftMenu)
+		{
+			foreach ($itemsLeftMenu as $item):
+						
+				if($item['menu_url'] && $item['menu_url'] != '')
+				{
+					$menuURL = base_url($item['menu_url']);
+					
+					$leftMenu .= '<li>';
+					$leftMenu .= '<a href="' . $menuURL . '"><i class="fa ' . $item['menu_icon'] . ' fa-fw"></i> ' . $item['menu_name'] . '</a>';
+					$leftMenu .= '</li>';
+					
+				}else{
+					//enlaces del menu
+					$arrParam = array(
+						"idRole" => $userRole,
+						"idMenu" => $item['fk_id_menu'],
+						"linkState" => 1,
+						"menuType" => 1
+					);
+					$links = $this->general_model->get_role_access($arrParam);		
+
+					if($links){							
+						$leftMenu .= '<li>';
+						$leftMenu .= '<a href="#">';
+						$leftMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <span class="fa arrow"></span>';
+						$leftMenu .= '</a>';
+						
+						$leftMenu .= '<ul class="nav nav-second-level">';
+						
+						foreach ($links as $list):
+							//System URL
+							if($list['link_type'] == 1){
+								$linkURL = base_url($list['link_url']);
+								
+								$leftMenu .= '<li>';
+								$leftMenu .= '<a href="' . $linkURL . '" > ' . $list['link_name'] . '</a>';
+								$leftMenu .= '</li>';
+							//Complete URL
+							}elseif($list['link_type'] == 2 || $list['link_type'] == 4 || $list['link_type'] == 5){
+								$linkURL = $list['link_url'];
+								
+								$leftMenu .= '<li>';
+								$leftMenu .= '<a href="' . $linkURL . '" target="_blank"> ' . $list['link_name'] . '</a>';
+								$leftMenu .= '</li>';
+							//Complete DIVIDER
+							}else{
+								$linkURL = base_url($list['link_url']);
+								$leftMenu .= '<li class="divider"></li>';
+							}
+						endforeach;
+						
+						$leftMenu .= '</ul>';
+						$leftMenu .= '</li>';						
+					}
+				}
+			endforeach;
+		}
+
+		if($itemsTopMenu)
+		{
+			foreach ($itemsTopMenu as $item):
+							
+				if($item['menu_url'] && $item['menu_url'] != '')
+				{
+					$menuURL = base_url($item['menu_url']);
+					$topMenu .= '<li class="nav-item d-none d-sm-inline-block">';
+					$topMenu .= '<a href="' . $menuURL . '" class="nav-link">' . $item['menu_name'] . '</a>';
+					$topMenu .= '</li>';
+					
+				}else{
+					//enlaces del menu
+					$arrParam = array(
+						"idRole" => $userRole,
+						"idMenu" => $item['fk_id_menu'],
+						"linkState" => 1,
+						"menuType" => 2
+					);
+					$links = $this->general_model->get_role_access($arrParam);		
+
+					if($links){
+
+
+
+						$topMenu .= '<li class="nav-item dropdown">';
+						$topMenu .= '<a class="nav-link" data-toggle="dropdown" href="#">';
+						$topMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <i class="fa fa-caret-down"></i>';
+						$topMenu .= '</a>';
+						
+						$topMenu .= '<div class="dropdown-menu dropdown-menu-right">';
+						
+						foreach ($links as $list):
+							//System URL
+							if($list['link_type'] == 1){
+								$linkURL = base_url($list['link_url']);
+								$topMenu .= '<a href="' . $linkURL . '" class="dropdown-item"><i class="fa ' . $list['link_icon'] . ' fa-fw"></i> ' . $list['link_name'] . '</a>';
+
+							//Complete URL
+							}elseif($list['link_type'] == 2 || $list['link_type'] == 4 || $list['link_type'] == 5){
+								$linkURL = $list['link_url'];
+								$topMenu .= '<a href="' . $linkURL . '" target="_blank" class="dropdown-item"><i class="fa ' . $list['link_icon'] . ' fa-fw"></i> ' . $list['link_name'] . '</a>';
+							//DIVIDER
+							}else{
+								$linkURL = base_url($list['link_url']);
+								$topMenu .= '<div class="dropdown-divider"></div>';
+							}
+						
+
+						endforeach;
+						
+						$topMenu .= '</div>';
+						$topMenu .= '</li>';						
+					}
+				}
+			endforeach;
+		}
+
+		$data["leftMenu"] = $leftMenu;
+		$data["topMenu"] = $topMenu;
+		?>
+<?php 
+$this->load->view("template/menu", $data); 
+?>
+
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+	<!-- Start of content -->
+	<?php
+		if (isset($view) && ($view != '')) {
+			$this->load->view($view);
+		}
+	?>
+	<!-- End of content -->
+
+    <!-- /.content -->
+  </div>
+
+	<!-- Start of footer -->
+	<?php
+		if (isset($footer) && ($footer != '')) {
+			$this->load->view("template/footer", $data);
+		}
+	?>
+	<!-- End of footer -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery/jquery.min.js"); ?>"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery-ui/jquery-ui.min.js"); ?>"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+	  $.widget.bridge('uibutton', $.ui.button)
+	</script>
+	<!-- Bootstrap 4 -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
+	<!-- ChartJS -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/chart.js/Chart.min.js"); ?>"></script>
+	<!-- Sparkline -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/sparklines/sparkline.js"); ?>"></script>
+	<!-- JQVMap -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/jqvmap/jquery.vmap.min.js"); ?>"></script>
+	<script src="<?php echo base_url("assets/bootstrap/plugins/jqvmap/maps/jquery.vmap.usa.js"); ?>"></script>
+	<!-- jQuery Knob Chart -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery-knob/jquery.knob.min.js"); ?>"></script>
+	<!-- daterangepicker -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/moment/moment.min.js"); ?>"></script>
+	<script src="<?php echo base_url("assets/bootstrap/plugins/daterangepicker/daterangepicker.js"); ?>"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"); ?>"></script>
+	<!-- Summernote -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/summernote/summernote-bs4.min.js"); ?>"></script>
+	<!-- overlayScrollbars -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"); ?>"></script>
+	<!-- AdminLTE App -->
+	<script src="<?php echo base_url("assets/bootstrap/dist/js/adminlte.js"); ?>"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="<?php echo base_url("assets/bootstrap/dist/js/demo.js"); ?>"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script src="<?php echo base_url("assets/bootstrap/dist/js/pages/dashboard.js"); ?>"></script>
+</body>
 </html>

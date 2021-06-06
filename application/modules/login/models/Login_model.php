@@ -35,7 +35,7 @@
 						$user["logUser"] = $row->log_user;
 	    				$user["movil"] = $row->movil;
 						$user["state"] = $row->state;
-						$user["rol"] = $row->perfil;
+						$user["role"] = $row->fk_id_user_role;
 						$user["photo"] = $row->photo;
 	    			//}	    			
 	    		}
@@ -55,7 +55,7 @@
 	    public function redireccionarUsuario()
 		{
 			$state = $this->session->userdata("state");
-			$userRol = $this->session->userdata("rol");
+			$userRol = $this->session->userdata("role");
 			$dashboardURL = $this->session->userdata("dashboardURL");
 			
 	    	switch($state){
