@@ -75,6 +75,7 @@ class Dashboard extends CI_Controller {
 						
 			$arrParam["limit"] = 30;//Limite de registros para la consulta
 			$data['info'] = $this->general_model->get_payroll($arrParam);//search the last 5 records 
+			$data['pageHeaderTitle'] = "Dashboard";
 
 			$data["view"] = "dashboard";
 			$this->load->view("layout", $data);

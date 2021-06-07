@@ -4,7 +4,7 @@ $(function(){
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-				url: base_url + 'access/cargarModalVideoLinks',
+				url: base_url + 'enlaces/cargarModalVideoLinks',
                 data: {'idLink': oID},
                 cache: false,
                 success: function (data) {
@@ -42,24 +42,29 @@ $(function(){
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a Link
 					</button><br>
 <?php
-	$retornoExito = $this->session->flashdata('retornoExito');
-	if ($retornoExito) {
-?>
+$retornoExito = $this->session->flashdata('retornoExito');
+if ($retornoExito) {
+    ?>
+	<div class="col-lg-12">	
 		<div class="alert alert-success ">
 			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			<?php echo $retornoExito ?>		
 		</div>
-<?php
-	}
-	$retornoError = $this->session->flashdata('retornoError');
-	if ($retornoError) {
-?>
+	</div>
+    <?php
+}
+
+$retornoError = $this->session->flashdata('retornoError');
+if ($retornoError) {
+    ?>
+	<div class="col-lg-12">	
 		<div class="alert alert-danger ">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 			<?php echo $retornoError ?>
 		</div>
-<?php
-	}
+	</div>
+    <?php
+}
 ?> 
 				<?php
 					if($info){
@@ -84,7 +89,7 @@ $(function(){
 									echo "<td class='text-center'>";
 									switch ($lista['link_state']) {
 										case 1:
-											$valor = 'Activo';
+											$valor = 'Active';
 											$clase = "text-success";
 											break;
 										case 2:

@@ -28,7 +28,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
 	<a href="index3.html" class="brand-link">
-		<img src="dist/img/AdminLTELogo.png" alt="LOGO" class="brand-image img-circle elevation-3" style="opacity: .8">
+		<img src="<?php echo base_url("assets/bootstrap/dist/img/AdminLTELogo.png"); ?>" alt="LOGO" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">PayRoll</span>
     </a>
 
@@ -39,6 +39,7 @@
 			<div class="image">
 				<?php 
 				$urlPhoto = base_url($this->session->name);
+				$urlPhoto = base_url("assets/bootstrap/dist/img/AdminLTELogo.png");
 				if($this->session->photo){ ?>
 					<img src="<?php echo $urlPhoto; ?>" class="img-circle elevation-2" alt="User Image">
 				<?php } ?>

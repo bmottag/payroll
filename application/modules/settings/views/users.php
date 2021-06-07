@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script>
 $(function(){ 
 	$(".btn-success").click(function () {	
@@ -18,38 +15,23 @@ $(function(){
 });
 </script>
 
-
-<div id="page-wrapper">
-	<br>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h4 class="list-group-item-heading">
-					<i class="fa fa-gear fa-fw"></i> CONFIGURACIÓN - USUARIOS
-					</h4>
-				</div>
-			</div>
-		</div>
-		<!-- /.col-lg-12 -->				
-	</div>
-	
-	<!-- /.row -->
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-users"></i> LISTA DE USUARIOS
-				</div>
-				<div class="panel-body">
-				
-					<ul class="nav nav-pills">
-						<li <?php if($state == 1){ echo "class='active'";} ?>><a href="<?php echo base_url("settings/employee/1"); ?>">Usuarios Activos</a>
-						</li>
-						<li <?php if($state == 2){ echo "class='active'";} ?>><a href="<?php echo base_url("settings/employee/2"); ?>">Usuarios Inactivos</a>
-						</li>
-					</ul>
-					<br>	
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<!-- Default box -->
+				<div class="card">
+					<div class="card-header">
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/users/1"); ?>">
+			                  Ative Users
+			                </a>
+			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/users/2"); ?>">
+			                  Inactive Users
+			                </a>
+						</div>
+					</div>
+					<div class="card-body">
 
 <?php
 	//DESHABILITAR EDICION
@@ -84,7 +66,7 @@ $(function(){
 <?php 										
 	if(!$info){ 
 		echo '<div class="col-lg-12">
-				<p class="text-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> No hay registros en el sistema.</p>
+				<p class="text-danger"><span class="fa fa-alert" aria-hidden="true"></span> No data was found.</p>
 			</div>';
 	}else{
 ?>
@@ -183,16 +165,12 @@ if($count == 10){
 						</tbody>
 					</table>
 				<?php } ?>
+					</div>
 				</div>
-				<!-- /.panel-body -->
 			</div>
-			<!-- /.panel -->
 		</div>
-		<!-- /.col-lg-12 -->
 	</div>
-	<!-- /.row -->
-</div>
-<!-- /#page-wrapper -->
+</section>
 		
 				
 <!--INICIO Modal para adicionar HAZARDS -->

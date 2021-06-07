@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/daterangepicker/daterangepicker.css"); ?>">
 	<!-- summernote -->
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/summernote/summernote-bs4.min.css"); ?>">
-	</head>
+</head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
@@ -183,41 +183,59 @@ Preloader -->
 		$data["leftMenu"] = $leftMenu;
 		$data["topMenu"] = $topMenu;
 		?>
-<?php 
-$this->load->view("template/menu", $data); 
-?>
 
+		<?php 
+		$this->load->view("template/menu", $data); 
+		?>
 
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+			<?php if (isset($pageHeaderTitle) && ($pageHeaderTitle != '')) { ?>
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0"><?php echo $pageHeaderTitle; ?></h1>
+							</div><!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Dashboard</li>
+								</ol>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+			<?php } ?>
+			<!-- Start of content -->
+			<?php
+				if (isset($view) && ($view != '')) {
+					$this->load->view($view);
+				}
+			?>
+			<!-- End of content -->
 
-	<!-- Start of content -->
-	<?php
-		if (isset($view) && ($view != '')) {
-			$this->load->view($view);
-		}
-	?>
-	<!-- End of content -->
+		<!-- /.content -->
+		</div>
 
-    <!-- /.content -->
-  </div>
+		<!-- Start of footer -->
+		<?php
+			if (isset($footer) && ($footer != '')) {
+				$this->load->view("template/footer", $data);
+			}
+		?>
+		<!-- End of footer -->
 
-	<!-- Start of footer -->
-	<?php
-		if (isset($footer) && ($footer != '')) {
-			$this->load->view("template/footer", $data);
-		}
-	?>
-	<!-- End of footer -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+		<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
 
 	<!-- jQuery -->
 	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery/jquery.min.js"); ?>"></script>
@@ -231,8 +249,6 @@ $this->load->view("template/menu", $data);
 	<script src="<?php echo base_url("assets/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
 	<!-- ChartJS -->
 	<script src="<?php echo base_url("assets/bootstrap/plugins/chart.js/Chart.min.js"); ?>"></script>
-	<!-- Sparkline -->
-	<script src="<?php echo base_url("assets/bootstrap/plugins/sparklines/sparkline.js"); ?>"></script>
 	<!-- JQVMap -->
 	<script src="<?php echo base_url("assets/bootstrap/plugins/jqvmap/jquery.vmap.min.js"); ?>"></script>
 	<script src="<?php echo base_url("assets/bootstrap/plugins/jqvmap/maps/jquery.vmap.usa.js"); ?>"></script>
@@ -251,7 +267,5 @@ $this->load->view("template/menu", $data);
 	<script src="<?php echo base_url("assets/bootstrap/dist/js/adminlte.js"); ?>"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="<?php echo base_url("assets/bootstrap/dist/js/demo.js"); ?>"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="<?php echo base_url("assets/bootstrap/dist/js/pages/dashboard.js"); ?>"></script>
 </body>
 </html>

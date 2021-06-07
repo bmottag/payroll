@@ -1,21 +1,3 @@
-<!-- Content Header (Page header) -->
-<div class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1 class="m-0">Dashboard</h1>
-			</div><!-- /.col -->
-			<div class="col-sm-6">
-				<ol class="breadcrumb float-sm-right">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item active">Dashboard</li>
-				</ol>
-			</div><!-- /.col -->
-		</div><!-- /.row -->
-	</div><!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
-			
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -49,16 +31,14 @@
 					</div>
               		<!-- /.card-header -->
 
-                    <?php
+					<div class="card-body table-responsive p-0" style="height: 300px;">
+                   <?php
                     	if(!$info){ 
                             echo '<div class="col-lg-12">
-                                    <small>
                                     <p class="text-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> No data was found.</p>
-                                    </small>
                                 </div>';
                     	}else{
                     ?>
-					<div class="card-body table-responsive p-0" style="height: 300px;">
 						<table class="table table-head-fixed text-nowrap">
 							<thead>
 								<tr>
@@ -93,9 +73,9 @@
 							?>
 							</tbody>
 						</table>
+					<?php	} ?>
 					</div>
 					<!-- /.card-body -->
-					<?php	} ?>
 				</div>
 				<!-- /.card -->
 			</div>

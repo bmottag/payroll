@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/role_access.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/enlaces/role_access.js"); ?>"></script>
 
 <script>
 $(function(){ 
@@ -6,7 +6,7 @@ $(function(){
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-				url: base_url + 'access/cargarModalRoleAccess',
+				url: base_url + 'enlaces/cargarModalRoleAccess',
                 data: {'idPermiso': oID},
                 cache: false,
                 success: function (data) {
@@ -24,7 +24,7 @@ $(function(){
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h4 class="list-group-item-heading">
-					<i class="fa fa-cogs fa-fw"></i> ADMINISTRAR ACCESO AL SISTEMA
+					<i class="fa fa-cogs fa-fw"></i> MANAGE SYSTEM ACCESS 
 					</h4>
 				</div>
 			</div>
@@ -37,32 +37,36 @@ $(function(){
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-puzzle-piece"></i> ACCESO DE ROLES
+					<i class="fa fa-puzzle-piece"></i> ROLE ACCESS
 				</div>
 				<div class="panel-body">
 					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Acceso de Roles
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a Role Access
 					</button><br>
-					
 <?php
-	$retornoExito = $this->session->flashdata('retornoExito');
-	if ($retornoExito) {
-?>
+$retornoExito = $this->session->flashdata('retornoExito');
+if ($retornoExito) {
+    ?>
+	<div class="col-lg-12">	
 		<div class="alert alert-success ">
 			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			<?php echo $retornoExito ?>		
 		</div>
-<?php
-	}
-	$retornoError = $this->session->flashdata('retornoError');
-	if ($retornoError) {
-?>
+	</div>
+    <?php
+}
+
+$retornoError = $this->session->flashdata('retornoError');
+if ($retornoError) {
+    ?>
+	<div class="col-lg-12">	
 		<div class="alert alert-danger ">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 			<?php echo $retornoError ?>
 		</div>
-<?php
-	}
+	</div>
+    <?php
+}
 ?> 
 				<?php
 					if($info){
@@ -70,13 +74,13 @@ $(function(){
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 						<thead>
 							<tr>
-								<th class="text-center">Nombre Menú</th>
-								<th class="text-center">Nombre Submenú</th>
-								<th class="text-center">Nombre Rol</th>
-								<th class="text-center">Editar/Eliminar</th>
-								<th class="text-center">Tipo Menú</th>
-								<th class="text-center">Orden Menú</th>
-								<th class="text-center">Orden Enlace</th>
+								<th class="text-center">Menu name</th>
+								<th class="text-center">Link name</th>
+								<th class="text-center">Rol name</th>
+								<th class="text-center">Edit/Delete</th>
+								<th class="text-center">Menu Type</th>
+								<th class="text-center">Menu Order</th>
+								<th class="text-center">Link order</th>
 							</tr>
 						</thead>
 						<tbody>							
@@ -86,16 +90,16 @@ $(function(){
 									echo "<td>" . $lista['menu_name'] . "</td>";
 									echo "<td>" . $lista['link_name'] . "</td>";
 									echo "<td class='text-center'>";
-									echo '<p class="' . $lista['style'] . '"><strong>' . $lista['role_name'] . '</strong></p>';
+									echo '<p class="' . $lista['estilos'] . '"><strong>' . $lista['rol_name'] . '</strong></p>';
 									echo "</td>";
 									
 									echo "<td class='text-center'>";
 						?>
-									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_access']; ?>" >
-										Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
+									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_permiso']; ?>" >
+										Edit <span class="glyphicon glyphicon-edit" aria-hidden="true">
 									</button>
 									
-									<button type="button" id="<?php echo $lista['id_access']; ?>" class='btn btn-danger btn-xs' title="Delete">
+									<button type="button" id="<?php echo $lista['id_permiso']; ?>" class='btn btn-danger btn-xs' title="Delete">
 											<i class="fa fa-trash-o"></i>
 									</button>
 						<?php

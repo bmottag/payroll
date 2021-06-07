@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/videos.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/enlaces/videos.js"); ?>"></script>
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<h4 class="modal-title" id="exampleModalLabel">Video link
@@ -44,8 +44,8 @@
 					<label class="control-label" for="link_state">State : *</label>
 					<select name="link_state" id="link_state" class="form-control" required>
 						<option value=''>Select...</option>
-						<option value=1 <?php if($information && $information[0]["link_state"] == 1) { echo "selected"; }  ?>>Active</option>
-						<option value=2 <?php if($information && $information[0]["link_state"] == 2) { echo "selected"; }  ?>>Inactive</option>
+						<option value=1 <?php if($information[0]["link_state"] == 1) { echo "selected"; }  ?>>Active</option>
+						<option value=2 <?php if($information[0]["link_state"] == 2) { echo "selected"; }  ?>>Inactive</option>
 					</select>
 				</div>
 			</div>

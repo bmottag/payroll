@@ -11,11 +11,11 @@ class Settings extends CI_Controller {
     }
 	
 	/**
-	 * employee List
+	 * users List
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
-	public function employee($state)
+	public function users($state)
 	{			
 			$data['state'] = $state;
 			
@@ -26,9 +26,10 @@ class Settings extends CI_Controller {
 			}
 			
 			$data['info'] = $this->general_model->get_user($arrParam);
+			$data['pageHeaderTitle'] = "Settings - Users";
 			
-			$data["view"] = 'employee';
-			$this->load->view("layout_calendar", $data);
+			$data["view"] = 'users';
+			$this->load->view("layout", $data);
 	}
 	
     /**

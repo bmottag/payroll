@@ -138,7 +138,7 @@ class General_model extends CI_Model {
 		}
 
 		$this->db->order_by("first_name, last_name", "ASC");
-		$query = $this->db->get("usuarios U");
+		$query = $this->db->get("user U");
 
 		if ($query->num_rows() >= 1) {
 			return $query->result_array();
