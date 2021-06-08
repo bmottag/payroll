@@ -2,21 +2,18 @@
 
 <script>
 $(function () {
-
 	$('.select2').select2();
     $('#order').select2({
         dropdownParent: $('#modal')
     });
 });
-
-
 </script>
 
 <div class="modal-header">
 	<h4 class="modal-title">Menu links</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="modal-body">
@@ -27,7 +24,7 @@ $(function () {
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="menu_name">Menu name : *</label>
-					<input type="text" id="menu_name" name="menu_name" class="form-control" value="<?php echo $information?$information[0]["menu_name"]:""; ?>" placeholder="Manu name" required >
+					<input type="text" id="menu_name" name="menu_name" class="form-control" value="<?php echo $information?$information[0]["menu_name"]:""; ?>" placeholder="Menu name" required >
 				</div> 
 			</div>
 			

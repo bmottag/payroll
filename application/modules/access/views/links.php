@@ -4,7 +4,7 @@ $(function(){
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-				url: base_url + 'enlaces/cargarModalLink',
+				url: base_url + 'access/cargarModalLink',
                 data: {'idLink': oID},
                 cache: false,
                 success: function (data) {
@@ -15,32 +15,30 @@ $(function(){
 });
 </script>
 
-<div id="page-wrapper">
-	<br>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h4 class="list-group-item-heading">
-					<i class="fa fa-cogs fa-fw"></i> MANAGE SYSTEM ACCESS
-					</h4>
-				</div>
-			</div>
-		</div>
-		<!-- /.col-lg-12 -->				
-	</div>
-	
-	<!-- /.row -->
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-link"></i> LINKS
-				</div>
-				<div class="panel-body">
-					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a Link
-					</button><br>
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<!-- Default box -->
+				<div class="card">
+					<div class="card-header">
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
+								<span class="fa fa-plus" aria-hidden="true"></span> Add a Submenu Link
+						</button>
+
+						<div class="card-tools">
+							<div class="input-group input-group-sm" style="width: 150px;">
+								<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-default">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body table-responsive p-0">
+
 <?php
 $retornoExito = $this->session->flashdata('retornoExito');
 if ($retornoExito) {
@@ -66,87 +64,72 @@ if ($retornoError) {
     <?php
 }
 ?> 
-				<?php
-					if($info){
-				?>				
-					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
-						<thead>
-							<tr>
-								<th class="text-center">Menu name</th>
-								<th class="text-center">Link name</th>
-								<th class="text-center">Link URL</th>
-								<th class="text-center">Link icon</th>
-								<th class="text-center">Order</th>
-								<th class="text-center">State</th>
-								<th class="text-center">Edit</th>
-							</tr>
-						</thead>
-						<tbody>							
-						<?php
-							foreach ($info as $lista):
-									echo "<tr>";
-									echo "<td>" . $lista['menu_name'] . "</td>";
-									echo "<td>" . $lista['link_name'] . "</td>";
-									echo "<td>" . $lista['link_url'] . "</td>";
-									echo "<td class='text-center'>";
-									echo '<button type="button" class="btn btn-danger btn-circle"><i class="fa ' . $lista['link_icon'] . '"></i>';
-									echo "</td>";
-									echo "<td class='text-center'>" . $lista['order'] . "</td>";
-									echo "<td class='text-center'>";
-									switch ($lista['link_state']) {
-										case 1:
-											$valor = 'Active';
-											$clase = "text-success";
-											break;
-										case 2:
-											$valor = 'Inactive';
-											$clase = "text-danger";
-											break;
-									}
-									echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
-									echo "</td>";
-									echo "<td class='text-center'>";
-						?>
-									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_link']; ?>" >
-										Edit <span class="glyphicon glyphicon-edit" aria-hidden="true">
-									</button>
-						<?php
-									echo "</td>";
-									echo "</tr>";
-							endforeach;
-						?>
-						</tbody>
-					</table>
-				<?php } ?>
+
+					<?php
+						if($info){
+					?>				
+						<table class="table table-hover text-nowrap">
+							<thead>
+								<tr>
+									<th>Menu name</th>
+									<th>Link name</th>
+									<th>Link URL</th>
+									<th class="text-center">Link icon</th>
+									<th class="text-center">Order</th>
+									<th class="text-center">State</th>
+									<th class="text-center">Edit</th>
+								</tr>
+							</thead>
+							<tbody>							
+							<?php
+								foreach ($info as $lista):
+										echo "<tr>";
+										echo "<td>" . $lista['menu_name'] . "</td>";
+										echo "<td>" . $lista['link_name'] . "</td>";
+										echo "<td>" . $lista['link_url'] . "</td>";
+										echo "<td class='text-center'>";
+										echo '<button type="button" class="btn btn-danger btn-circle"><i class="fa ' . $lista['link_icon'] . '"></i>';
+										echo "</td>";
+										echo "<td class='text-center'>" . $lista['order'] . "</td>";
+										echo "<td class='text-center'>";
+										switch ($lista['link_state']) {
+											case 1:
+												$valor = 'Active';
+												$clase = "text-success";
+												break;
+											case 2:
+												$valor = 'Inactive';
+												$clase = "text-danger";
+												break;
+										}
+										echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
+										echo "</td>";
+										echo "<td class='text-center'>";
+							?>
+										<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_link']; ?>" >
+											Edit <span class="fa fa-edit" aria-hidden="true">
+										</button>
+							<?php
+										echo "</td>";
+										echo "</tr>";
+								endforeach;
+							?>
+							</tbody>
+						</table>
+					<?php } ?>
+					</div>
 				</div>
-				<!-- /.panel-body -->
 			</div>
-			<!-- /.panel -->
 		</div>
-		<!-- /.col-lg-12 -->
 	</div>
-	<!-- /.row -->
-</div>
-<!-- /#page-wrapper -->
-		
-				
-<!--INICIO Modal para adicionar HAZARDS -->
-<div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
-	<div class="modal-dialog" role="document">
+</section>
+
+<!--INICIO Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
+	<div class="modal-dialog">
 		<div class="modal-content" id="tablaDatos">
 
 		</div>
 	</div>
 </div>                       
-<!--FIN Modal para adicionar HAZARDS -->
-
-<!-- Tables -->
-<script>
-$(document).ready(function() {
-	$('#dataTables').DataTable({
-		responsive: true,
-		"pageLength": 50,
-		"order": [[ 0, "asc" ],[ 4, "asc" ]]
-	});
-});
-</script>
+<!--FIN Modal -->

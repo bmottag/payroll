@@ -1,5 +1,4 @@
 <script>
-
 $(function(){ 
 	$(".btn-success").click(function () {	
 			var oID = $(this).attr("id");
@@ -28,8 +27,6 @@ $(function(){
 								<span class="fa fa-plus" aria-hidden="true"></span> Add a Menu Link
 						</button>
 
-
-
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 150px;">
 								<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -42,7 +39,6 @@ $(function(){
 						</div>
 					</div>
 					<div class="card-body table-responsive p-0">
-
 
 <?php
 $retornoExito = $this->session->flashdata('retornoExito');
@@ -145,8 +141,7 @@ if ($retornoError) {
 	</div>
 </section>
 
-
-<!--INICIO Modal para adicionar HAZARDS -->
+<!--INICIO Modal -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
 	<div class="modal-dialog">
 		<div class="modal-content" id="tablaDatos">
@@ -154,4 +149,4 @@ if ($retornoError) {
 		</div>
 	</div>
 </div>                       
-<!--FIN Modal para adicionar HAZARDS -->
+<!--FIN Modal -->

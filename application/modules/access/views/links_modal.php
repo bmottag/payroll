@@ -1,9 +1,19 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/enlaces/links.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/links.js"); ?>"></script>
+
+<script>
+$(function () {
+	$('.select2').select2();
+    $('#order').select2({
+        dropdownParent: $('#modal')
+    });
+});
+</script>
+
 <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<h4 class="modal-title" id="exampleModalLabel">Links
-	<br><small>Add/Edit Links</small>
-	</h4>
+	<h4 class="modal-title">Submenu links</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="modal-body">
@@ -20,16 +30,15 @@
 							<option value="<?php echo $menuList[$i]["id_menu"]; ?>" <?php if($information && $information[0]["fk_id_menu"] == $menuList[$i]["id_menu"]) { echo "selected"; }  ?>><?php echo $menuList[$i]["menu_name"]; ?></option>	
 						<?php } ?>
 					</select>
-				</div>
+				</div> 
 			</div>
-		
+			
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="link_name">Link name : *</label>
 					<input type="text" id="link_name" name="link_name" class="form-control" value="<?php echo $information?$information[0]["link_name"]:""; ?>" placeholder="Link name" required >
 				</div> 
 			</div>
-		
 		</div>
 
 		<div class="row">
@@ -40,7 +49,7 @@
 				</div> 
 			</div>
 		
-			<div class="col-sm-6">
+			<div class="col-sm-6">		
 				<div class="form-group text-left">
 					<label class="control-label" for="order">Order: *</label>
 					<select name="order" id="order" class="form-control" required>
@@ -49,7 +58,7 @@
 							<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["order"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 						<?php } ?>									
 					</select>
-				</div> 
+				</div>
 			</div>
 		</div>
 		
@@ -72,7 +81,7 @@
 				</div> 
 			</div>
 		</div>
-		
+
 		<div class="row">		
 			<div class="col-sm-6">		
 				<div class="form-group text-left">
@@ -88,17 +97,7 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="form-group">
-			<div class="row" align="center">
-				<div style="width:50%;" align="center">
-					<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
-						Save <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-					</button> 
-				</div>
-			</div>
-		</div>
-		
+					
 		<div class="form-group">
 			<div id="div_load" style="display:none">		
 				<div class="progress progress-striped active">
@@ -113,4 +112,10 @@
 		</div>
 			
 	</form>
+</div>
+<div class="modal-footer justify-content-between">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
+		Save <span class="fa fa-save" aria-hidden="true">
+	</button> 
 </div>

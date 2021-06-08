@@ -82,9 +82,11 @@ class Access extends CI_Controller {
 	{
 			$arrParam = array();
 			$data['info'] = $this->general_model->get_links($arrParam);
+			$data['pageHeaderTitle'] = "Manage System Access - Submenu Links";
+			$data['footer'] = True;
 			
 			$data["view"] = 'links';
-			$this->load->view("layout_calendar", $data);
+			$this->load->view("layout", $data);
 	}
 	
     /**
