@@ -1,3 +1,22 @@
+<script>
+
+$(function(){ 
+	$(".btn-success").click(function () {	
+			var oID = $(this).attr("id");
+            $.ajax ({
+                type: 'POST',
+				url: base_url + 'access/cargarModalMenu',
+                data: {'idMenu': oID},
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                }
+            });
+	});	
+});
+
+</script>
+
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -8,6 +27,9 @@
 						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
 								<span class="fa fa-plus" aria-hidden="true"></span> Add a Menu Link
 						</button>
+
+
+
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 150px;">
 								<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -122,3 +144,14 @@ if ($retornoError) {
 		</div>
 	</div>
 </section>
+
+
+<!--INICIO Modal para adicionar HAZARDS -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
+	<div class="modal-dialog">
+		<div class="modal-content" id="tablaDatos">
+
+		</div>
+	</div>
+</div>                       
+<!--FIN Modal para adicionar HAZARDS -->

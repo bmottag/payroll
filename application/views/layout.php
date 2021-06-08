@@ -15,6 +15,9 @@
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Tempusdominus Bootstrap 4 -->
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"); ?>">
+	<!-- Select2 -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/select2/css/select2.min.css"); ?>">
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"); ?>">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/icheck-bootstrap/icheck-bootstrap.min.css"); ?>">
 	<!-- JQVMap -->
@@ -27,6 +30,16 @@
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/daterangepicker/daterangepicker.css"); ?>">
 	<!-- summernote -->
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/summernote/summernote-bs4.min.css"); ?>">
+	<!-- jQuery -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery/jquery.min.js"); ?>"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery-ui/jquery-ui.min.js"); ?>"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<!-- jQuery validate-->
+	<script type="text/javascript" src="<?php echo base_url("assets/js/general/general.js"); ?>"></script>
+        <!-- jquery-validation -->
+        <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/jquery.validate.min.js"); ?>"></script>
+        <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/additional-methods.min.js"); ?>"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -237,16 +250,13 @@ Preloader -->
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- jQuery -->
-	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery/jquery.min.js"); ?>"></script>
-	<!-- jQuery UI 1.11.4 -->
-	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery-ui/jquery-ui.min.js"); ?>"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 	  $.widget.bridge('uibutton', $.ui.button)
 	</script>
 	<!-- Bootstrap 4 -->
 	<script src="<?php echo base_url("assets/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
+	<!-- Select2 -->
+	<script src="<?php echo base_url("assets/bootstrap/plugins/select2/js/select2.full.min.js"); ?>"></script>
 	<!-- ChartJS -->
 	<script src="<?php echo base_url("assets/bootstrap/plugins/chart.js/Chart.min.js"); ?>"></script>
 	<!-- JQVMap -->
