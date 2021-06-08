@@ -1,16 +1,25 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/enlaces/role_access.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/enlaces/ajaxAccessLinks.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/role_access.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/ajaxAccessLinks.js"); ?>"></script>
+
+<script>
+$(function () {
+	$('.select2').select2();
+    $('#order').select2({
+        dropdownParent: $('#modal')
+    });
+});
+</script>
 
 <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<h4 class="modal-title" id="exampleModalLabel">Role Access
-	<br><small>Add/Edit Role Access</small>
-	</h4>
+	<h4 class="modal-title">Role Access</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="modal-body">
 	<form name="form" id="form" role="form" method="post" >
-		<input type="hidden" id="hddId" name="hddId" value="<?php echo $information?$information[0]["id_permiso"]:""; ?>"/>
+		<input type="hidden" id="hddId" name="hddId" value="<?php echo $information?$information[0]["id_access"]:""; ?>"/>
 		
 		<div class="row">
 			<div class="col-sm-6">
@@ -48,28 +57,18 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="id_rol">Rol name : *</label>
-					<select name="id_rol" id="id_rol" class="form-control" required>
+					<label class="control-label" for="id_rol">Role name : *</label>
+					<select name="id_role" id="id_role" class="form-control" required>
 						<option value="">Select...</option>
 						<?php for ($i = 0; $i < count($roles); $i++) { ?>
-							<option value="<?php echo $roles[$i]["id_rol"]; ?>" <?php if($information && $information[0]["fk_id_rol"] == $roles[$i]["id_rol"]) { echo "selected"; }  ?>><?php echo $roles[$i]["rol_name"]; ?></option>	
+							<option value="<?php echo $roles[$i]["id_role"]; ?>" <?php if($information && $information[0]["fk_id_role"] == $roles[$i]["id_role"]) { echo "selected"; }  ?>><?php echo $roles[$i]["role_name"]; ?></option>	
 						<?php } ?>
 					</select>
 				</div>
 			</div>
 		
 		</div>
-		
-		<div class="form-group">
-			<div class="row" align="center">
-				<div style="width:50%;" align="center">
-					<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
-						Save <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-					</button> 
-				</div>
-			</div>
-		</div>
-		
+					
 		<div class="form-group">
 			<div id="div_load" style="display:none">		
 				<div class="progress progress-striped active">
@@ -84,4 +83,10 @@
 		</div>
 			
 	</form>
+</div>
+<div class="modal-footer justify-content-between">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
+		Save <span class="fa fa-save" aria-hidden="true">
+	</button> 
 </div>

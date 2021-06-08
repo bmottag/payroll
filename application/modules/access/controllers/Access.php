@@ -148,9 +148,11 @@ class Access extends CI_Controller {
 	{
 			$arrParam = array();
 			$data['info'] = $this->general_model->get_role_access($arrParam);
+			$data['pageHeaderTitle'] = "Manage System Access - Role Access";
+			$data['footer'] = True;
 
 			$data["view"] = 'role_access';
-			$this->load->view("layout_calendar", $data);
+			$this->load->view("layout", $data);
 	}
 	
     /**
@@ -177,7 +179,7 @@ class Access extends CI_Controller {
 			if ($data["idPermiso"] != 'x') {
 				$arrParam = array("idPermiso" => $data["idPermiso"]);
 				$data['information'] = $this->general_model->get_role_access($arrParam);
-				
+		
 				//busca lista de links para el menu guardado
 				$arrParam = array("idMenu" => $data['information'][0]['fk_id_menu']);
 				$data['linkList'] = $this->general_model->get_links($arrParam);
