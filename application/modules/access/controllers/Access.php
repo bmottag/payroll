@@ -57,14 +57,14 @@ class Access extends CI_Controller {
 			
 			$idEnlace = $this->input->post('hddId');
 			
-			$msj = "Se adicionó un nuevo Menú!";
+			$msj = "A new Menu was added!";
 			if ($idEnlace != '') {
-				$msj = "Se actualizó el Menú!";
+				$msj = "The Menu was updated!";
 			}
 
 			if ($this->access_model->saveMenu()) {
 				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 			} else {
 				$data["result"] = "error";
 				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
@@ -123,14 +123,14 @@ class Access extends CI_Controller {
 			
 			$idLink = $this->input->post('hddId');
 			
-			$msj = "Se adicionó un nuevo Submenú!";
+			$msj = "A new Submenu was added!";
 			if ($idLink != '') {
-				$msj = "Se actualizó el Submenú!";
+				$msj = "The Submenu was updated!";
 			}
 
 			if ($this->access_model->saveLink()) {
 				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 			} else {
 				$data["result"] = "error";
 				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
@@ -200,9 +200,9 @@ class Access extends CI_Controller {
 			
 			$idPermiso = $this->input->post('hddId');
 			
-			$msj = "Se adicionó el nuevo acceso!";
+			$msj = "The new access was added!";
 			if ($idPermiso != '') {
-				$msj = "Se actualizó el acceso!";
+				$msj = "Access was updated!";
 			}
 			
 			//para verificar si ya existe este permiso

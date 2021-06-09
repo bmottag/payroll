@@ -147,7 +147,9 @@ Preloader -->
 				{
 					$menuURL = base_url($item['menu_url']);
 					$topMenu .= '<li class="nav-item d-none d-sm-inline-block">';
-					$topMenu .= '<a href="' . $menuURL . '" class="nav-link">' . $item['menu_name'] . '</a>';
+					$topMenu .= '<a href="' . $menuURL . '" class="nav-link">';
+					$topMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <i class="fa fa-caret-down"></i>';
+					$topMenu .= '</a>';
 					$topMenu .= '</li>';
 					
 				}else{
@@ -161,9 +163,6 @@ Preloader -->
 					$links = $this->general_model->get_role_access($arrParam);		
 
 					if($links){
-
-
-
 						$topMenu .= '<li class="nav-item dropdown">';
 						$topMenu .= '<a class="nav-link" data-toggle="dropdown" href="#">';
 						$topMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <i class="fa fa-caret-down"></i>';
