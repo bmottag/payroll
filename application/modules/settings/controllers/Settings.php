@@ -33,7 +33,7 @@ class Settings extends CI_Controller {
 	}
 	
     /**
-     * Cargo modal - formulario Employee
+     * Cargo modal - formulario User
      * @since 15/12/2016
      */
     public function cargarModalUsers() 
@@ -57,7 +57,7 @@ class Settings extends CI_Controller {
     }
 	
 	/**
-	 * Update Employee
+	 * Update User
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
@@ -105,18 +105,18 @@ class Settings extends CI_Controller {
 				$data["result"] = "error";
 				if($result_user)
 				{
-					$data["mensaje"] = " Error. User name already exist.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> User already exist.');
+					$data["mensaje"] = " Error! User name already exist.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> User name already exist.');
 				}
 				if($result_email)
 				{
-					$data["mensaje"] = " Error. Email already exist.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Email already exist.');
+					$data["mensaje"] = " Error! Email already exist.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Email already exist.');
 				}
 				if($result_user && $result_email)
 				{
-					$data["mensaje"] = " Error. User name and email already exist.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> User name and email already exist.');
+					$data["mensaje"] = " Error! User name and email already exist.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> User name and email already exist.');
 				}
 			} else {
 					if ($this->settings_model->saveUser()) {

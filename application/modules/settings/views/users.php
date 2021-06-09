@@ -15,6 +15,30 @@ $(function(){
 });
 </script>
 
+<?php
+	$retornoExito = $this->session->flashdata('retornoExito');
+	if ($retornoExito) {
+?>
+		<script>
+			$(function() {
+				toastr.success('<?php echo $retornoExito ?>')
+		  	});
+		</script>
+<?php
+	}
+
+	$retornoError = $this->session->flashdata('retornoError');
+	if ($retornoError) {
+?>
+		<script>
+			$(function() {
+				toastr.error('<?php echo $retornoError ?>')
+		  	});
+		</script>
+<?php
+	}
+?> 
+
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -45,32 +69,6 @@ $(function(){
 						</div>
 					</div>
 					<div class="card-body table-responsive p-0">
-
-<?php
-$retornoExito = $this->session->flashdata('retornoExito');
-if ($retornoExito) {
-    ?>
-	<div class="col-lg-12">	
-		<div class="alert alert-success ">
-			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			<?php echo $retornoExito ?>		
-		</div>
-	</div>
-    <?php
-}
-
-$retornoError = $this->session->flashdata('retornoError');
-if ($retornoError) {
-    ?>
-	<div class="col-lg-12">	
-		<div class="alert alert-danger ">
-			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			<?php echo $retornoError ?>
-		</div>
-	</div>
-    <?php
-}
-?> 
 
 					<?php 										
 						if(!$info){ 
@@ -180,3 +178,14 @@ if($count == 10){
 	</div>
 </div>                       
 <!--FIN Modal -->
+
+<script>
+  $(function() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 7000
+    });
+  });
+</script>
