@@ -16,7 +16,7 @@
 				}			
 
 				$this->db->where($arrData["column"], $arrData["value"]);
-				$query = $this->db->get("usuarios");
+				$query = $this->db->get("user");
 
 				if ($query->num_rows() >= 1) {
 					return true;
@@ -27,7 +27,7 @@
 		 * Add/Edit USER
 		 * @since 8/11/2016
 		 */
-		public function saveEmployee() 
+		public function saveUser() 
 		{
 				$idUser = $this->input->post('hddId');
 				
@@ -44,11 +44,11 @@
 				if ($idUser == '') {
 					$data['state'] = 0;//si es para adicionar se coloca estado inicial como usuario nuevo
 					$data['password'] = 'e10adc3949ba59abbe56e057f20f883e';//123456
-					$query = $this->db->insert('usuarios', $data);
+					$query = $this->db->insert('user', $data);
 				} else {
 					$data['state'] = $this->input->post('state');
 					$this->db->where('id_user', $idUser);
-					$query = $this->db->update('usuarios', $data);
+					$query = $this->db->update('user', $data);
 				}
 				if ($query) {
 					return true;

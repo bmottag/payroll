@@ -4,8 +4,8 @@ $(function(){
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-				url: base_url + '/settings/cargarModalEmployee',
-                data: {'idEmployee': oID},
+				url: base_url + 'settings/cargarModalUsers',
+                data: {'idUser': oID},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -22,7 +22,10 @@ $(function(){
 				<!-- Default box -->
 				<div class="card">
 					<div class="card-header">
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<div class="btn-group btn-group-toggle">
+							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
+									<span class="fa fa-plus" aria-hidden="true"></span> Add a User
+							</button>
 			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/users/1"); ?>">
 			                  Ative Users
 			                </a>
@@ -30,67 +33,69 @@ $(function(){
 			                  Inactive Users
 			                </a>
 						</div>
+						<div class="card-tools">
+							<div class="input-group input-group-sm" style="width: 150px;">
+								<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-default">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="card-body">
+					<div class="card-body table-responsive p-0">
 
 <?php
-	//DESHABILITAR EDICION
-	$deshabilitar = '';
-?>
-
-					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Usuario
-					</button><br>
-					
-<?php
-	$retornoExito = $this->session->flashdata('retornoExito');
-	if ($retornoExito) {
-?>
+$retornoExito = $this->session->flashdata('retornoExito');
+if ($retornoExito) {
+    ?>
+	<div class="col-lg-12">	
 		<div class="alert alert-success ">
 			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			<?php echo $retornoExito ?>		
 		</div>
-<?php
-	}
-	$retornoError = $this->session->flashdata('retornoError');
-	if ($retornoError) {
-?>
+	</div>
+    <?php
+}
+
+$retornoError = $this->session->flashdata('retornoError');
+if ($retornoError) {
+    ?>
+	<div class="col-lg-12">	
 		<div class="alert alert-danger ">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 			<?php echo $retornoError ?>
 		</div>
-<?php
-	}
+	</div>
+    <?php
+}
 ?> 
 
-<?php 										
-	if(!$info){ 
-		echo '<div class="col-lg-12">
-				<p class="text-danger"><span class="fa fa-alert" aria-hidden="true"></span> No data was found.</p>
-			</div>';
-	}else{
-?>
-					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
-						<thead>
-							<tr>
+					<?php 										
+						if(!$info){ 
+							echo '<div class="col-lg-12">
+									<p class="text-danger"><span class="fa fa-alert" aria-hidden="true"></span> No data was found.</p>
+								</div>';
+						}else{
+					?>
+						<table class="table table-hover text-nowrap">
+							<thead>
+								<tr>
 								<th class="text-center">ID</th>
-								<th class="text-center">Nombre</th>
-								<th class="text-center">Apellido</th>
-								<th class="text-center">Usuario</th>
-								<th class="text-center">Celular</th>
-								<th class="text-center">Rol</th>
-								<th class="text-center">Estado</th>
-								
-								<?php if(!$deshabilitar){ ?>
-								<th class="text-center">Editar</th>
-								<th class="text-center">Contraseña</th>
-								<?php } ?>
-								
-								<th class="text-center">Correo</th>
-							</tr>
-						</thead>
-						<tbody>							
-						<?php
+								<th class="text-center">Name</th>
+								<th class="text-center">Lastname</th>
+								<th class="text-center">User</th>
+								<th class="text-center">Movil</th>
+								<th class="text-center">Role</th>
+								<th class="text-center">State</th>
+								<th class="text-center">Edit</th>
+								<th class="text-center">Password</th>
+								<th class="text-center">Email</th>
+								</tr>
+							</thead>
+							<tbody>							
+							<?php
 							foreach ($info as $lista):
 									echo "<tr>";
 									echo "<td class='text-center'>" . $lista['id_user'] . "</td>";
@@ -121,28 +126,24 @@ if($count == 10){
 									echo "<td class='text-center'>";
 									switch ($lista['state']) {
 										case 0:
-											$valor = 'Nuevo Usuario';
+											$valor = 'New User';
 											$clase = "text-primary";
 											break;
 										case 1:
-											$valor = 'Activo';
+											$valor = 'Active';
 											$clase = "text-success";
 											break;
 										case 2:
-											$valor = 'Inactivo';
+											$valor = 'Inactive';
 											$clase = "text-danger";
 											break;
 									}
 									echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
 									echo "</td>";
-									
-									
-									if(!$deshabilitar){ 
-									
 									echo "<td class='text-center'>";
 						?>
 									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_user']; ?>" >
-										Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
+										Edit <span class="fa fa-edit" aria-hidden="true">
 									</button>
 						<?php
 									echo "</td>";
@@ -152,44 +153,30 @@ if($count == 10){
 										Se quita la opcion de resetear la contraseña a 123456
 									<a href="<?php echo base_url("admin/resetPassword/" . $lista['id_user']); ?>" class="btn btn-default btn-xs">Reset <span class="glyphicon glyphicon-lock" aria-hidden="true"></a> 
 									-->
-									<a href="<?php echo base_url("settings/change_password/" . $lista['id_user']); ?>" class="btn btn-default btn-xs">Cambiar Contraseña <span class="glyphicon glyphicon-lock" aria-hidden="true"></a>
+									<a href="<?php echo base_url("settings/change_password/" . $lista['id_user']); ?>" class="btn btn-default btn-xs">Change Password <span class="glyphicon glyphicon-lock" aria-hidden="true"></a>
 									
 							<?php
-									echo "</td>";
-									}
-									
+									echo "</td>";									
 									echo "<td>" . $lista['email'] . "</td>";
 									echo "</tr>";
 							endforeach;
-						?>
-						</tbody>
-					</table>
-				<?php } ?>
+							?>
+							</tbody>
+						</table>
+					<?php } ?>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-		
-				
-<!--INICIO Modal para adicionar HAZARDS -->
-<div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
-	<div class="modal-dialog" role="document">
+
+<!--INICIO Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
+	<div class="modal-dialog">
 		<div class="modal-content" id="tablaDatos">
 
 		</div>
 	</div>
 </div>                       
-<!--FIN Modal para adicionar HAZARDS -->
-
-<!-- Tables -->
-<script>
-$(document).ready(function() {
-	$('#dataTables').DataTable({
-		responsive: true,
-		"order": [[ 1, "asc" ]],
-		"pageLength": 50
-	});
-});
-</script>
+<!--FIN Modal -->

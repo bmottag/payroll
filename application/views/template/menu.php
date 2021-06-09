@@ -55,7 +55,7 @@
 				<li class="nav-item">
 					<a href="pages/widgets.html" class="nav-link">
 						<i class="nav-icon fas fa-th"></i>
-						<p>Widgets</p>
+						<p>Time Stamp</p>
 					</a>
 				</li>
 

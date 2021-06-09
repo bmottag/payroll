@@ -36,27 +36,24 @@ class Settings extends CI_Controller {
      * Cargo modal - formulario Employee
      * @since 15/12/2016
      */
-    public function cargarModalEmployee() 
+    public function cargarModalUsers() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
 			$data['information'] = FALSE;
-			$data["idEmployee"] = $this->input->post("idEmployee");	
+			$data["idUser"] = $this->input->post("idUser");	
 			
 			$arrParam = array("filtro" => TRUE);
 			$data['roles'] = $this->general_model->get_roles($arrParam);
 
-			if ($data["idEmployee"] != 'x') {
+			if ($data["idUser"] != 'x') {
 				$arrParam = array(
-					"table" => "usuarios",
-					"order" => "id_user",
-					"column" => "id_user",
-					"id" => $data["idEmployee"]
+					"idUser" => $data["idUser"]
 				);
-				$data['information'] = $this->general_model->get_basic_search($arrParam);
+				$data['information'] = $this->general_model->get_user($arrParam);
 			}
 			
-			$this->load->view("employee_modal", $data);
+			$this->load->view("users_modal", $data);
     }
 	
 	/**
@@ -64,16 +61,16 @@ class Settings extends CI_Controller {
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
-	public function save_employee()
+	public function save_user()
 	{			
 			header('Content-Type: application/json');
 			$data = array();
 			
 			$idUser = $this->input->post('hddId');
 
-			$msj = "Se adicionó un nuevo Usuario!";
+			$msj = "The user was added!!";
 			if ($idUser != '') {
-				$msj = "Se actualizó el Usuario!";
+				$msj = "The user was updated!!";
 			}			
 
 			$log_user = $this->input->post('user');
@@ -108,23 +105,23 @@ class Settings extends CI_Controller {
 				$data["result"] = "error";
 				if($result_user)
 				{
-					$data["mensaje"] = " Error. El Usuario ya existe.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El Usuario ya existe.');
+					$data["mensaje"] = " Error. User name already exist.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> User already exist.');
 				}
 				if($result_email)
 				{
-					$data["mensaje"] = " Error. El correo ya existe.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El correo ya existe.');
+					$data["mensaje"] = " Error. Email already exist.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Email already exist.');
 				}
 				if($result_user && $result_email)
 				{
-					$data["mensaje"] = " Error. El Usuario y el Correo ya existen.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El Usuario y el Correo ya existen.');
+					$data["mensaje"] = " Error. User name and email already exist.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> User name and email already exist.');
 				}
 			} else {
-					if ($this->settings_model->saveEmployee()) {
+					if ($this->settings_model->saveUser()) {
 						$data["result"] = true;					
-						$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
+						$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 					} else {
 						$data["result"] = "error";					
 						$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
