@@ -30,6 +30,10 @@
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/daterangepicker/daterangepicker.css"); ?>">
 	<!-- summernote -->
 	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/summernote/summernote-bs4.min.css"); ?>">
+	<!-- SweetAlert2 -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css"); ?>">
+	<!-- Toastr -->
+	<link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/plugins/toastr/toastr.min.css"); ?>">
 	<!-- jQuery -->
 	<script src="<?php echo base_url("assets/bootstrap/plugins/jquery/jquery.min.js"); ?>"></script>
 	<!-- jQuery UI 1.11.4 -->
@@ -277,5 +281,9 @@ Preloader -->
 	<script src="<?php echo base_url("assets/bootstrap/dist/js/adminlte.js"); ?>"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="<?php echo base_url("assets/bootstrap/dist/js/demo.js"); ?>"></script>
+	<!-- SweetAlert2 -->
+	<script src="<?php echo base_url('assets/bootstrap/plugins/sweetalert2/sweetalert2.min.js'); ?>"></script>
+	<!-- Toastr -->
+	<script src="<?php echo base_url('assets/bootstrap/plugins/toastr/toastr.min.js'); ?>"></script>
 </body>
 </html>

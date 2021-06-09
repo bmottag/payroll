@@ -38,11 +38,13 @@
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
 				<?php 
-				$urlPhoto = base_url($this->session->name);
-				$urlPhoto = base_url("assets/bootstrap/dist/img/AdminLTELogo.png");
-				if($this->session->photo){ ?>
-					<img src="<?php echo $urlPhoto; ?>" class="img-circle elevation-2" alt="User Image">
-				<?php } ?>
+				if($this->session->photo){
+					$urlPhoto = base_url($this->session->name);
+				}else{
+					$urlPhoto = base_url("images/avatar.png");
+				} 
+				?>
+				<img src="<?php echo $urlPhoto; ?>" class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
 				<a href="#" class="d-block"><?php echo $this->session->name; ?></a>

@@ -1,90 +1,96 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/password.js"); ?>"></script>
 
-<div id="page-wrapper">
+<?php
+	$retornoExito = $this->session->flashdata('retornoExito');
+	if ($retornoExito) {
+?>
+		<script>
+			$(function() {
+				toastr.success('<?php echo $retornoExito ?>')
+		  	});
+		</script>
+<?php
+	}
 
-	<br>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h4 class="list-group-item-heading">
-						<i class="fa fa-gear fa-fw"></i> CONFIGURACIÓN - USUARIOS
-					</h4>
+	$retornoError = $this->session->flashdata('retornoError');
+	if ($retornoError) {
+?>
+		<script>
+			$(function() {
+				toastr.error('<?php echo $retornoError ?>')
+		  	});
+		</script>
+<?php
+	}
+?> 
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="card card-primary card-outline">
+					<div class="card-body box-profile">
+						<div class="text-center">
+							<?php if($information[0]['photo']){ ?>
+								<img class="profile-user-img img-fluid img-circle" src="<?php base_url($information[0]['photo']); ?>" alt="User profile picture">
+							<?php } ?>
+						</div>
+						<h3 class="profile-username text-center"><?php echo $information[0]['first_name'] . ' ' . $information[0]['last_name']; ?></h3>
+
+						<p class="text-muted text-center"><?php echo $information[0]['role_name']; ?></p>
+
+						<ul class="list-group list-group-unbordered mb-3">
+							<li class="list-group-item">
+							<b>Email:</b> <a class="float-right"><?php echo $information[0]['email']; ?></a>
+							</li>
+							<li class="list-group-item">
+							<b>Movil Number:</b> <a class="float-right"><?php echo $information[0]['movil']; ?></a>
+							</li>
+							<li class="list-group-item">
+							<b>User Name:</b> <a class="float-right"><?php echo $information[0]['log_user']; ?></a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- /.col-lg-12 -->				
-	</div>
-			
-	<!-- /.row -->
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-unlock"></i> CAMBIAR CONTRASEÑA
-				</div>
-				<div class="panel-body">
+			<div class="col-md-5">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">New Password Form</h3>
+					</div>
 
 					<form  name="form" id="form" class="form-horizontal" method="post" action="<?php echo base_url("settings/update_password"); ?>" >
 						<input type="hidden" id="hddId" name="hddId" value="<?php echo $information[0]["id_user"]; ?>"/>
 						<input type="hidden" id="hddUser" name="hddUser" value="<?php echo $information[0]["log_user"]; ?>"/>
 						<input type="hidden" id="hddState" name="hddState" value="<?php echo $information[0]["state"]; ?>"/>
-						
-						<div class="form-group">
-							<label class="col-sm-4 control-label" for="firstName">Nombre:</label>
-							<div class="col-sm-5">
-								<input type="text" id="firstName" name="firstName" class="form-control" value="<?php echo $information[0]['first_name']; ?>" disabled >
+						<div class="card-body">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Password:</label>
+								<input type="text" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" >
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Confirm Password:</label>
+								<input type="text" id="inputConfirm" name="inputConfirm" class="form-control" placeholder="Confirm Password" >
 							</div>
 						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-4 control-label" for="lastName">Apellido:</label>
-							<div class="col-sm-5">
-								<input type="text" id="lastName" name="lastName" class="form-control" value="<?php echo $information[0]['last_name']; ?>" disabled >
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-4 control-label" for="username">Nombre Usuario:</label>
-							<div class="col-sm-5">
-								<input type="text" id="user" name="user" class="form-control" value="<?php echo $information[0]['log_user']; ?>" disabled >
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-4 control-label" for="inputPassword">Contraseña: *</label>
-							<div class="col-sm-5">
-								<input type="text" id="inputPassword" name="inputPassword" class="form-control" >
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-4 control-label" for="inputConfirm">Confirmar contraseña: *</label>
-							<div class="col-sm-5">
-								<input type="text" id="inputConfirm" name="inputConfirm" class="form-control" >
-							</div>
-						</div>
-												
-						<div class="form-group">
-							<div class="row" align="center">
-								<div style="width:50%;" align="center">
-									<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
-										Guardar <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-									</button> 
-								</div>
-							</div>
-						</div>
-						
 
+						<div class="card-footer">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
 					</form>
-
 				</div>
-				<!-- /.row (nested) -->
 			</div>
-			<!-- /.panel-body -->
 		</div>
-		<!-- /.panel -->
 	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
+</section>
+
+<script>
+  $(function() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 7000
+    });
+  });
+</script>
