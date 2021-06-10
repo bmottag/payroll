@@ -87,11 +87,9 @@ Preloader -->
 				if($item['menu_url'] && $item['menu_url'] != '')
 				{
 					$menuURL = base_url($item['menu_url']);
-					
-					$leftMenu .= '<li>';
-					$leftMenu .= '<a href="' . $menuURL . '"><i class="fa ' . $item['menu_icon'] . ' fa-fw"></i> ' . $item['menu_name'] . '</a>';
-					$leftMenu .= '</li>';
-					
+					$leftMenu .= '<li class="nav-item">';
+					$leftMenu .= '<a href="' . $menuURL . '" class="nav-link"><i class=" nav-icon fa ' . $item['menu_icon'] . ' fa-fw"></i><p> ' . $item['menu_name'] . '</p></a>';
+					$leftMenu .= '</li>';					
 				}else{
 					//enlaces del menu
 					$arrParam = array(
@@ -102,28 +100,28 @@ Preloader -->
 					);
 					$links = $this->general_model->get_role_access($arrParam);		
 
-					if($links){							
-						$leftMenu .= '<li>';
-						$leftMenu .= '<a href="#">';
-						$leftMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <span class="fa arrow"></span>';
-						$leftMenu .= '</a>';
+					if($links){
+						$leftMenu .= '<li class="nav-item">';
+						$leftMenu .= '<a href="#" class="nav-link">';
+						$leftMenu .= '<i class="nav-icon fas fa ' . $item['menu_icon'] . '"></i><p>' . $item['menu_name'] . ' <i class="right fas fa-angle-left"></i>';
+						$leftMenu .= '</p></a>';
 						
-						$leftMenu .= '<ul class="nav nav-second-level">';
+						$leftMenu .= '<ul class="nav nav-treeview"">';
 						
 						foreach ($links as $list):
 							//System URL
 							if($list['link_type'] == 1){
 								$linkURL = base_url($list['link_url']);
 								
-								$leftMenu .= '<li>';
-								$leftMenu .= '<a href="' . $linkURL . '" > ' . $list['link_name'] . '</a>';
+								$leftMenu .= '<li class="nav-item">';
+								$leftMenu .= '<a href="' . $linkURL . '" class="nav-link"><p>' . $list['link_name'] . '</p></a>';
 								$leftMenu .= '</li>';
 							//Complete URL
 							}elseif($list['link_type'] == 2 || $list['link_type'] == 4 || $list['link_type'] == 5){
 								$linkURL = $list['link_url'];
 								
-								$leftMenu .= '<li>';
-								$leftMenu .= '<a href="' . $linkURL . '" target="_blank"> ' . $list['link_name'] . '</a>';
+								$leftMenu .= '<li class="nav-item">';
+								$leftMenu .= '<a href="' . $linkURL . '" target="_blank" class="nav-link"><p>' . $list['link_name'] . '</p></a>';
 								$leftMenu .= '</li>';
 							//Complete DIVIDER
 							}else{
