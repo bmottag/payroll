@@ -109,148 +109,25 @@
 	    }
 		
 		/**
-		 * Edit Proceso
-		 * @since 18/5/2021
+		 * Add/Edit JOB
+		 * @since 10/11/2016
 		 */
-		public function saveProceso() 
-		{
-				$idUser = $this->session->userdata("id");
-				$idProcesoInfo = $this->input->post('hddId');
-				$titulo =  $this->security->xss_clean($this->input->post('titulo'));
-				$titulo =  addslashes($titulo);
-				$texto =  $this->security->xss_clean($this->input->post('texto'));
-				$texto =  addslashes($texto);
+		public function saveJob() 
+		{				
+				$idJob = $this->input->post('hddId');
 				
 				$data = array(
-					'fk_id_usuario_pi' =>  $idUser,
-					'fecha_registro_informacion' => date("Y-m-d G:i:s"),
-					'title' => $titulo,
-					'texto' => $texto
-				);	
-				$this->db->where('id_proceso_informacion', $idProcesoInfo);
-				$query = $this->db->update('procesos_informacion', $data);
-
-				if ($query) {
-					return true;
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Add Auditoria Proceso
-		 * @since 18/5/2021
-		 */
-		public function saveAuditoriaProceso() 
-		{
-				$idUser = $this->session->userdata("id");
-				$idProcesoInfo = $this->input->post('hddId');
-				$titulo =  $this->security->xss_clean($this->input->post('titulo'));
-				$titulo =  addslashes($titulo);
-				$texto =  $this->security->xss_clean($this->input->post('texto'));
-				$texto =  addslashes($texto);
-				
-				$data = array(
-					'fk_id_proceso_informacion_api' =>  $idProcesoInfo,
-					'fk_id_usuario_api' =>  $idUser,
-					'fecha_registro_informacion_api' => date("Y-m-d G:i:s"),
-					'title_api' => $titulo,
-					'texto_api' => $texto
-				);	
-				$query = $this->db->insert('auditoria_procesos_informacion', $data);
-
-				if ($query) {
-					return true;
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Add/Edit DOCUMENTS
-		 * @since 25/5/2021
-		 */
-		public function saveDocumento($archivo) 
-		{
-				$idDocumento = $this->input->post('hddidDocumento');
-				$idUser = $this->session->userdata("id");
-			
-				$data = array(
-					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
-					'fk_id_tema' => $this->input->post('hddidTema'),
-					'fk_id_usuario' => $idUser,
-					'fecha_registro' => date("Y-m-d G:i:s"),
-					'cod' => $this->input->post('codigo'),
-					'shortName' => $this->input->post('nombre'),
-					'longName' => '',
-					'orden' => $this->input->post('orden'),
-					'estado' => $this->input->post('estado')
-				);
-
-				if($archivo != 'xxx'){
-					$data['url'] = $archivo;
-				}
+					'job_description' => $this->input->post('jobName'),
+					'state' => $this->input->post('stateJob')
+				);			
 
 				//revisar si es para adicionar o editar
-				if ($idDocumento == '') {
-					$query = $this->db->insert('procesos_documentos', $data);
-					$idDocumento = $this->db->insert_id();			
-				}else{
-					$this->db->where('id_procesos_documento', $idDocumento);
-					$query = $this->db->update('procesos_documentos', $data);
-				}
-				if ($query) {
-					return $idDocumento;
+				if ($idJob == '') {
+					$query = $this->db->insert('param_jobs', $data);
 				} else {
-					return false;
+					$this->db->where('id_job', $idJob);
+					$query = $this->db->update('param_jobs', $data);
 				}
-		}
-
-		/**
-		 * Add Auditoria Documentos
-		 * @since 18/5/2021
-		 */
-		public function saveAuditoriaDocumentos($idDocumento, $archivo) 
-		{
-				$idUser = $this->session->userdata("id");
-				$idDocumentoInfo = $this->input->post('hddidDocumento');
-
-				if($idDocumentoInfo == ''){
-					if($_FILES['userfile']['name']== ""){
-						$observacion = 'Nuevo, no se cargo documento';
-					}else{
-						$observacion = 'Nuevo, se cargo documento';
-					}
-				}else{
-					if($_FILES['userfile']['name']== ""){
-						$observacion = 'Actualización de información, no se actualiza documento';
-					}else{
-						$observacion = 'Se actualiza documento';
-					}
-				}
-
-				if($archivo != 'xxx'){
-					$url = $archivo;
-				}else{
-					$url = '';
-				}
-				
-				$data = array(
-					'fk_id_proceso_documento' => $idDocumento,
-					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
-					'fk_id_tema' => $this->input->post('hddidTema'),
-					'fk_id_usuario' => $idUser,
-					'fecha_registro' => date("Y-m-d G:i:s"),
-					'cod' => $this->input->post('codigo'),
-					'url' => $url,
-					'shortName' => $this->input->post('nombre'),
-					'longName' => '',
-					'orden' => $this->input->post('orden'),
-					'estado' => $this->input->post('estado'),
-					'observacion' => $observacion
-				);	
-				$query = $this->db->insert('auditoria_documentos', $data);
-
 				if ($query) {
 					return true;
 				} else {
@@ -258,6 +135,36 @@
 				}
 		}
 
+		/**
+		 * Update jobs state
+		 * @since 12/1/2019
+		 */
+		public function updateJobsState($state) 
+		{
+			//if it comes from the active view, then inactive everything
+			//else do nothing and continue with the activation
+			if($state == 1){
+				//update all states to inactive
+				$data['state'] = 2;
+				$query = $this->db->update('param_jobs', $data);
+			}
+
+			//update states
+			$query = 1;
+			if ($jobs = $this->input->post('job')) {
+				$tot = count($jobs);
+				for ($i = 0; $i < $tot; $i++) {
+					$data['state'] = 1;
+					$this->db->where('id_job', $jobs[$i]);
+					$query = $this->db->update('param_jobs', $data);					
+				}
+			}
+			if ($query) {
+				return true;
+			} else{
+				return false;
+			}
+		}
 		
 	    
 	}

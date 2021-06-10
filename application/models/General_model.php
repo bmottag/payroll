@@ -285,7 +285,7 @@ class General_model extends CI_Model {
 	}
 
     /**
-     * Task´s list
+     * Payroll list
      * Modules: Dashboard - Payroll
      * @since 10/11/2016
      */

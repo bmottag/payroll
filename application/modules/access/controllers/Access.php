@@ -217,12 +217,12 @@ class Access extends CI_Controller {
 			
 			if ($result_access) {
 				$data["result"] = "error";
-				$data["mensaje"] = " Error. El acceso ya existe.";
-				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El acceso ya existe.');
+				$data["mensaje"] = " Error. The access already exist.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> The access already exist.');
 			} else {
 				if ($this->access_model->saveRoleAccess()) {
 					$data["result"] = true;
-					$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
+					$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 				} else {
 					$data["result"] = "error";
 					$data["mensaje"] = " Error. Ask for help.";

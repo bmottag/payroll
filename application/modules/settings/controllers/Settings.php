@@ -68,9 +68,9 @@ class Settings extends CI_Controller {
 			
 			$idUser = $this->input->post('hddId');
 
-			$msj = "The user was added!!";
+			$msj = "The User was added!";
 			if ($idUser != '') {
-				$msj = "The user was updated!!";
+				$msj = "The User was updated!";
 			}			
 
 			$log_user = $this->input->post('user');
@@ -202,6 +202,100 @@ class Settings extends CI_Controller {
 			}
 						
 			redirect(base_url('settings/change_password/' . $idUser), 'refresh');
+	}
+
+	/**
+	 * job List
+     * @since 15/12/2016
+     * @author BMOTTAG
+	 */
+	public function job($state)
+	{
+			$data['state'] = $state;
+		
+			$this->load->model("general_model");
+			$arrParam = array(
+				"table" => "param_jobs",
+				"order" => "job_description",				
+				"column" => "state",
+				"id" => $state
+			);
+			$data['info'] = $this->general_model->get_basic_search($arrParam);
+			$data['pageHeaderTitle'] = "Settings - JOB CODE/NAME ";
+			
+			$data["view"] = 'job';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario job
+     * @since 15/12/2016
+     */
+    public function cargarModalJob() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idJob"] = $this->input->post("idJob");	
+			
+			if ($data["idJob"] != 'x') {
+				$this->load->model("general_model");
+				$arrParam = array(
+					"table" => "param_jobs",
+					"order" => "id_job",
+					"column" => "id_job",
+					"id" => $data["idJob"]
+				);
+				$data['information'] = $this->general_model->get_basic_search($arrParam);
+			}
+			
+			$this->load->view("job_modal", $data);
+    }
+	
+	/**
+	 * Update job
+     * @since 15/12/2016
+     * @author BMOTTAG
+	 */
+	public function save_job()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idJob = $this->input->post('hddId');
+			
+			$msj = "The Job was added!";
+			if ($idJob != '') {
+				$msj = "The Job was updated!";
+			}
+
+			if ($idJob = $this->settings_model->saveJob()) {
+				$data["result"] = true;		
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }
+
+	/**
+	 * Cambio de estado de los proyectos
+     * @since 12/1/2019
+     * @author BMOTTAG
+	 */
+	public function jobs_state($state)
+	{	
+			if ($this->settings_model->updateJobsState($state)) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', "The status was updated!");
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			redirect(base_url('settings/job/1'), 'refresh');
 	}
 	
 

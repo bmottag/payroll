@@ -51,7 +51,7 @@ $(function(){
 									<span class="fa fa-plus" aria-hidden="true"></span> Add a User
 							</button>
 			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/users/1"); ?>">
-			                  Ative Users
+			                  Active Users
 			                </a>
 			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/users/2"); ?>">
 			                  Inactive Users
