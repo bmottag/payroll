@@ -23,11 +23,11 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="stateJob">State: *</label>
-					<select name="stateJob" id="stateJob" class="form-control" >
+					<label class="control-label" for="statusJob">Status: *</label>
+					<select name="statusJob" id="statusJob" class="form-control" >
 						<option value=''>Select...</option>
-						<option value='1' <?php if($information && $information[0]["state"] == '1') { echo "selected"; }  ?>>Active</option>
-						<option value='2' <?php if($information && $information[0]["state"] == '2') { echo "selected"; }  ?>>Inactive</option>
+						<option value='1' <?php if($information && $information[0]["status"] == '1') { echo "selected"; }  ?>>Active</option>
+						<option value='2' <?php if($information && $information[0]["status"] == '2') { echo "selected"; }  ?>>Inactive</option>
 					</select>
 				</div>
 			</div>

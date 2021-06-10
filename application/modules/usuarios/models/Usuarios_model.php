@@ -20,7 +20,7 @@
 				
 				$data = array(
 					'password' => $passwd,
-					'state' => 1
+					'status' => 1
 				);
 
 				$this->db->where('id_user', $idUser);

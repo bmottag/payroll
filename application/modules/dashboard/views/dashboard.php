@@ -67,9 +67,9 @@
 							<thead>
 								<tr>
 									<th>User</th>
-									<th>Start</th>
-									<th>Finish</th>
-									<th>Working Hours</th>
+									<th class='text-center'>Start</th>
+									<th class='text-center'>Finish</th>
+									<th class='text-center'>Working Hours</th>
 									<th>Job</th>
 									<th>Address Start</th>
 									<th>Address Finish</th>
@@ -81,15 +81,15 @@
 							<?php
 								foreach ($info as $lista):
 									echo "<tr>";
-									echo "<td class='text-center'>" . $lista['first_name'] . " " . $lista['last_name'] . "</td>";
+									echo "<td>" . $lista['first_name'] . " " . $lista['last_name'] . "</td>";
 									echo "<td class='text-center'>" . $lista['start'] . "</td>";
 									echo "<td class='text-center'>" . $lista['finish'] . "</td>";
 									echo "<td class='text-right'>" . $lista['working_hours'] . "</td>";
-									echo "<td class='text-center'>" . $lista['job_start'] . "</td>";
-									echo "<td class='text-right'>" . $lista['address_start'] . "</td>";
-									echo "<td class='text-right'>" . $lista['address_finish'] . "</td>";
-									echo "<td class='text-right'>" . $lista['task_description'] . "</td>";
-									echo "<td class='text-right'>" . $lista['observation'] . "</td>";
+									echo "<td>" . $lista['job_start'] . "</td>";
+									echo "<td>" . $lista['address_start'] . "</td>";
+									echo "<td>" . $lista['address_finish'] . "</td>";
+									echo "<td>" . $lista['task_description'] . "</td>";
+									echo "<td>" . $lista['observation'] . "</td>";
 									echo "</tr>";
 								endforeach;
 							?>

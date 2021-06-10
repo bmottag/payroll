@@ -62,7 +62,7 @@
 					<form  name="form" id="form" class="form-horizontal" method="post" action="<?php echo base_url("settings/update_password"); ?>" >
 						<input type="hidden" id="hddId" name="hddId" value="<?php echo $information[0]["id_user"]; ?>"/>
 						<input type="hidden" id="hddUser" name="hddUser" value="<?php echo $information[0]["log_user"]; ?>"/>
-						<input type="hidden" id="hddState" name="hddState" value="<?php echo $information[0]["state"]; ?>"/>
+						<input type="hidden" id="hddStatus" name="hddStatus" value="<?php echo $information[0]["status"]; ?>"/>
 						<div class="card-body">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Password:</label>

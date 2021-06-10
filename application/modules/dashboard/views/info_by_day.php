@@ -182,7 +182,7 @@
                         <tbody>                         
                         <?php
                             foreach ($workOrderInfo as $lista):
-                                switch ($lista['state']) {
+                                switch ($lista['status']) {
                                         case 0:
                                                 $valor = 'On field';
                                                 $clase = "text-danger";

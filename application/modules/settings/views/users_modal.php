@@ -75,11 +75,11 @@ $(function () {
 	<?php if($information){ ?>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="state">State: *</label>
-					<select name="state" id="state" class="form-control" required>
+					<label class="control-label" for="status">Status: *</label>
+					<select name="status" id="status" class="form-control" required>
 						<option value=''>Seleccione...</option>
-						<option value=1 <?php if($information[0]["state"] == 1) { echo "selected"; }  ?>>Active</option>
-						<option value=2 <?php if($information[0]["state"] == 2) { echo "selected"; }  ?>>Inactive</option>
+						<option value=1 <?php if($information[0]["status"] == 1) { echo "selected"; }  ?>>Active</option>
+						<option value=2 <?php if($information[0]["status"] == 2) { echo "selected"; }  ?>>Inactive</option>
 					</select>
 				</div>
 			</div>

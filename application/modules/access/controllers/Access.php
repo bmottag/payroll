@@ -169,7 +169,7 @@ class Access extends CI_Controller {
 			
 			$arrParam = array(
 				"columnOrder" => "menu_name",
-				"menuState" => 1
+				"menuStatus" => 1
 			);
 			$data['menuList'] = $this->general_model->get_menu($arrParam);
 			
@@ -400,7 +400,7 @@ class Access extends CI_Controller {
 		//busco listado de links activos para un menu
 		$arrParam = array(
 			"idMenu" => $idMenu,
-			"linkState" => 1
+			"linkStatus" => 1
 		);
 		$linkList = $this->general_model->get_links($arrParam);
 

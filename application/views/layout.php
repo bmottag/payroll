@@ -41,9 +41,9 @@
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<!-- jQuery validate-->
 	<script type="text/javascript" src="<?php echo base_url("assets/js/general/general.js"); ?>"></script>
-        <!-- jquery-validation -->
-        <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/jquery.validate.min.js"); ?>"></script>
-        <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/additional-methods.min.js"); ?>"></script>
+    <!-- jquery-validation -->
+    <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/jquery.validate.min.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/additional-methods.min.js"); ?>"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -68,7 +68,7 @@ Preloader -->
 		$arrParam = array(
 			"idRole" => $userRole,
 			"menuType" => 1,
-			"menuState" => 1
+			"menuStatus" => 1
 		);
 		$itemsLeftMenu = $this->general_model->get_role_menu($arrParam);
 
@@ -76,7 +76,7 @@ Preloader -->
 		$arrParam = array(
 			"idRole" => $userRole,
 			"menuType" => 2,
-			"menuState" => 1
+			"menuStatus" => 1
 		);
 		$itemsTopMenu = $this->general_model->get_role_menu($arrParam);		
 
@@ -95,7 +95,7 @@ Preloader -->
 					$arrParam = array(
 						"idRole" => $userRole,
 						"idMenu" => $item['fk_id_menu'],
-						"linkState" => 1,
+						"linkStatus" => 1,
 						"menuType" => 1
 					);
 					$links = $this->general_model->get_role_access($arrParam);		
@@ -117,7 +117,7 @@ Preloader -->
 								$leftMenu .= '<a href="' . $linkURL . '" class="nav-link"><p>' . $list['link_name'] . '</p></a>';
 								$leftMenu .= '</li>';
 							//Complete URL
-							}elseif($list['link_type'] == 2 || $list['link_type'] == 4 || $list['link_type'] == 5){
+							}elseif($list['link_type'] == 2){
 								$linkURL = $list['link_url'];
 								
 								$leftMenu .= '<li class="nav-item">';
@@ -146,7 +146,7 @@ Preloader -->
 					$menuURL = base_url($item['menu_url']);
 					$topMenu .= '<li class="nav-item d-none d-sm-inline-block">';
 					$topMenu .= '<a href="' . $menuURL . '" class="nav-link">';
-					$topMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'] . ' <i class="fa fa-caret-down"></i>';
+					$topMenu .= '<i class="fa ' . $item['menu_icon'] . '"></i> ' . $item['menu_name'];
 					$topMenu .= '</a>';
 					$topMenu .= '</li>';
 					
@@ -155,7 +155,7 @@ Preloader -->
 					$arrParam = array(
 						"idRole" => $userRole,
 						"idMenu" => $item['fk_id_menu'],
-						"linkState" => 1,
+						"linkStatus" => 1,
 						"menuType" => 2
 					);
 					$links = $this->general_model->get_role_access($arrParam);		

@@ -64,11 +64,11 @@ $(function () {
 		<div class="row">
 			<div class="col-sm-6">		
 				<div class="form-group text-left">
-					<label class="control-label" for="menu_state">State : *</label>
-					<select name="menu_state" id="menu_state" class="form-control" required>
+					<label class="control-label" for="menu_status">Status: *</label>
+					<select name="menu_status" id="menu_status" class="form-control" required>
 						<option value=''>Select...</option>
-						<option value=1 <?php if($information && $information[0]["menu_state"] == 1) { echo "selected"; }  ?>>Active</option>
-						<option value=2 <?php if($information && $information[0]["menu_state"] == 2) { echo "selected"; }  ?>>Inactive</option>
+						<option value=1 <?php if($information && $information[0]["menu_status"] == 1) { echo "selected"; }  ?>>Active</option>
+						<option value=2 <?php if($information && $information[0]["menu_status"] == 2) { echo "selected"; }  ?>>Inactive</option>
 					</select>
 				</div>
 			</div>

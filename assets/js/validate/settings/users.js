@@ -65,7 +65,7 @@ $(function () {
               $("#div_load").css("display", "none");
               $('#btnSubmit').removeAttr('disabled');
 
-              var url = base_url + "settings/users/" + data.state;
+              var url = base_url + "settings/users/" + data.status;
               $(location).attr("href", url);
             }
             else

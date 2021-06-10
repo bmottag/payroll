@@ -10,7 +10,7 @@ $(function () {
       menu_url:         { minlength: 4, maxlength:100 },
       order:            { required: true },
       menu_type:          { required: true },
-      menu_state:         { required: true },
+      menu_status:         { required: true },
       menu_icon:          { required: true, minlength: 3, maxlength:50 }
     },
     errorElement: 'span',

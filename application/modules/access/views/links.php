@@ -74,7 +74,7 @@ $(function(){
 									<th>Link URL</th>
 									<th class="text-center">Link icon</th>
 									<th class="text-center">Order</th>
-									<th class="text-center">State</th>
+									<th class="text-center">Status</th>
 									<th class="text-center">Edit</th>
 								</tr>
 							</thead>
@@ -90,7 +90,7 @@ $(function(){
 										echo "</td>";
 										echo "<td class='text-center'>" . $lista['order'] . "</td>";
 										echo "<td class='text-center'>";
-										switch ($lista['link_state']) {
+										switch ($lista['link_status']) {
 											case 1:
 												$valor = 'Active';
 												$clase = "text-success";

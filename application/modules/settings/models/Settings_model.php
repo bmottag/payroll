@@ -42,11 +42,11 @@
 
 				//revisar si es para adicionar o editar
 				if ($idUser == '') {
-					$data['state'] = 0;//si es para adicionar se coloca estado inicial como usuario nuevo
+					$data['status'] = 0;//si es para adicionar se coloca estado inicial como usuario nuevo
 					$data['password'] = 'e10adc3949ba59abbe56e057f20f883e';//123456
 					$query = $this->db->insert('user', $data);
 				} else {
-					$data['state'] = $this->input->post('state');
+					$data['status'] = $this->input->post('status');
 					$this->db->where('id_user', $idUser);
 					$query = $this->db->update('user', $data);
 				}
@@ -69,7 +69,7 @@
 				
 				$data = array(
 					'password' => $passwd,
-					'state' => 0
+					'status' => 0
 				);
 
 				$this->db->where('id_user', $idUser);
@@ -118,7 +118,7 @@
 				
 				$data = array(
 					'job_description' => $this->input->post('jobName'),
-					'state' => $this->input->post('stateJob')
+					'status' => $this->input->post('statusJob')
 				);			
 
 				//revisar si es para adicionar o editar
@@ -136,25 +136,25 @@
 		}
 
 		/**
-		 * Update jobs state
+		 * Update jobs status
 		 * @since 12/1/2019
 		 */
-		public function updateJobsState($state) 
+		public function updateJobsStatus($status) 
 		{
 			//if it comes from the active view, then inactive everything
 			//else do nothing and continue with the activation
-			if($state == 1){
-				//update all states to inactive
-				$data['state'] = 2;
+			if($status == 1){
+				//update all status to inactive
+				$data['status'] = 2;
 				$query = $this->db->update('param_jobs', $data);
 			}
 
-			//update states
+			//update status
 			$query = 1;
 			if ($jobs = $this->input->post('job')) {
 				$tot = count($jobs);
 				for ($i = 0; $i < $tot; $i++) {
-					$data['state'] = 1;
+					$data['status'] = 1;
 					$this->db->where('id_job', $jobs[$i]);
 					$query = $this->db->update('param_jobs', $data);					
 				}

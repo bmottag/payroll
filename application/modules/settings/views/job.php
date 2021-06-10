@@ -15,16 +15,16 @@ $(function(){
 });
 
 function seleccionar_todo(){
-   for (i=0;i<document.jobs_state.elements.length;i++)
-      if(document.jobs_state.elements[i].type == "checkbox")
-         document.jobs_state.elements[i].checked=1
+   for (i=0;i<document.jobs_status.elements.length;i++)
+      if(document.jobs_status.elements[i].type == "checkbox")
+         document.jobs_status.elements[i].checked=1
 } 
 
 
 function deseleccionar_todo(){
-   for (i=0;i<document.jobs_state.elements.length;i++)
-      if(document.jobs_state.elements[i].type == "checkbox")
-         document.jobs_state.elements[i].checked=0
+   for (i=0;i<document.jobs_status.elements.length;i++)
+      if(document.jobs_status.elements[i].type == "checkbox")
+         document.jobs_status.elements[i].checked=0
 } 
 </script>
 
@@ -63,10 +63,10 @@ function deseleccionar_todo(){
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
 									<span class="fa fa-plus" aria-hidden="true"></span> Add a Job Code/Name
 							</button>
-							<a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/job/1"); ?>">
+							<a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/job/1"); ?>">
 								Active Job Code/Name
 							</a>
-							<a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/job/2"); ?>">
+							<a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/job/2"); ?>">
 								Inactive Job Code/Name
 							</a>
 						</div>
@@ -91,14 +91,17 @@ function deseleccionar_todo(){
 								</div>';
 						}else{
 					?>			
-<form  name="jobs_state" id="jobs_state" method="post" action="<?php echo base_url("settings/jobs_state/$state"); ?>">
-<a href="javascript:seleccionar_todo()">Check all</a> |
-<a href="javascript:deseleccionar_todo()">Uncheck all</a> 
+<form  name="jobs_status" id="jobs_status" method="post" action="<?php echo base_url("settings/jobs_status/$status"); ?>">
+
+						<div class="btn-group">
+							<a class="btn btn-default" href="javascript:seleccionar_todo()">Check all</a>
+							<a class="btn btn-default" href="javascript:deseleccionar_todo()">Uncheck all</a> 
+						</div>	
 						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr>
 								<th>Job Code/Name</th>
-								<th class="text-center">State 
+								<th class="text-center">Status 
 
 <button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" >
 	Update <span class="fa fa-edit" aria-hidden="true">
@@ -114,7 +117,7 @@ function deseleccionar_todo(){
 										echo "<tr>";
 										echo "<td>" . $lista['job_description'] . "</td>";
 										echo "<td class='text-center'>";
-										switch ($lista['state']) {
+										switch ($lista['status']) {
 											case 1:
 												$valor = 'Active';
 												$clase = "text-success";

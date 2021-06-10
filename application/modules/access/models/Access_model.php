@@ -15,7 +15,7 @@
 					'link_name' => $this->input->post('link_name'),
 					'link_url' => $this->input->post('link_url'),
 					'order' => $this->input->post('order'),
-					'link_state' => $this->input->post('link_state')
+					'link_status' => $this->input->post('link_status')
 				);
 				
 				//revisar si es para adicionar o editar
@@ -51,7 +51,7 @@
 					'link_name' => $this->input->post('link_name'),
 					'link_url' => $path,
 					'order' => $this->input->post('order'),
-					'link_state' => $this->input->post('link_state')
+					'link_status' => $this->input->post('link_status')
 				);
 				
 				//revisar si es para adicionar o editar
@@ -87,7 +87,7 @@
 					'menu_icon' => $this->input->post('menu_icon'),
 					'menu_order' => $this->input->post('order'),
 					'menu_type' => $this->input->post('menu_type'),
-					'menu_state' => $this->input->post('menu_state')
+					'menu_status' => $this->input->post('menu_status')
 				);
 				
 				//revisar si es para adicionar o editar
@@ -118,7 +118,7 @@
 					'link_url' => $this->input->post('link_url'),
 					'link_icon' => $this->input->post('link_icon'),
 					'order' => $this->input->post('order'),
-					'link_state' => $this->input->post('link_state'),
+					'link_status' => $this->input->post('link_status'),
 					'link_type' => $this->input->post('link_type')
 				);
 				

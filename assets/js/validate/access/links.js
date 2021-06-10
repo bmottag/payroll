@@ -10,7 +10,7 @@ $(function () {
       link_name:        { required: true, minlength: 3, maxlength:50 },
       link_url:       { required: true, minlength: 4, maxlength:100 },
       order:          { required: true },
-      link_state:       { required: true },
+      link_status:       { required: true },
       link_icon:        { required: true, minlength: 3, maxlength:50 }
     },
     errorElement: 'span',

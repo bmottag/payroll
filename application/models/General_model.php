@@ -71,8 +71,8 @@ class General_model extends CI_Model {
 		if (array_key_exists("menuType", $arrData)) {
 			$this->db->where('menu_type', $arrData["menuType"]);
 		}
-		if (array_key_exists("menuState", $arrData)) {
-			$this->db->where('menu_state', $arrData["menuState"]);
+		if (array_key_exists("menuStatus", $arrData)) {
+			$this->db->where('menu_status', $arrData["menuStatus"]);
 		}
 		if (array_key_exists("columnOrder", $arrData)) {
 			$this->db->order_by($arrData["columnOrder"], 'asc');
@@ -121,13 +121,13 @@ class General_model extends CI_Model {
 	{			
 		$this->db->select();
 		$this->db->join('param_role R', 'R.id_role = U.fk_id_user_role', 'INNER');
-		if (array_key_exists("state", $arrData)) {
-			$this->db->where('U.state', $arrData["state"]);
+		if (array_key_exists("status", $arrData)) {
+			$this->db->where('U.status', $arrData["status"]);
 		}
 		
 		//list without inactive users
-		if (array_key_exists("filtroState", $arrData)) {
-			$this->db->where('U.state !=', 2);
+		if (array_key_exists("filtroStatus", $arrData)) {
+			$this->db->where('U.status !=', 2);
 		}
 		
 		if (array_key_exists("idUser", $arrData)) {
@@ -165,8 +165,8 @@ class General_model extends CI_Model {
 		if (array_key_exists("linkType", $arrData)) {
 			$this->db->where('link_type', $arrData["linkType"]);
 		}			
-		if (array_key_exists("linkState", $arrData)) {
-			$this->db->where('link_state', $arrData["linkState"]);
+		if (array_key_exists("linkStatus", $arrData)) {
+			$this->db->where('link_status', $arrData["linkStatus"]);
 		}
 		
 		$this->db->order_by('M.menu_order, L.order', 'asc');
@@ -206,8 +206,8 @@ class General_model extends CI_Model {
 		if (array_key_exists("menuType", $arrData)) {
 			$this->db->where('M.menu_type', $arrData["menuType"]);
 		}
-		if (array_key_exists("linkState", $arrData)) {
-			$this->db->where('L.link_state', $arrData["linkState"]);
+		if (array_key_exists("linkStatus", $arrData)) {
+			$this->db->where('L.link_status', $arrData["linkStatus"]);
 		}
 		if (array_key_exists("menuURL", $arrData)) {
 			$this->db->where('M.menu_url', $arrData["menuURL"]);
@@ -242,8 +242,8 @@ class General_model extends CI_Model {
 		if (array_key_exists("menuType", $arrData)) {
 			$this->db->where('M.menu_type', $arrData["menuType"]);
 		}
-		if (array_key_exists("menuState", $arrData)) {
-			$this->db->where('M.menu_state', $arrData["menuState"]);
+		if (array_key_exists("menuStatus", $arrData)) {
+			$this->db->where('M.menu_status', $arrData["menuStatus"]);
 		}
 					
 		//$this->db->group_by("P.fk_id_menu"); 

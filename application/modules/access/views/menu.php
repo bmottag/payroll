@@ -74,7 +74,7 @@ $(function(){
 									<th>Menu URL</th>
 									<th class="text-center">Menu icon</th>
 									<th class="text-center">Order</th>
-									<th class="text-center">State</th>
+									<th class="text-center">Status</th>
 									<th class="text-center">Edit</th>
 								</tr>
 							</thead>
@@ -102,7 +102,7 @@ $(function(){
 										echo "</td>";
 										echo "<td class='text-center'>" . $lista['menu_order'] . "</td>";
 										echo "<td class='text-center'>";
-										switch ($lista['menu_state']) {
+										switch ($lista['menu_status']) {
 											case 1:
 												$valor = 'Active';
 												$clase = "text-success";

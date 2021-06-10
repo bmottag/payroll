@@ -20,7 +20,7 @@ class Payroll extends CI_Controller {
 			$arrParam = array(
 				"table" => "param_jobs",
 				"order" => "job_description",
-				"column" => "state",
+				"column" => "status",
 				"id" => 1
 			);
 			$data['jobs'] = $this->general_model->get_basic_search($arrParam);

@@ -65,11 +65,11 @@ $(function () {
 		<div class="row">
 			<div class="col-sm-6">		
 				<div class="form-group text-left">
-					<label class="control-label" for="link_state">State : *</label>
-					<select name="link_state" id="link_state" class="form-control" required>
+					<label class="control-label" for="link_status">Status: *</label>
+					<select name="link_status" id="link_status" class="form-control" required>
 						<option value=''>Select...</option>
-						<option value=1 <?php if($information && $information[0]["link_state"] == 1) { echo "selected"; }  ?>>Active</option>
-						<option value=2 <?php if($information && $information[0]["link_state"] == 2) { echo "selected"; }  ?>>Inactive</option>
+						<option value=1 <?php if($information && $information[0]["link_status"] == 1) { echo "selected"; }  ?>>Active</option>
+						<option value=2 <?php if($information && $information[0]["link_status"] == 2) { echo "selected"; }  ?>>Inactive</option>
 					</select>
 				</div>
 			</div>
@@ -91,8 +91,6 @@ $(function () {
 						<option value=1 <?php if($information && $information[0]["link_type"] == 1) { echo "selected"; }  ?>>System URL</option>
 						<option value=2 <?php if($information && $information[0]["link_type"] == 2) { echo "selected"; }  ?>>Complete URL</option>
 						<option value=3 <?php if($information && $information[0]["link_type"] == 3) { echo "selected"; }  ?>>Divider</option>
-						<option value=4 <?php if($information && $information[0]["link_type"] == 4) { echo "selected"; }  ?>>Complete URL; Video</option>
-						<option value=5 <?php if($information && $information[0]["link_type"] == 5) { echo "selected"; }  ?>>Complete URL; Manual</option>
 					</select>
 				</div>
 			</div>

@@ -15,14 +15,14 @@ class Settings extends CI_Controller {
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
-	public function users($state)
+	public function users($status)
 	{			
-			$data['state'] = $state;
+			$data['status'] = $status;
 			
-			if($state == 1){
-				$arrParam = array("filtroState" => TRUE);
+			if($status == 1){
+				$arrParam = array("filtroStatus" => TRUE);
 			}else{
-				$arrParam = array("state" => $state);
+				$arrParam = array("status" => $status);
 			}
 			
 			$data['info'] = $this->general_model->get_user($arrParam);
@@ -95,9 +95,9 @@ class Settings extends CI_Controller {
 			);
 			$result_email = $this->settings_model->verifyUser($arrParam);
 
-			$data["state"] = $this->input->post('state');
+			$data["status"] = $this->input->post('status');
 			if ($idUser == '') {
-				$data["state"] = 1;//para el direccionamiento del JS, cuando es usuario nuevo no se envia state
+				$data["status"] = 1;//para el direccionamiento del JS, cuando es usuario nuevo no se envia status
 			}
 
 			if ($result_user || $result_email)
@@ -177,12 +177,12 @@ class Settings extends CI_Controller {
 			
 			$newPassword = $this->input->post("inputPassword");
 			$confirm = $this->input->post("inputConfirm");
-			$userState = $this->input->post("hddState");
+			$userStatus = $this->input->post("hddStatus");
 			$idUser = $this->input->post("hddId");
 			
 			//Para redireccionar el usuario
-			if($userState!=2){
-				$userState = 1;
+			if($userStatus!=2){
+				$userStatus = 1;
 			}
 			
 			$passwd = str_replace(array("<",">","[","]","*","^","-","'","="),"",$newPassword); 
@@ -209,16 +209,16 @@ class Settings extends CI_Controller {
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
-	public function job($state)
+	public function job($status)
 	{
-			$data['state'] = $state;
+			$data['status'] = $status;
 		
 			$this->load->model("general_model");
 			$arrParam = array(
 				"table" => "param_jobs",
 				"order" => "job_description",				
-				"column" => "state",
-				"id" => $state
+				"column" => "status",
+				"id" => $status
 			);
 			$data['info'] = $this->general_model->get_basic_search($arrParam);
 			$data['pageHeaderTitle'] = "Settings - JOB CODE/NAME ";
@@ -285,9 +285,9 @@ class Settings extends CI_Controller {
      * @since 12/1/2019
      * @author BMOTTAG
 	 */
-	public function jobs_state($state)
+	public function jobs_status($status)
 	{	
-			if ($this->settings_model->updateJobsState($state)) {
+			if ($this->settings_model->updateJobsStatus($status)) {
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', "The status was updated!");
 			} else {

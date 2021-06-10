@@ -50,10 +50,10 @@ $(function(){
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
 									<span class="fa fa-plus" aria-hidden="true"></span> Add a User
 							</button>
-			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/users/1"); ?>">
+			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/users/1"); ?>">
 			                  Active Users
 			                </a>
-			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($state == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/users/2"); ?>">
+			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/users/2"); ?>">
 			                  Inactive Users
 			                </a>
 						</div>
@@ -86,7 +86,7 @@ $(function(){
 								<th class="text-center">User</th>
 								<th class="text-center">Movil</th>
 								<th class="text-center">Role</th>
-								<th class="text-center">State</th>
+								<th class="text-center">Status</th>
 								<th class="text-center">Edit</th>
 								<th class="text-center">Password</th>
 								<th class="text-center">Email</th>
@@ -122,7 +122,7 @@ if($count == 10){
 									echo "</td>";
 									
 									echo "<td class='text-center'>";
-									switch ($lista['state']) {
+									switch ($lista['status']) {
 										case 0:
 											$valor = 'New User';
 											$clase = "text-primary";

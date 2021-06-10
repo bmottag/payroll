@@ -20,7 +20,7 @@
 					<input id="address" name="address" type="hidden">	
 
 					<div class="input-group mb-3">
-						<input id="viewaddress" name="viewaddress" class="form-control rounded-0" type="text" disabled placeholder="Address">
+						<input id="viewaddress" name="viewaddress" class="form-control" type="text" disabled placeholder="Address">
 						<span class="input-group-append">
 						<a class="btn btn-primary" href=" <?php echo base_url().'payroll/add_payroll'; ?> "><i class="fa fa-sync-alt"></i> </a> 
 						</span>

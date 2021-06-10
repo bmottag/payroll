@@ -37,7 +37,7 @@
 		{
 				$sql = "SELECT count(id_job) CONTEO";
 				$sql.= " FROM param_jobs";
-				$sql.= " WHERE state = 1";
+				$sql.= " WHERE status = 1";
 
 				$query = $this->db->query($sql);
 				$row = $query->row();
@@ -59,7 +59,7 @@
 				
 				$this->db->select();
 				$this->db->where('fk_id_user', $idUser );//filtro por empleado
-				$this->db->where('state<>', 1 );//filtro por diferentes a nuevos
+				$this->db->where('status<>', 1 );//filtro por diferentes a nuevos
 				$this->db->where('date_update >=', $nuevafecha);//filtro para dias menores a 7 dias
 				$this->db->order_by('id_dayoff', 'desc');
 				$query = $this->db->get('dayoff',1);//solo un registro
