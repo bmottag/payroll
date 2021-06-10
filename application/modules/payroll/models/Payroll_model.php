@@ -43,8 +43,7 @@
 		 */
 		public function updatePayroll() 
 		{
-				$idTask =  $this->input->post('hddIdentificador');
-				$idJob =  $this->input->post('jobName');
+				$idPayroll =  $this->input->post('hddIdentificador');
 				$observation =  $this->security->xss_clean($this->input->post('observation'));
 				$observation =  addslashes($observation);
 				$latitude =  $this->input->post('latitud');
@@ -55,9 +54,9 @@
 								
 				$fecha = date("Y-m-d G:i:s");
 
-				$sql = "UPDATE task";
-				$sql.= " SET observation='$observation', finish =  '$fecha', fk_id_job_finish='$idJob', latitude_finish = $latitude, longitude_finish = $longitude, address_finish = '$address'";
-				$sql.= " WHERE id_task=$idTask";
+				$sql = "UPDATE payroll";
+				$sql.= " SET observation='$observation', finish =  '$fecha', latitude_finish = $latitude, longitude_finish = $longitude, address_finish = '$address'";
+				$sql.= " WHERE id_payroll=$idPayroll";
 
 				$query = $this->db->query($sql);
 
@@ -91,7 +90,7 @@
 		}
 
 		/**
-		 * Update PAYROLL - workin time and workin hours
+		 * Update PAYROLL - working time and working hours
 		 * @since 17/11/2016
 		 */
 		public function updateWorkingTimePayroll($info) 
@@ -135,11 +134,11 @@
 				}
 				//FINISH hours calculation
 				
-				$idTask =  $this->input->post('hddIdentificador');
+				$idPayroll =  $this->input->post('hddIdentificador');
 
-				$sql = "UPDATE task";
+				$sql = "UPDATE payroll";
 				$sql.= " SET working_time='$workingTime', working_hours =  $workingHours, regular_hours =  $regularHours, overtime_hours =  $overtimeHours";
-				$sql.= " WHERE id_task=$idTask";
+				$sql.= " WHERE id_payroll=$idPayroll";
 
 				$query = $this->db->query($sql);
 
@@ -154,9 +153,9 @@
 		 * Consulta BASICA A UNA TABLA
 		 * @since 17/11/2016
 		 */
-		public function get_taskbyid($id) {
-			$this->db->where("id_task", $id);
-			$query = $this->db->get("task");
+		public function get_payrollbyid($idPayroll) {
+			$this->db->where("id_payroll", $idPayroll);
+			$query = $this->db->get("payroll");
 
 			if ($query->num_rows() >= 1) {
 				return $query->row_array();

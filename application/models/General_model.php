@@ -291,10 +291,9 @@ class General_model extends CI_Model {
      */
     public function get_payroll($arrData) 
 	{
-        $this->db->select('T.*, id_user, first_name, last_name, log_user, J.job_description job_start, H.job_description job_finish');
+        $this->db->select('T.*, id_user, first_name, last_name, log_user, J.job_description job_start');
         $this->db->join('user U', 'U.id_user = T.fk_id_user', 'INNER');
 		$this->db->join('param_jobs J', 'J.id_job = T.fk_id_job', 'INNER');
-		$this->db->join('param_jobs H', 'H.id_job = T.fk_id_job_finish', 'LEFT');
 		
         if (array_key_exists("idUser", $arrData)) {
             $this->db->where('U.id_user', $arrData["idUser"]);

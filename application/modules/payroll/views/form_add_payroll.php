@@ -1,6 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/payroll/payrollStart.js"); ?>"></script>
 
-
 <section class="content">
 	<div class="card card-primary card-outline">
 		<div class="card-body row">
@@ -15,7 +14,7 @@
 			<div class="col-7">
 				<form  name="form" id="form" method="post" action="<?php echo base_url("payroll/save_payroll"); ?>" >
 				<div class="form-group">
-					<label for="inputName">Address</label>
+					<label for="inputName">Address: *</label>
 					<input id="latitud" name="latitud" type="hidden">					
 					<input id="longitud" name="longitud" type="hidden">	
 					<input id="address" name="address" type="hidden">	
@@ -31,7 +30,7 @@
 					<div id="map" style="width: 100%; height: 150px"></div>	
 				</div>
 				<div class="form-group">
-					<label for="jobName">Job Code/Name</label>
+					<label for="jobName">Job Code/Name: *</label>
 					<select name="jobName" id="jobName" class="form-control" >
 						<option value=''>Select...</option>
 						<?php for ($i = 0; $i < count($jobs); $i++) { ?>
@@ -40,7 +39,7 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label for="inputMessage">Task/Report Description	</label>
+					<label for="taskDescription">Task/Report Description	</label>
 					<textarea id="taskDescription" name="taskDescription" class="form-control" rows="3"></textarea>
 				</div>
 				<div class="form-group">

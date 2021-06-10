@@ -68,20 +68,20 @@ class Payroll extends CI_Controller {
      * @since 11/11/2016
      * @author BMOTTAG
 	 */
-	public function updatePayroll()
+	public function update_payroll()
 	{				
 			if ($this->payroll_model->updatePayroll()) {
 
 				//busco inicio y fin para calcular horas de trabajo y guardar en la base de datos
 				//START search info for the task
-				$idTask =  $this->input->post('hddIdentificador');
-				$infoTask = $this->payroll_model->get_taskbyid($idTask);
+				$idPayroll =  $this->input->post('hddIdentificador');
+				$infoPayroll = $this->payroll_model->get_payrollbyid($idPayroll);
 				//END of search				
 
 				//update working time and working hours
 				$hour = date("G:i");
-				if ($this->payroll_model->updateWorkingTimePayroll($infoTask)) {
-					$this->session->set_flashdata('retornoExito', 'have a good night, you finished at ' . $hour . '.');
+				if ($this->payroll_model->updateWorkingTimePayroll($infoPayroll)) {
+					$this->session->set_flashdata('retornoExito', '<strong>Time Stamp</strong><br>Have a good night, you finished at ' . $hour . '.');
 				}else{
 					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> bad at math.');
 				}
@@ -92,62 +92,6 @@ class Payroll extends CI_Controller {
 
 			$dashboard = $this->session->userdata("dashboardURL");
 			redirect($dashboard,'refresh');
-	}
-	
-	/**
-	 * Signature
-     * @since 10/12/2016
-     * @author BMOTTAG
-	 */
-	public function add_signature($idTask)
-	{
-			if (empty($idTask)) {
-				show_error('ERROR!!! - You are in the wrong place.');
-			}		
-		
-			if($_POST)
-			{
-				//update signature with the name of de file
-				date_default_timezone_set('America/Phoenix');
-				$today = date("Y-m-d"); 
-				$name = "images/signature/payroll/" . $idTask . "_" . $today . ".png";
-				
-				$arrParam = array(
-					"table" => "task",
-					"primaryKey" => "id_task",
-					"id" => $idTask,
-					"column" => "signature",
-					"value" => $name
-				);
-				
-				$data_uri = $this->input->post("image");
-				$encoded_image = explode(",", $data_uri)[1];
-				$decoded_image = base64_decode($encoded_image);
-				file_put_contents($name, $decoded_image);
-				
-				$this->load->model("general_model");
-				$data['linkBack'] = "payroll/add_payroll/";
-				$data['titulo'] = "<i class='fa fa-pencil fa-fw'></i>SIGNATURE";
-				if ($this->general_model->updateRecord($arrParam)) {
-					$this->session->set_flashdata('retornoExito', 'You just save your signature!!!');
-					
-					$data['clase'] = "alert-success";
-					$data['msj'] = "Good job, you have save your signature.";			
-				} else {
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
-					
-					$data['clase'] = "alert-danger";
-					$data['msj'] = "Ask for help.";
-				}
-		
-				$data["view"] = 'template/answer';
-				$this->load->view("layout", $data);
-				
-				//redirect("/payroll/add_payroll/",'refresh');
-				
-			}else{		
-				$this->load->view('template/make_signature');
-			}
 	}
 	
 	/**
@@ -173,7 +117,7 @@ class Payroll extends CI_Controller {
 			//busco inicio y fin para calcular horas de trabajo y guardar en la base de datos
 			//START search info for the task
 			$idTask =  $this->input->post('idTask');
-			$data['information'] = $this->payroll_model->get_taskbyid($idTask);
+			$data['information'] = $this->payroll_model->get_payrollbyid($idTask);
 			//END of search				
 						
 			$this->load->view("modal_hours_worker", $data);
@@ -199,7 +143,7 @@ class Payroll extends CI_Controller {
 				//busco inicio y fin para calcular horas de trabajo y guardar en la base de datos
 				//START search info for the task
 				$idTask =  $this->input->post('hddIdentificador');
-				$infoTask = $this->payroll_model->get_taskbyid($idTask);
+				$infoTask = $this->payroll_model->get_payrollbyid($idTask);
 				//END of search	
 
 				//update working time and working hours

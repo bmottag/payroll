@@ -66,13 +66,12 @@
 						<table class="table table-head-fixed text-nowrap">
 							<thead>
 								<tr>
-									<th>Employee</th>
+									<th>User</th>
 									<th>Start</th>
 									<th>Finish</th>
 									<th>Working Hours</th>
-									<th>Job Start</th>
+									<th>Job</th>
 									<th>Address Start</th>
-									<th>Job Finish</th>
 									<th>Address Finish</th>
 									<th>Task description</th>
 									<th>Observation</th>
@@ -88,7 +87,6 @@
 									echo "<td class='text-right'>" . $lista['working_hours'] . "</td>";
 									echo "<td class='text-center'>" . $lista['job_start'] . "</td>";
 									echo "<td class='text-right'>" . $lista['address_start'] . "</td>";
-									echo "<td class='text-center'>" . $lista['job_finish'] . "</td>";
 									echo "<td class='text-right'>" . $lista['address_finish'] . "</td>";
 									echo "<td class='text-right'>" . $lista['task_description'] . "</td>";
 									echo "<td class='text-right'>" . $lista['observation'] . "</td>";
