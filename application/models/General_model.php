@@ -296,8 +296,8 @@ class General_model extends CI_Model {
 		$this->db->join('param_jobs J', 'J.id_job = T.fk_id_job', 'INNER');
 		$this->db->join('param_jobs H', 'H.id_job = T.fk_id_job_finish', 'LEFT');
 		
-        if (array_key_exists("idEmployee", $arrData)) {
-            $this->db->where('U.id_user', $arrData["idEmployee"]);
+        if (array_key_exists("idUser", $arrData)) {
+            $this->db->where('U.id_user', $arrData["idUser"]);
         }
 
 		if (array_key_exists("from", $arrData) && $arrData["from"] != '') {

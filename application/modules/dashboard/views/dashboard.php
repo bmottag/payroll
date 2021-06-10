@@ -1,3 +1,27 @@
+<?php
+	$retornoExito = $this->session->flashdata('retornoExito');
+	if ($retornoExito) {
+?>
+		<script>
+			$(function() {
+				toastr.success('<?php echo $retornoExito ?>')
+		  	});
+		</script>
+<?php
+	}
+
+	$retornoError = $this->session->flashdata('retornoError');
+	if ($retornoError) {
+?>
+		<script>
+			$(function() {
+				toastr.error('<?php echo $retornoError ?>')
+		  	});
+		</script>
+<?php
+	}
+?> 
+
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
