@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Usuarios extends CI_Controller {
+class Users extends CI_Controller {
 	
     public function __construct() {
         parent::__construct();
-        $this->load->model("usuarios_model");
+        $this->load->model("users_model");
         $this->load->model("general_model");
     }
 
@@ -20,6 +20,7 @@ class Usuarios extends CI_Controller {
 				"idUser" => $idUser
 			);
 			$data['information'] = $this->general_model->get_user($arrParam);
+			$data['pageHeaderTitle'] = "User - Change Password";
 
 			$data["view"] = "form_password";
 			$this->load->view("layout", $data);
@@ -29,7 +30,7 @@ class Usuarios extends CI_Controller {
 	/**
 	 * Actulizar contraseña
 	 */
-	public function updatePassword()
+	public function update_password()
 	{
 			$data = array();			
 			
@@ -37,35 +38,28 @@ class Usuarios extends CI_Controller {
 			$confirm = $this->input->post("inputConfirm");
 			$passwd = str_replace(array("<",">","[","]","*","^","-","'","="),"",$newPassword); 
 			$idUser = $this->input->post("hddId");
-			
-			$data['linkBack'] = "settings/procesos";
-			$data['titulo'] = "<i class='fa fa-unlock fa-fw'></i> CAMBIAR CONTRASEÑA";
-			
+						
 			if($newPassword == $confirm)
 			{					
-					if ($this->usuarios_model->updatePassword()) {
-												
-						$data["msj"] = "Se actualizó la contraseña.";
-						$data["msj"] .= "<br><strong>Nombre Usuario: </strong>" . $this->input->post("hddUser");
-						$data["msj"] .= "<br><strong>Contraseña: </strong>" . $passwd;
-						$data["clase"] = "alert-success";
-					}else{
+				if ($this->users_model->updatePassword()) {
+					$msj = 'The password was updated';
+					$msj .= "<br><strong>User name: </strong>" . $this->input->post("hddUser");
+					$msj .= "<br><strong>Password: </strong>" . $passwd;
+					$this->session->set_flashdata('retornoExito', $msj);
+				}else{
 						$data["msj"] = "<strong>Error!!!</strong> Ask for help.";
 						$data["clase"] = "alert-danger";
-					}
+				}
 			}else{
-				//definir mensaje de error
-				echo "pailas no son iguales";
+				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Please enter the same value again.');
 			}
-						
-			$data["view"] = "template/answer";
-			$this->load->view("layout", $data);
+			redirect(base_url('users'), 'refresh');
 	}
 	
 	/**
 	 * photo
 	 */
-	public function detalle($error = '')
+	public function profile($error = '')
 	{			
 			$idUser = $this->session->userdata("id");
 			
@@ -73,17 +67,18 @@ class Usuarios extends CI_Controller {
 			$arrParam = array(
 				"idUser" => $idUser
 			);
-			$data['UserInfo'] = $this->general_model->get_user($arrParam);
+			$data['information'] = $this->general_model->get_user($arrParam);
+			$data['pageHeaderTitle'] = "User - Profile";
 			
 			$data['error'] = $error; //se usa para mostrar los errores al cargar la imagen 
-			$data["view"] = 'detalle_usuario';
+			$data["view"] = 'user_profile';
 			$this->load->view("layout", $data);
 	}
 	
     //FUNCIÓN PARA SUBIR LA IMAGEN 
     function do_upload() 
 	{
-			$config['upload_path'] = './images/usuarios/';
+			$config['upload_path'] = './images/users/';
 			$config['overwrite'] = true;
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$config['max_size'] = '3000';
@@ -96,7 +91,10 @@ class Usuarios extends CI_Controller {
 			//SI LA IMAGEN FALLA AL SUBIR MOSTRAMOS EL ERROR EN LA VISTA 
 			if (!$this->upload->do_upload()) {
 				$error = $this->upload->display_errors();
-				$this->detalle($error);
+pr($error);
+pr($_FILES); exit;
+
+				$this->profile($error);
 			} else {
 				$file_info = $this->upload->data();//subimos la imagen
 				
@@ -105,33 +103,23 @@ class Usuarios extends CI_Controller {
 				$this->_create_thumbnail($file_info['file_name']);
 				$data = array('upload_data' => $this->upload->data());
 				$imagen = $file_info['file_name'];
-				$path = "images/usuarios/thumbs/" . $imagen;
+				$path = "images/users/thumbs/" . $imagen;
 				
 				//actualizamos el campo photo
 				$arrParam = array(
-					"table" => "usuarios",
+					"table" => "user",
 					"primaryKey" => "id_user",
 					"id" => $idUser,
 					"column" => "photo",
 					"value" => $path
-				);
-
-				$this->load->model("general_model");
-				$data['linkBack'] = "usuarios/detalle";
-				$data['titulo'] = "<i class='fa fa-user fa-fw'></i> FOTO USUARIO";
-				
+				);				
 				if($this->general_model->updateRecord($arrParam))
 				{
-					$data['clase'] = "alert-success";
-					$data['msj'] = "Se actualizó la foto del usuario.";			
+					$this->session->set_flashdata('retornoExito', '<strong>Nice!</strong> User photo updated');
 				}else{
-					$data['clase'] = "alert-danger";
-					$data['msj'] = "Ask for help.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
 				}
-							
-				$data["view"] = 'template/answer';
-				$this->load->view("layout", $data);
-				//redirect('employee/photo');
+				redirect('users/profile');
 			}
     }
 	
@@ -140,11 +128,11 @@ class Usuarios extends CI_Controller {
 	{
         $config['image_library'] = 'gd2';
         //CARPETA EN LA QUE ESTÁ LA IMAGEN A REDIMENSIONAR
-        $config['source_image'] = 'images/usuarios/' . $filename;
+        $config['source_image'] = 'images/users/' . $filename;
         $config['create_thumb'] = TRUE;
         $config['maintain_ratio'] = TRUE;
         //CARPETA EN LA QUE GUARDAMOS LA MINIATURA
-        $config['new_image'] = 'images/usuarios/thumbs/';
+        $config['new_image'] = 'images/users/thumbs/';
         $config['width'] = 150;
         $config['height'] = 150;
         $this->load->library('image_lib', $config);

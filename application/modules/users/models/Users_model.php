@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-	class Usuarios_model extends CI_Model {
+	class Users_model extends CI_Model {
 
 	    function __construct(){        
 	        parent::__construct();
@@ -24,7 +24,7 @@
 				);
 
 				$this->db->where('id_user', $idUser);
-				$query = $this->db->update('usuarios', $data);
+				$query = $this->db->update('user', $data);
 
 				if ($query) {
 					return true;

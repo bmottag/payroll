@@ -200,7 +200,6 @@ class Settings extends CI_Controller {
 			}else{
 				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Please enter the same value again.');
 			}
-						
 			redirect(base_url('settings/change_password/' . $idUser), 'refresh');
 	}
 

@@ -40,7 +40,7 @@
 			<div class="image">
 				<?php 
 				if($this->session->photo){
-					$urlPhoto = base_url($this->session->name);
+					$urlPhoto = base_url($this->session->photo);
 				}else{
 					$urlPhoto = base_url("images/avatar.png");
 				} 
@@ -48,7 +48,7 @@
 				<img src="<?php echo $urlPhoto; ?>" class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="#" class="d-block"><?php echo $this->session->name; ?></a>
+				<a href="<?php echo base_url('users/profile'); ?>" class="d-block"><?php echo $this->session->name; ?></a>
 			</div>
 		</div>
 
