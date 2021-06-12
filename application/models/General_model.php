@@ -325,6 +325,29 @@ class General_model extends CI_Model {
         }
     }
 
+	/**
+	 * Client list
+	 * @since 12/6/2020
+	 */
+	public function get_clients($arrData) 
+	{			
+		$this->db->select();
+		if (array_key_exists("status", $arrData)) {
+			$this->db->where('C.client_status', $arrData["status"]);
+		}
+		if (array_key_exists("idClient", $arrData)) {
+			$this->db->where('C.id_client', $arrData["idClient"]);
+		}
+		$this->db->order_by("client_name", "ASC");
+		$query = $this->db->get("app_client C");
+
+		if ($query->num_rows() >= 1) {
+			return $query->result_array();
+		}else{
+			return false;
+		}
+	}
+
 
 
 }

@@ -166,7 +166,38 @@
 				}
 		}
 	
-		
+		/**
+		 * Add/Edit USER
+		 * @since 12/6/2021
+		 */
+		public function saveClient() 
+		{
+				$idClient = $this->input->post('hddId');
+				
+				$data = array(
+					'client_name' => $this->input->post('clientName'),
+					'client_contact' => $this->input->post('contact'),
+					'client_movil' => $this->input->post('movilNumber'),
+					'client_email' => $this->input->post('email'),
+					'client_address' => $this->input->post('address')
+				);	
+
+				//revisar si es para adicionar o editar
+				if ($idClient == '') {
+					$data['client_status'] = 1;
+					$data['start_date'] = date("Y-m-d");
+					$query = $this->db->insert('app_client', $data);
+				}else{
+					$data['client_status'] = $this->input->post('status');
+					$this->db->where('id_client', $idClient);
+					$query = $this->db->update('app_client', $data);
+				}
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
 		
 		
 		

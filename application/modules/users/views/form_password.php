@@ -32,7 +32,7 @@
 					<div class="card-body box-profile">
 						<div class="text-center">
 							<?php if($information[0]['photo']){ ?>
-								<img class="profile-user-img img-fluid img-circle" src="<?php base_url($information[0]['photo']); ?>" alt="User profile picture">
+								<img class="profile-user-img img-fluid img-circle" src="<?php echo base_url($information[0]['photo']); ?>" alt="User profile picture">
 							<?php } ?>
 						</div>
 						<h3 class="profile-username text-center"><?php echo $information[0]['first_name'] . ' ' . $information[0]['last_name']; ?></h3>

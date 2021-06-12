@@ -97,16 +97,10 @@ $(function () {
 				</div>
 			</div>
 			<div id="div_error" style="display:none">			
-
-
-
 				<div class="alert alert-danger alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<div id="span_msj"></div>
 				</div>
-
-
-
 			</div>	
 		</div>
 			

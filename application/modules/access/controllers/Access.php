@@ -441,6 +441,76 @@ class Access extends CI_Controller {
 			
 			echo json_encode($data);
     }
+
+	/**
+	 * clients List
+     * @since 12/6/2021
+     * @author BMOTTAG
+	 */
+	public function clients($status=1)
+	{			
+			$data['status'] = $status;
+			
+			$arrParam = array("status" => $status);			
+			$data['info'] = $this->general_model->get_clients($arrParam);
+			$data['pageHeaderTitle'] = "Manage System Access - Clients";
+
+			$data["view"] = 'clients';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario Client
+     * @since 12/6/2021
+     */
+    public function cargarModalClients() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idClient"] = $this->input->post("idClient");	
+			
+			$arrParam = array("filtro" => TRUE);
+			$data['roles'] = $this->general_model->get_roles($arrParam);
+
+			if ($data["idClient"] != 'x') {
+				$arrParam = array(
+					"idClient" => $data["idClient"]
+				);
+				$data['information'] = $this->general_model->get_clients($arrParam);
+			}
+			
+			$this->load->view("clients_modal", $data);
+    }
+	
+	/**
+	 * Update Client
+     * @since 12/6/2021
+     * @author BMOTTAG
+	 */
+	public function save_client()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idClient = $this->input->post('hddId');
+
+			$msj = "The Client was added!";
+			$data["status"] = 1;
+			if ($idClient != '') {
+				$msj = "The Client was updated!";
+				$data["status"] = $this->input->post('status');
+			}			
+
+			if ($this->access_model->saveClient()) {
+				$data["result"] = true;					
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
+			} else {
+				$data["result"] = "error";					
+				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+			}
+			echo json_encode($data);
+    }
 	
 
 
