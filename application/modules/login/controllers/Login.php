@@ -42,17 +42,21 @@ class Login extends CI_Controller {
 
 					if(($user["valid"] == true)) 
 					{
-						$idRole = intval($user["rol"]);
+						$idRole = intval($user["idRole"]);
 						//busco url del dashboard de acuerdo al rol del usuario
-						$arrParam = array(
-							"idRol" => $idRole
-						);
+						$arrParam = array("idRole" => $idRole);
 						$rolInfo = $this->general_model->get_roles($arrParam);
+						//busco id de la empresa para el usuarios
+						$arrParam = array("idUser" => $user["idUser"]);
+						$clientInfo = $this->general_model->get_clients_users($arrParam);
+						$moreClients = count($clientInfo)>1?TRUE:FALSE;//se usa para que el usuario seleccione otros clientes
 
 						$sessionData = array(
 							"auth" => "OK",
 							"idUser" => $user["idUser"],
 							"idRole" => $user["idRole"],
+							"idClient" => $clientInfo[0]['id_client'],
+							"moreClients" => $moreClients,
 							"dashboardURL" => $rolInfo[0]['dashboard_url'],
 							"firstname" => $user["firstname"],
 							"lastname" => $user["lastname"],

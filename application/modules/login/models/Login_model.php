@@ -25,9 +25,7 @@
 	    	$query = $this->db->query($sql);
 
 	    	if ($query->num_rows() > 0){	    		
-	    		//$encrypt = $this->danecrypt->encode($passwd);
 	    		foreach($query->result() as $row){
-	    			//if (strcmp($row->PAS_USUARIO, $encrypt)===0){
 	    				$user["valid"] = true;
 	    				$user["idUser"] = $row->id_user;
 	    				$user["idRole"] = $row->fk_id_user_role;
@@ -37,11 +35,9 @@
 	    				$user["movil"] = $row->movil;
 						$user["status"] = $row->status;
 						$user["photo"] = $row->photo;
-	    			//}	    			
 	    		}
 	    	}
 			
-			//var_dump($user); die();
 	    	$this->db->close();	    	
 	    	return $user;
 	    }
