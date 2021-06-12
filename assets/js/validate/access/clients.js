@@ -8,7 +8,6 @@ $(function () {
   $("#clientName").bloquearNumeros().maxlength(60);
   $("#contact").bloquearNumeros().maxlength(60);   
   $("#movilNumber").bloquearTexto().maxlength(10);
-  $("#clientName").convertirMayuscula();
   $("#contact").convertirMayuscula();
   $('#form').validate({
     rules: {

@@ -48,7 +48,7 @@ $(function(){
 					<div class="card-header">
 						<div class="btn-group btn-group-toggle">
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
-									<span class="fa fa-plus" aria-hidden="true"></span> Add a Client
+									<span class="fa fa-plus" aria-hidden="true"></span> Add Client
 							</button>
 			                <a type="button" class="btn btn-danger swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("access/clients/1"); ?>">
 			                  Active Client

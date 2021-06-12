@@ -48,7 +48,7 @@ $(function(){
 					<div class="card-header">
 						<div class="btn-group btn-group-toggle">
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
-									<span class="fa fa-plus" aria-hidden="true"></span> Add a User
+									<span class="fa fa-plus" aria-hidden="true"></span> Add User
 							</button>
 			                <a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/users/1"); ?>">
 			                  Active Users

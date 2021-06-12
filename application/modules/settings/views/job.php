@@ -61,7 +61,7 @@ function deseleccionar_todo(){
 					<div class="card-header">
 						<div class="btn-group btn-group-toggle">
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
-									<span class="fa fa-plus" aria-hidden="true"></span> Add a Job Code/Name
+									<span class="fa fa-plus" aria-hidden="true"></span> Add Job Code/Name
 							</button>
 							<a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/job/1"); ?>">
 								Active Job Code/Name

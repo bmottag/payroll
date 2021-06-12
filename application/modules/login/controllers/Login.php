@@ -57,6 +57,7 @@ class Login extends CI_Controller {
 							"idRole" => $user["idRole"],
 							"idClient" => $clientInfo[0]['id_client'],
 							"moreClients" => $moreClients,
+							"companyName" => $clientInfo[0]['client_name'],
 							"dashboardURL" => $rolInfo[0]['dashboard_url'],
 							"firstname" => $user["firstname"],
 							"lastname" => $user["lastname"],

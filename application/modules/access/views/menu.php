@@ -47,7 +47,7 @@ $(function(){
 				<div class="card">
 					<div class="card-header">
 						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
-								<span class="fa fa-plus" aria-hidden="true"></span> Add a Menu Link
+								<span class="fa fa-plus" aria-hidden="true"></span> Add Menu Link
 						</button>
 
 						<div class="card-tools">

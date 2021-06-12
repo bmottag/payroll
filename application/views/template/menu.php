@@ -27,10 +27,13 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-	<?php $dashboardURL = $this->session->userdata("dashboardURL"); ?>
+	<?php 
+		$dashboardURL = $this->session->userdata("dashboardURL");
+		$companyName = $this->session->userdata("companyName");
+	?>
 	<a href="<?php echo base_url($dashboardURL); ?>" class="brand-link">
 		<img src="<?php echo base_url("assets/bootstrap/dist/img/AdminLTELogo.png"); ?>" alt="LOGO" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">PayRoll</span>
+      <span class="brand-text font-weight-light"><?php echo $companyName; ?></span>
     </a>
 
 	<!-- Sidebar -->
