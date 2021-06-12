@@ -12,7 +12,7 @@ class Login extends CI_Controller {
 	 * Index Page for this controller.
 	 * @param int $id: id del vehiculo encriptado para el hauling
 	 */
-	public function index($id = 'x')
+	public function index()
 	{
 			$this->session->sess_destroy();
 			$this->load->view('login');
@@ -42,23 +42,23 @@ class Login extends CI_Controller {
 
 					if(($user["valid"] == true)) 
 					{
-						$userRol = intval($user["rol"]);
+						$idRole = intval($user["rol"]);
 						//busco url del dashboard de acuerdo al rol del usuario
 						$arrParam = array(
-							"idRol" => $userRol
+							"idRol" => $idRole
 						);
 						$rolInfo = $this->general_model->get_roles($arrParam);
 
 						$sessionData = array(
 							"auth" => "OK",
-							"id" => $user["id"],
+							"idUser" => $user["idUser"],
+							"idRole" => $user["idRole"],
 							"dashboardURL" => $rolInfo[0]['dashboard_url'],
 							"firstname" => $user["firstname"],
 							"lastname" => $user["lastname"],
 							"name" => $user["firstname"] . ' ' . $user["lastname"],
 							"logUser" => $user["logUser"],
 							"status" => $user["status"],
-							"role" => $user["role"],
 							"photo" => $user["photo"]
 						);
 												

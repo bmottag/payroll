@@ -19,14 +19,14 @@ class Home {
         if (!in_array($this->ci->uri->segment(1), $arrModules)) {
             if ($this->ci->uri->segment(1) == "menu") {
                 if(($this->ci->uri->segment(2) . '/' . $this->ci->uri->segment(3)) != 'menu/salir') {
-                    if (isset($this->ci->session) && $this->ci->session->userdata('id') == FALSE) {
+                    if (isset($this->ci->session) && $this->ci->session->userdata('idUser') == FALSE) {
                         $error = TRUE;
                     }
                 }
             } else if ($this->ci->uri->segment(1) == "programming") {//SI NO LLEVAN SESSION LOS DEJA PASAR, A LOS SIGUIENTES METODOS
                 $arrControllers = array($this->ci->uri->segment(1), "verificacion", "verificacion_flha", "verificacion_tool_box");
                 if ($this->ci->uri->segment(2) != FALSE && !in_array($this->ci->uri->segment(2), $arrControllers)) {
-                    if (isset($this->ci->session) && $this->ci->session->userdata('id') == FALSE) {
+                    if (isset($this->ci->session) && $this->ci->session->userdata('idUser') == FALSE) {
                         $error = TRUE;
                     }
                 }
@@ -41,7 +41,7 @@ class Home {
 					$flag = FALSE;//NO SE VERIFICA SI EXISTE PERMISOS A ESTE ENLACE
                 }
             } else {
-                if ($this->ci->session->userdata('id') == FALSE) {
+                if ($this->ci->session->userdata('idUser') == FALSE) {
                     $error = TRUE;
                 }
             }
@@ -64,7 +64,7 @@ class Home {
 				{
                     //Se consulta si el usuario actual tiene permiso para esa URL
                     $arrParam = array(
-                        'idRole' => $this->ci->session->userdata('role'),
+                        'idRole' => $this->ci->session->userdata('idRole'),
 						'menuURL' => $ruta_validar
                     );
 
@@ -79,7 +79,7 @@ class Home {
 					if($ruta_valida = $this->ci->mm->get_role_access($arrParam)) {
 						//Se consulta si el usuario actual tiene permiso para esa URL
 						$arrParam = array(
-							'idRole' => $this->ci->session->userdata('role'),
+							'idRole' => $this->ci->session->userdata('idRole'),
 							'linkURL' => $ruta_validar
 						);
 
@@ -93,7 +93,7 @@ class Home {
         }
         
         if ($error) {
-            if (isset($this->ci->session) && $this->ci->session->userdata('id') == FALSE) {
+            if (isset($this->ci->session) && $this->ci->session->userdata('idUser') == FALSE) {
                 $this->ci->session->unset_userdata("auth");
                 $this->ci->session->sess_destroy();
             }

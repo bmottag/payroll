@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 	 */
 	public function index()
 	{
-			$idUser = $this->session->userdata("id");
+			$idUser = $this->session->userdata("idUser");
 									
 			$arrParam = array(
 				"idUser" => $idUser
@@ -61,7 +61,7 @@ class Users extends CI_Controller {
 	 */
 	public function profile($error = '')
 	{			
-			$idUser = $this->session->userdata("id");
+			$idUser = $this->session->userdata("idUser");
 			
 			//busco datos del usuario
 			$arrParam = array(
@@ -84,7 +84,7 @@ class Users extends CI_Controller {
 			$config['max_size'] = '3000';
 			$config['max_width'] = '2024';
 			$config['max_height'] = '2008';
-			$idUser = $this->session->userdata("id");
+			$idUser = $this->session->userdata("idUser");
 			$config['file_name'] = $idUser;
 
 			$this->load->library('upload', $config);

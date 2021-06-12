@@ -63,10 +63,10 @@ Preloader -->
 		$itemsLeftMenu = FALSE;
 		$itemsTopMenu = FALSE;
 
-		$userRole = $this->session->role;
+		$idRole = $this->session->idRole;
 		//Left MENU 
 		$arrParam = array(
-			"idRole" => $userRole,
+			"idRole" => $idRole,
 			"menuType" => 1,
 			"menuStatus" => 1
 		);
@@ -74,7 +74,7 @@ Preloader -->
 
 		//Top MENU 
 		$arrParam = array(
-			"idRole" => $userRole,
+			"idRole" => $idRole,
 			"menuType" => 2,
 			"menuStatus" => 1
 		);
@@ -93,7 +93,7 @@ Preloader -->
 				}else{
 					//enlaces del menu
 					$arrParam = array(
-						"idRole" => $userRole,
+						"idRole" => $idRole,
 						"idMenu" => $item['fk_id_menu'],
 						"linkStatus" => 1,
 						"menuType" => 1
@@ -153,7 +153,7 @@ Preloader -->
 				}else{
 					//enlaces del menu
 					$arrParam = array(
-						"idRole" => $userRole,
+						"idRole" => $idRole,
 						"idMenu" => $item['fk_id_menu'],
 						"linkStatus" => 1,
 						"menuType" => 2

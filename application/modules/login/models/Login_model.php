@@ -29,13 +29,13 @@
 	    		foreach($query->result() as $row){
 	    			//if (strcmp($row->PAS_USUARIO, $encrypt)===0){
 	    				$user["valid"] = true;
-	    				$user["id"] = $row->id_user;
+	    				$user["idUser"] = $row->id_user;
+	    				$user["idRole"] = $row->fk_id_user_role;
 	    				$user["firstname"] = $row->first_name;
 	    				$user["lastname"] = $row->last_name;
 						$user["logUser"] = $row->log_user;
 	    				$user["movil"] = $row->movil;
 						$user["status"] = $row->status;
-						$user["role"] = $row->fk_id_user_role;
 						$user["photo"] = $row->photo;
 	    			//}	    			
 	    		}
@@ -55,7 +55,7 @@
 	    public function redireccionarUsuario()
 		{
 			$status = $this->session->userdata("status");
-			$userRol = $this->session->userdata("role");
+			$idRole = $this->session->userdata("idRole");
 			$dashboardURL = $this->session->userdata("dashboardURL");
 			
 	    	switch($status){

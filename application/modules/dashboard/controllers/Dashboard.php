@@ -16,7 +16,7 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{	
 			$this->load->model("general_model");
-			$userRol = $this->session->userdata("rol");
+			$idRole = $this->session->userdata("idRole");
 			
 			$data['infoMaintenance'] = FALSE;
 			$data['noJobs'] = FALSE;
@@ -35,7 +35,7 @@ class Dashboard extends CI_Controller {
 			$data['dayoff'] = $this->dashboard_model->dayOffInfo();
 
 			//Filtro datos por id del Usuario
-			$arrParam["idEmployee"] = $this->session->userdata("id");
+			// $arrParam["idEmployee"] = $this->session->userdata("idUser");
 
 			$arrParam["limit"] = 30;//Limite de registros para la consulta
 			$data['info'] = $this->general_model->get_task($arrParam);//search the last 5 records 

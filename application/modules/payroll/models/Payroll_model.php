@@ -12,7 +12,7 @@
 		 */
 		public function savePayroll() 
 		{
-				$idUser = $this->session->userdata("id");
+				$idUser = $this->session->userdata("idUser");
 				$idJob =  $this->input->post('jobName');
 				$task =  $this->security->xss_clean($this->input->post('taskDescription'));
 				$task =  addslashes($task);
