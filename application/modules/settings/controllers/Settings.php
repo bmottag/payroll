@@ -15,19 +15,21 @@ class Settings extends CI_Controller {
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
-	public function users($status)
+	public function users($status=1)
 	{			
 			$data['status'] = $status;
-			
 			if($status == 1){
 				$arrParam = array("filtroStatus" => TRUE);
 			}else{
 				$arrParam = array("status" => $status);
 			}
-			
+			$idRole = $this->session->idRole;
+			if($idRole != 99){
+				$arrParam['idClient'] = $this->session->idClient;
+			}
 			$data['info'] = $this->general_model->get_user($arrParam);
 			$data['pageHeaderTitle'] = "Settings - Users";
-			
+
 			$data["view"] = 'users';
 			$this->load->view("layout", $data);
 	}
@@ -43,7 +45,11 @@ class Settings extends CI_Controller {
 			$data['information'] = FALSE;
 			$data["idUser"] = $this->input->post("idUser");	
 			
-			$arrParam = array("filtro" => TRUE);
+			$idRole = $this->session->idRole;
+			$arrParam = array();
+			if($idRole != 99){
+				$arrParam = array("filtro" => TRUE);	
+			}
 			$data['roles'] = $this->general_model->get_roles($arrParam);
 
 			if ($data["idUser"] != 'x') {
@@ -67,9 +73,11 @@ class Settings extends CI_Controller {
 			$data = array();
 			
 			$idUser = $this->input->post('hddId');
+			$bandera = true;
 
 			$msj = "The User was added!";
 			if ($idUser != '') {
+				$bandera = false;
 				$msj = "The User was updated!";
 			}			
 
@@ -119,7 +127,12 @@ class Settings extends CI_Controller {
 					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> User name and email already exist.');
 				}
 			} else {
-					if ($this->settings_model->saveUser()) {
+					if ($idUser = $this->settings_model->saveUser()) 
+					{
+						//si es usuario nuevo entonces creo la relacion con el cliente
+						if($bandera){
+							$this->settings_model->saveClientUserConnectionDocumentos($idUser);
+						}
 						$data["result"] = true;					
 						$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 					} else {
@@ -208,7 +221,7 @@ class Settings extends CI_Controller {
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
-	public function job($status)
+	public function job($status=1)
 	{
 			$data['status'] = $status;
 		

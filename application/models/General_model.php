@@ -121,6 +121,7 @@ class General_model extends CI_Model {
 	{			
 		$this->db->select();
 		$this->db->join('param_role R', 'R.id_role = U.fk_id_user_role', 'INNER');
+		$this->db->join('app_clients_users_connection X', 'X.fk_id_user_app = U.id_user', 'INNER');
 		if (array_key_exists("status", $arrData)) {
 			$this->db->where('U.status', $arrData["status"]);
 		}
@@ -132,6 +133,9 @@ class General_model extends CI_Model {
 		
 		if (array_key_exists("idUser", $arrData)) {
 			$this->db->where('U.id_user', $arrData["idUser"]);
+		}
+		if (array_key_exists("idClient", $arrData)) {
+			$this->db->where('X.fk_id_client_app', $arrData["idClient"]);
 		}
 		if (array_key_exists("idRole", $arrData)) {
 			$this->db->where('U.fk_id_user_role', $arrData["idRole"]);

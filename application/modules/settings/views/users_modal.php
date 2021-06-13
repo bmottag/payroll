@@ -1,14 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/settings/users.js"); ?>"></script>
 
-<script>
-$(function () {
-	$('.select2').select2();
-    $('#order').select2({
-        dropdownParent: $('#modal')
-    });
-});
-</script>
-
 <div class="modal-header">
 	<h4 class="modal-title">User Form</h4>
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -72,7 +63,9 @@ $(function () {
 					</select>
 				</div>
 			</div>
-			
+		</div>
+
+		<div class="row">
 	<?php if($information){ ?>
 			<div class="col-sm-6">
 				<div class="form-group text-left">

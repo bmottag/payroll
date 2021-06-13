@@ -56,7 +56,7 @@
 			
 	    	switch($status){
 	    		case 0: //NEW USER, must change the password
-	    				redirect("/employee","location",301);
+	    				redirect("/users","location",301);
 	    				break;
 	    		case 1: //ACTIVE USER
 						redirect($dashboardURL,"location",301);
