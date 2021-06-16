@@ -17,13 +17,8 @@ class Payroll extends CI_Controller {
 	{
 			$this->load->model("general_model");
 			//jobs list - (actives items)
-			$arrParam = array(
-				"table" => "param_jobs",
-				"order" => "job_description",
-				"column" => "status",
-				"id" => 1
-			);
-			$data['jobs'] = $this->general_model->get_basic_search($arrParam);
+			$arrParam = array("status" => 1);
+			$data['jobs'] = $this->general_model->get_jobs($arrParam);
 			
 			//search for the last user record
 			$arrParam = array(

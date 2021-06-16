@@ -277,11 +277,13 @@ class General_model extends CI_Model {
 		$firstDay = date('Y-m-d', mktime(0,0,0, 1, 1, $year));
 
 		$sql = "SELECT count(id_payroll) CONTEO";
-		$sql.= " FROM payroll";
-		$sql.= " WHERE start >= '$firstDay'";
+		$sql.= " FROM payroll P";
+		$sql.= " INNER JOIN param_jobs J ON J.id_job = P.fk_id_job";
+		$sql.= " WHERE P.start >= '$firstDay'";
+		$sql.= " AND J.fk_id_client = $idClient";
 		
 		if($userRol == 2){ //If it is a normal user, just show the records of the user session
-			$sql.= " AND fk_id_user = $idUser";
+			$sql.= " AND P.fk_id_user = $idUser";
 		}
 
         $query = $this->db->query($sql);
@@ -299,6 +301,7 @@ class General_model extends CI_Model {
         $this->db->select('T.*, id_user, first_name, last_name, log_user, J.job_description job_start');
         $this->db->join('user U', 'U.id_user = T.fk_id_user', 'INNER');
 		$this->db->join('param_jobs J', 'J.id_job = T.fk_id_job', 'INNER');
+		$this->db->where('J.fk_id_client', $this->session->userdata("idClient"));
 		
         if (array_key_exists("idUser", $arrData)) {
             $this->db->where('U.id_user', $arrData["idUser"]);
