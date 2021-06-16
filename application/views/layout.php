@@ -45,7 +45,11 @@
     <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/jquery.validate.min.js"); ?>"></script>
     <script src="<?php echo base_url("assets/bootstrap/plugins/jquery-validation/additional-methods.min.js"); ?>"></script>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<?php
+$idRole = $this->session->idRole;
+$darkStyle = $idRole==99?"dark-mode":"";
+?>
+<body class="hold-transition sidebar-mini layout-fixed <?php echo $darkStyle; ?>">
 	<div class="wrapper">
 
 		<!-- 
@@ -63,7 +67,6 @@ Preloader -->
 		$itemsLeftMenu = FALSE;
 		$itemsTopMenu = FALSE;
 
-		$idRole = $this->session->idRole;
 		//Left MENU 
 		$arrParam = array(
 			"idRole" => $idRole,

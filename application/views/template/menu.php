@@ -1,5 +1,9 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<?php
+$idRole = $this->session->idRole;
+$darkStyle = $idRole==99?"navbar-dark":"";
+?>
+<nav class="main-header navbar navbar-expand navbar-light <?php echo $darkStyle; ?>">
 	<!-- Left navbar links -->
 	<ul class="navbar-nav">
 		<li class="nav-item">
