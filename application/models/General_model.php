@@ -269,8 +269,9 @@ class General_model extends CI_Model {
 	 */
 	public function countPayroll()
 	{
-		$userRol = $this->session->userdata("rol");
-		$idUser = $this->session->userdata("id");
+		$idClient = $this->session->userdata("idClient");
+		$userRol = $this->session->userdata("idRole");
+		$idUser = $this->session->userdata("idUser");
 
 		$year = date('Y');
 		$firstDay = date('Y-m-d', mktime(0,0,0, 1, 1, $year));
@@ -279,7 +280,7 @@ class General_model extends CI_Model {
 		$sql.= " FROM payroll";
 		$sql.= " WHERE start >= '$firstDay'";
 		
-		if($userRol == 7){ //If it is a normal user, just show the records of the user session
+		if($userRol == 2){ //If it is a normal user, just show the records of the user session
 			$sql.= " AND fk_id_user = $idUser";
 		}
 
@@ -377,6 +378,29 @@ class General_model extends CI_Model {
 		}else{
 			return false;
 		}
+	}
+
+	/**
+	 * Job list
+	 * @since 16/6/2021
+	 */
+	public function get_jobs($arrData) 
+	{			
+		$this->db->select();
+		$this->db->where('fk_id_client', $this->session->idClient);
+		if (array_key_exists("idJob", $arrData)) {
+			$this->db->where('id_job', $arrData["idJob"]);
+		}
+		if (array_key_exists("status", $arrData)) {
+			$this->db->where('status', $arrData["status"]);
+		}
+		$this->db->order_by("job_description", "ASC");
+		$query = $this->db->get("param_jobs J");
+
+		if ($query->num_rows() >= 1) {
+			return $query->result_array();
+		} else
+			return false;
 	}
 
 

@@ -124,6 +124,7 @@
 
 				//revisar si es para adicionar o editar
 				if ($idJob == '') {
+					$data['fk_id_client '] = $this->session->userdata("idClient");
 					$query = $this->db->insert('param_jobs', $data);
 				} else {
 					$this->db->where('id_job', $idJob);
@@ -147,6 +148,7 @@
 			if($status == 1){
 				//update all status to inactive
 				$data['status'] = 2;
+				$this->db->where('fk_id_client', $this->session->userdata("idClient"));
 				$query = $this->db->update('param_jobs', $data);
 			}
 

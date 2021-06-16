@@ -225,14 +225,8 @@ class Settings extends CI_Controller {
 	{
 			$data['status'] = $status;
 		
-			$this->load->model("general_model");
-			$arrParam = array(
-				"table" => "param_jobs",
-				"order" => "job_description",				
-				"column" => "status",
-				"id" => $status
-			);
-			$data['info'] = $this->general_model->get_basic_search($arrParam);
+			$arrParam = array("status" => $status);
+			$data['info'] = $this->general_model->get_jobs($arrParam);
 			$data['pageHeaderTitle'] = "Settings - JOB CODE/NAME ";
 			
 			$data["view"] = 'job';
@@ -249,18 +243,10 @@ class Settings extends CI_Controller {
 			
 			$data['information'] = FALSE;
 			$data["idJob"] = $this->input->post("idJob");	
-			
 			if ($data["idJob"] != 'x') {
-				$this->load->model("general_model");
-				$arrParam = array(
-					"table" => "param_jobs",
-					"order" => "id_job",
-					"column" => "id_job",
-					"id" => $data["idJob"]
-				);
-				$data['information'] = $this->general_model->get_basic_search($arrParam);
+				$arrParam = array("idJob" => $data["idJob"]);
+				$data['information'] = $this->general_model->get_jobs($arrParam);
 			}
-			
 			$this->load->view("job_modal", $data);
     }
 	
