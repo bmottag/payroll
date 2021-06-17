@@ -10,56 +10,25 @@ class Dashboard extends CI_Controller {
     }
 
 	/**
-	 * Index Page for this controller.
-	 * Basic dashboard
+	 * SUPER ADMIN DASHBOARD
 	 */
-	public function index()
+	public function super_admin()
 	{	
-			$this->load->model("general_model");
-			$idRole = $this->session->userdata("idRole");
-			
-			$data['infoMaintenance'] = FALSE;
-			$data['noJobs'] = FALSE;
-			
-			//cuenta payroll para el usuario 
-			$arrParam["task"] = 1;//buscar por timestap
-			$data['noTareas'] = $this->general_model->countTask($arrParam);
-			
-			$data['noSafety'] = $this->dashboard_model->countSafety();//cuenta registros de safety
-			$data['noHauling'] = $this->dashboard_model->countHauling();//cuenta registros de hauling
-			$data['noDailyInspection'] = $this->dashboard_model->countDailyInspection();//cuenta registros de DailyInspection
-			$data['noHeavyInspection'] = $this->dashboard_model->countHeavyInspection();//cuenta registros de HeavyInspection
-			$data['noSpecialInspection'] = $this->dashboard_model->countSpecialInspection();//cuenta registros de SpecialInspection
-			
-			//informacion de un dayoff si lo aprobaron y lo negaron
-			$data['dayoff'] = $this->dashboard_model->dayOffInfo();
+			$data['noClients'] = $this->general_model->countCients();
 
-			//Filtro datos por id del Usuario
-			// $arrParam["idEmployee"] = $this->session->userdata("idUser");
+			$arrParam = array("status" => 1);
+			$data['clients'] = $this->general_model->get_clients($arrParam);
+			$data['pageHeaderTitle'] = "Dashboard SUPER ADMIN";
 
-			$arrParam["limit"] = 30;//Limite de registros para la consulta
-			$data['info'] = $this->general_model->get_task($arrParam);//search the last 5 records 
-			
-			$data['infoSafety'] = $this->general_model->get_safety($arrParam);//info de safety
-			
-			$arrParam["limit"] = 6;//Limite de registros para la consulta
-			$data['infoWaterTruck'] = $this->general_model->get_special_inspection_water_truck($arrParam);//info de water truck
-			$data['infoHydrovac'] = $this->general_model->get_special_inspection_hydrovac($arrParam);//info de hydrovac
-			$data['infoSweeper'] = $this->general_model->get_special_inspection_sweeper($arrParam);//info de sweeper
-			$data['infoGenerator'] = $this->general_model->get_special_inspection_generator($arrParam);//info de generador
-		
-			$data["view"] = "dashboard";
+			$data["view"] = "dashboard_admin";
 			$this->load->view("layout", $data);
 	}
 		
 	/**
-	 * SUPER ADMIN DASHBOARD
+	 * ADMINISTRATO DASHBOARD
 	 */
 	public function admin()
-	{	
-			$this->load->model("general_model");
-			
-			//cuenta payroll para el usuario 
+	{				
 			$data['noPayroll'] = $this->general_model->countPayroll();
 						
 			$arrParam["limit"] = 30;//Limite de registros para la consulta
@@ -68,6 +37,23 @@ class Dashboard extends CI_Controller {
 
 			$data["view"] = "dashboard";
 			$this->load->view("layout", $data);
+	}
+
+	public function change_client()
+	{
+			$idClient = $this->input->post("id_client");
+			$arrParam = array("idClient" => $idClient);
+			$clients = $this->general_model->get_clients($arrParam);
+
+			$sessionData = array(
+				'idClient' => $idClient,
+				'companyName' => $clients[0]['client_name']
+			);
+			$this->session->set_userdata($sessionData);	
+			$this->session->set_flashdata('retornoExito', "The Client was changed!");
+
+			$dashboardURL = $this->session->userdata("dashboardURL");
+			redirect(base_url($dashboardURL), 'refresh');
 	}
 	
 	

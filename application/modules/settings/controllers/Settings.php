@@ -129,10 +129,6 @@ class Settings extends CI_Controller {
 			} else {
 					if ($idUser = $this->settings_model->saveUser()) 
 					{
-						//si es usuario nuevo entonces creo la relacion con el cliente
-						if($bandera){
-							$this->settings_model->saveClientUserConnectionDocumentos($idUser);
-						}
 						$data["result"] = true;					
 						$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 					} else {

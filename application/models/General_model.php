@@ -121,7 +121,6 @@ class General_model extends CI_Model {
 	{			
 		$this->db->select();
 		$this->db->join('param_role R', 'R.id_role = U.fk_id_user_role', 'INNER');
-		$this->db->join('app_clients_users_connection X', 'X.fk_id_user_app = U.id_user', 'INNER');
 		if (array_key_exists("status", $arrData)) {
 			$this->db->where('U.status', $arrData["status"]);
 		}
@@ -135,7 +134,7 @@ class General_model extends CI_Model {
 			$this->db->where('U.id_user', $arrData["idUser"]);
 		}
 		if (array_key_exists("idClient", $arrData)) {
-			$this->db->where('X.fk_id_client_app', $arrData["idClient"]);
+			$this->db->where('U.fk_id_client_app', $arrData["idClient"]);
 		}
 		if (array_key_exists("idRole", $arrData)) {
 			$this->db->where('U.fk_id_user_role', $arrData["idRole"]);
@@ -357,33 +356,6 @@ class General_model extends CI_Model {
 	}
 
 	/**
-	 * Usuario por cliente
-	 * @since 12/6/2020
-	 */
-	public function get_clients_users($arrData) 
-	{			
-		$this->db->select();
-		$this->db->join('app_clients_users_connection X', 'X.fk_id_client_app = C.id_client', 'INNER');
-		if (array_key_exists("status", $arrData)) {
-			$this->db->where('C.client_status', $arrData["status"]);
-		}
-		if (array_key_exists("idClient", $arrData)) {
-			$this->db->where('C.id_client', $arrData["idClient"]);
-		}
-		if (array_key_exists("idUser", $arrData)) {
-			$this->db->where('X.fk_id_user_app', $arrData["idUser"]);
-		}
-		$this->db->order_by("client_name", "ASC");
-		$query = $this->db->get("app_client C");
-
-		if ($query->num_rows() >= 1) {
-			return $query->result_array();
-		}else{
-			return false;
-		}
-	}
-
-	/**
 	 * Job list
 	 * @since 16/6/2021
 	 */
@@ -404,6 +376,22 @@ class General_model extends CI_Model {
 			return $query->result_array();
 		} else
 			return false;
+	}
+
+	/**
+	 * Contar clientes activos
+	 * @author BMOTTAG
+	 * @since  16/6/2021
+	 */
+	public function countCients()
+	{
+		$sql = "SELECT count(id_client) CONTEO";
+		$sql.= " FROM app_client A";
+		$sql.= " WHERE client_status = 1";
+		
+        $query = $this->db->query($sql);
+        $row = $query->row();
+        return $row->CONTEO;
 	}
 
 
