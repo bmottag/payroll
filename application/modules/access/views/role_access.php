@@ -74,9 +74,6 @@ $(function(){
 									<th class="text-center">Link name</th>
 									<th class="text-center">Rol name</th>
 									<th class="text-center">Edit/Delete</th>
-									<th class="text-center">Menu Type</th>
-									<th class="text-center">Menu Order</th>
-									<th class="text-center">Link order</th>
 								</tr>
 							</thead>
 							<tbody>							
@@ -100,9 +97,6 @@ $(function(){
 									</button>
 						<?php
 									echo "</td>";
-									echo "<td>" . $lista['menu_type'] . "</td>";
-									echo "<td>" . $lista['menu_order'] . "</td>";
-									echo "<td>" . $lista['order'] . "</td>";
 									echo "</tr>";
 							endforeach;
 							?>

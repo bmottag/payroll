@@ -46,9 +46,15 @@ $(function () {
 					<label class="control-label" for="perfil">Link name : *</label>
 					<select name="id_link" id="id_link" class="form-control" >
 						<option value="">Select...</option>
-						<?php for ($i = 0; $i < count($linkList); $i++) { ?>
-							<option value="<?php echo $linkList[$i]["id_link"]; ?>" <?php if($information && $information[0]["fk_id_link"] == $linkList[$i]["id_link"]) { echo "selected"; }  ?>><?php echo $linkList[$i]["link_name"]; ?></option>	
-						<?php } ?>					
+						<?php 
+						if($linkList){
+							for ($i = 0; $i < count($linkList); $i++) { 
+						?>
+								<option value="<?php echo $linkList[$i]["id_link"]; ?>" <?php if($information && $information[0]["fk_id_link"] == $linkList[$i]["id_link"]) { echo "selected"; }  ?>><?php echo $linkList[$i]["link_name"]; ?></option>	
+						<?php 
+							} 
+						}
+						?>
 					</select>
 				</div>
 			</div>

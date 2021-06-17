@@ -277,7 +277,7 @@ class Access extends CI_Controller {
 			if ($this->general_model->deleteRecord($arrParam)) 
 			{
 				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> You have delete the role access.');
+				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> Role Access was removed.');
 			} else {
 				$data["result"] = "error";
 				$data["mensaje"] = "Error!!! Ask for help.";

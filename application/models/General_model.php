@@ -219,7 +219,7 @@ class General_model extends CI_Model {
 			$this->db->where('L.link_url', $arrData["linkURL"]);
 		}		
 		
-		$this->db->order_by('M.menu_order, L.order', 'asc');
+		$this->db->order_by('R.id_role, M.menu_order, L.order', 'asc');
 		$query = $this->db->get('param_menu_access P');
 
 		if ($query->num_rows() > 0) {
