@@ -85,7 +85,7 @@ jQuery.validator.addMethod("validacion", function(value, element, param) {
               $("#div_load").css("display", "none");
               $('#btnSubmit').removeAttr('disabled');
 
-              var url = base_url + "settings/editHour/" + data.idRecord;
+              var url = base_url + "settings/editHours/" + data.idRecord;
               $(location).attr("href", url);
             }
             else

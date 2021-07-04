@@ -93,9 +93,9 @@ $minutosFin = substr($fin, 14, 2);
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="firstName">End date: *</label>
-                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" id="finish_date" name="finish_date" data-target="#reservationdate" value="<?php echo $fechaFin; ?>" placeholder="End date" required/>
-                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                    <div class="input-group date" id="reservationdate2" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" id="finish_date" name="finish_date" data-target="#reservationdate2" value="<?php echo $fechaFin; ?>" placeholder="End date" required/>
+                        <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                     </div>
@@ -171,6 +171,10 @@ $minutosFin = substr($fin, 14, 2);
   $(function () {
     //Date picker
     $('#reservationdate').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+
+    $('#reservationdate2').datetimepicker({
         format: 'YYYY-MM-DD'
     });
    });
