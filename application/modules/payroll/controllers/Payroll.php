@@ -137,7 +137,7 @@ class Payroll extends CI_Controller {
 
 				//update working time and working hours
 				if ($this->payroll_model->updateWorkingTimePayroll($infoTask)) {
-					$this->session->set_flashdata('retornoExito', 'You have updated the payroll time');
+					$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> You have updated the Payroll time!');
 				}else{
 					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> bad at math.');
 				}

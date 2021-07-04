@@ -51,7 +51,16 @@
 					<input type="text" class="form-control" id="address" name="address" value="<?php echo $information?$information[0]["client_address"]:""; ?>" placeholder="Address" />
 				</div>
 			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<label class="control-label" for="address">GST:</label>
+					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["client_gst"]:""; ?>" placeholder="GST" />
+				</div>
+			</div>
+		</div>
 			
+		<div class="row">
 	<?php if($information){ ?>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
@@ -64,7 +73,6 @@
 				</div>
 			</div>
 	<?php } ?>
-		
 		</div>
 					
 		<div class="form-group">

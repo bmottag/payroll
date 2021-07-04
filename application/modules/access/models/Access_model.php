@@ -179,7 +179,8 @@
 					'client_contact' => $this->input->post('contact'),
 					'client_movil' => $this->input->post('movilNumber'),
 					'client_email' => $this->input->post('email'),
-					'client_address' => $this->input->post('address')
+					'client_address' => $this->input->post('address'),
+					'client_gst' => $this->input->post('gst')
 				);	
 
 				//revisar si es para adicionar o editar
