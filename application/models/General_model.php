@@ -365,7 +365,8 @@ class General_model extends CI_Model {
 	public function get_jobs($arrData) 
 	{			
 		$this->db->select();
-		$this->db->where('fk_id_client', $this->session->idClient);
+		$this->db->join('param_client C', 'C.id_param_client = J.fk_id_param_client', 'INNER');
+		$this->db->where('fk_id_app_client', $this->session->idClient);
 		if (array_key_exists("idJob", $arrData)) {
 			$this->db->where('id_job', $arrData["idJob"]);
 		}

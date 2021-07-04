@@ -238,7 +238,12 @@ class Settings extends CI_Controller {
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
 			$data['information'] = FALSE;
-			$data["idJob"] = $this->input->post("idJob");	
+			$data["idJob"] = $this->input->post("idJob");
+
+			//filtro de param clientes activos 
+			$arrParam = array("status" => 1);
+			$data['infoClients'] = $this->general_model->get_param_clients($arrParam);
+
 			if ($data["idJob"] != 'x') {
 				$arrParam = array("idJob" => $data["idJob"]);
 				$data['information'] = $this->general_model->get_jobs($arrParam);

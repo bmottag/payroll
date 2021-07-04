@@ -15,17 +15,32 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group text-left">
+					<label class="control-label" for="idClient">Client: *</label>
+					<select name="idClient" id="idClient" class="form-control" >
+						<option value=''>Select...</option>
+						<?php for ($i = 0; $i < count($infoClients); $i++) { ?>
+							<option value="<?php echo $infoClients[$i]["id_param_client"]; ?>" <?php if($information && $infoClients[$i]["id_param_client"] == $information[0]['fk_id_param_client']) { echo "selected"; }  ?>><?php echo $infoClients[$i]["param_client_name"]; ?></option>	
+						<?php } ?>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group text-left">
 					<label class="control-label" for="jobName">Job Code/Name: *</label>
 					<input type="text" id="jobName" name="jobName" class="form-control" value="<?php echo $information?$information[0]["job_description"]:""; ?>" placeholder="Job Code/Name" required >
 				</div>
 			</div>
 		</div>
 
+<?php if($information){ ?>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="statusJob">Status: *</label>
-					<select name="statusJob" id="statusJob" class="form-control" >
+					<select name="statusJob" id="statusJob" class="form-control" required>
 						<option value=''>Select...</option>
 						<option value='1' <?php if($information && $information[0]["status"] == '1') { echo "selected"; }  ?>>Active</option>
 						<option value='2' <?php if($information && $information[0]["status"] == '2') { echo "selected"; }  ?>>Inactive</option>
@@ -33,6 +48,7 @@
 				</div>
 			</div>
 		</div>
+<?php } ?>
 					
 		<div class="form-group">
 			<div id="div_load" style="display:none">		

@@ -120,15 +120,16 @@
 				$idJob = $this->input->post('hddId');
 				
 				$data = array(
-					'job_description' => $this->input->post('jobName'),
-					'status' => $this->input->post('statusJob')
+					'fk_id_param_client' => $this->input->post('idClient'),
+					'job_description' => $this->input->post('jobName')
 				);			
 
 				//revisar si es para adicionar o editar
 				if ($idJob == '') {
-					$data['fk_id_client '] = $this->session->userdata("idClient");
+					$data['status'] = 1;
 					$query = $this->db->insert('param_jobs', $data);
 				} else {
+					$data['status'] = $this->input->post('statusJob');
 					$this->db->where('id_job', $idJob);
 					$query = $this->db->update('param_jobs', $data);
 				}

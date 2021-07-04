@@ -100,6 +100,7 @@ function deseleccionar_todo(){
 						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr>
+								<th>Client</th>
 								<th>Job Code/Name</th>
 								<th class="text-center">Status 
 
@@ -115,6 +116,7 @@ function deseleccionar_todo(){
 							<?php
 								foreach ($info as $lista):
 										echo "<tr>";
+										echo "<td>" . $lista['param_client_name'] . "</td>";
 										echo "<td>" . $lista['job_description'] . "</td>";
 										echo "<td class='text-center'>";
 										switch ($lista['status']) {

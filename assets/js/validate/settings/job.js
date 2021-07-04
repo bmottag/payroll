@@ -7,8 +7,8 @@ $(function () {
 
   $('#form').validate({
     rules: {
-      jobName:      { required: true, minlength: 4, maxlength:100 },
-      statusJob:       { required: true }
+      idClient:      { required: true },
+      jobName:      { required: true, minlength: 4, maxlength:100 }
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
