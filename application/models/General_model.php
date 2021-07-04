@@ -297,7 +297,7 @@ class General_model extends CI_Model {
      */
     public function get_payroll($arrData) 
 	{
-        $this->db->select('T.*, id_user, first_name, last_name, log_user, J.job_description job_start');
+        $this->db->select("T.*, CONCAT(first_name, ' ', last_name) name, id_user, fk_id_client_app, first_name, last_name, log_user, J.job_description job_start");
         $this->db->join('user U', 'U.id_user = T.fk_id_user', 'INNER');
 		$this->db->join('param_jobs J', 'J.id_job = T.fk_id_job', 'INNER');
 		$this->db->where('J.fk_id_client', $this->session->userdata("idClient"));
@@ -305,6 +305,9 @@ class General_model extends CI_Model {
         if (array_key_exists("idUser", $arrData)) {
             $this->db->where('U.id_user', $arrData["idUser"]);
         }
+		if (array_key_exists("idPayroll", $arrData)) {
+			$this->db->where('T.id_payroll', $arrData["idPayroll"]);
+		}
 
 		if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
 			$this->db->where('T.start >=', $arrData["from"]);

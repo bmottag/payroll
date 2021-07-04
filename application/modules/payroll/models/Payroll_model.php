@@ -169,14 +169,14 @@
 		 */
 		public function savePayrollHour() 
 		{
-				$idTask = $this->input->post('hddIdentificador');
+				$idPayroll = $this->input->post('hddIdentificador');
 				$inicio = $this->input->post('hddInicio');
 				$fin = $this->input->post('hddFin');
 				
 				$observation =  $this->security->xss_clean($this->input->post('observation'));
 				$observation =  addslashes($observation);
 				
-				$moreInfo = "<strong>Changue hour by SUPER ADMIN.</strong> <br>Before -> Start: " . $inicio . " <br>Before -> Finish: " . $fin;
+				$moreInfo = "<strong>Changue hour by ADMIN.</strong> <br>Before -> Start: " . $inicio . " <br>Before -> Finish: " . $fin;
 				$observation = $this->input->post('hddObservation') . "<br>********************<br>" . $moreInfo . "<br>" . $observation . "<br>Date: " . date("Y-m-d G:i:s") . "<br>********************";
 
 				$fechaStart = $this->input->post('start_date');
@@ -189,26 +189,11 @@
 				$fechaStart = $fechaStart . " " . $horaStart . ":" . $minStart . ":00";
 				$fechaFinish = $fechaFinish . " " . $horaFinish . ":" . $minFinish . ":00"; 
 
-				$sql = "UPDATE task";
+				$sql = "UPDATE payroll";
 				$sql.= " SET observation='$observation', finish =  '$fechaFinish', start='$fechaStart'";
-				$sql.= " WHERE id_task=$idTask";
+				$sql.= " WHERE id_payroll=$idPayroll";
 
 				$query = $this->db->query($sql);
-
-				if ($query) {
-					return true;
-				} else {
-					return false;
-				}
-
-				//revisar si es para adicionar o editar
-				if ($idJobJsoWorker == '') {			
-					$data['date_oriented'] = date('Y-m-d');
-					$query = $this->db->insert('job_jso_workers', $data);
-				} else {
-					$this->db->where('id_job_jso_worker', $idJobJsoWorker);
-					$query = $this->db->update('job_jso_workers', $data);
-				}
 
 				if ($query) {
 					return true;

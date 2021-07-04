@@ -291,6 +291,34 @@ class Settings extends CI_Controller {
 
 			redirect(base_url('settings/job/1'), 'refresh');
 	}
+
+	/**
+	 * Info payroll con boton para editar horas
+     * @since 23/6/2021
+     * @author BMOTTAG
+	 */
+    public function editHours($idPayroll) 
+	{
+			if (empty($idPayroll) ) {
+				show_error('ERROR!!! - You are in the wrong place.');
+			}else{
+				$idClient = $this->session->idClient;
+				$arrParam = array("idPayroll" => $idPayroll);
+				$data['info'] = $this->general_model->get_payroll($arrParam);
+
+				if($data['info'][0]['fk_id_client_app']!=$idClient){
+					show_error('ERROR!!! - You are in the wrong place.');
+				}else{		
+					$data["titulo"] = "<i class='fa fa-book fa-fw'></i> PAYROLL REPORT";
+					$data["modulo"] ="payrollByAdmin";
+					
+					$data['pageHeaderTitle'] = "Settings - Edit Hours";
+
+					$data["view"] = "list_payroll";
+					$this->load->view("layout", $data);
+				}
+			}
+    }
 	
 
 	

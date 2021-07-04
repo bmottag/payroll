@@ -109,13 +109,10 @@ class Payroll extends CI_Controller {
 			
 			$data['information'] = FALSE;
 
-			//busco inicio y fin para calcular horas de trabajo y guardar en la base de datos
-			//START search info for the task
-			$idTask =  $this->input->post('idTask');
-			$data['information'] = $this->payroll_model->get_payrollbyid($idTask);
-			//END of search				
+			$idPayroll =  $this->input->post('idPayroll');
+			$data['information'] = $this->payroll_model->get_payrollbyid($idPayroll);
 						
-			$this->load->view("modal_hours_worker", $data);
+			$this->load->view("modal_user_hours", $data);
     }
 	
 	/**
@@ -123,31 +120,27 @@ class Payroll extends CI_Controller {
      * @since 2/2/2018
      * @author BMOTTAG
 	 */
-	public function savePayrollHour()
+	public function save_Payroll_Hour()
 	{			
 			header('Content-Type: application/json');
 			$data = array();
 						
-			$idTask = $this->input->post('hddIdentificador');
-			$data["idRecord"] = $idTask;
+			$idPayroll = $this->input->post('hddIdentificador');
+			$data["idRecord"] = $idPayroll;
 
 			if ($this->payroll_model->savePayrollHour()) {
-				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', 'You have update the payroll hour');
-				
+				$data["result"] = true;				
 				//busco inicio y fin para calcular horas de trabajo y guardar en la base de datos
 				//START search info for the task
-				$idTask =  $this->input->post('hddIdentificador');
-				$infoTask = $this->payroll_model->get_payrollbyid($idTask);
+				$infoTask = $this->payroll_model->get_payrollbyid($idPayroll);
 				//END of search	
 
 				//update working time and working hours
 				if ($this->payroll_model->updateWorkingTimePayroll($infoTask)) {
-					$this->session->set_flashdata('retornoExito', 'You have update the payroll hour');
+					$this->session->set_flashdata('retornoExito', 'You have updated the payroll time');
 				}else{
 					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> bad at math.');
 				}
-				
 				
 			} else {
 				$data["result"] = "error";

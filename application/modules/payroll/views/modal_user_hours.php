@@ -1,17 +1,19 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/report/hours_v2.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/payroll/hours.js"); ?>"></script>
 
 <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<h4 class="modal-title" id="exampleModalLabel">EDIT WORKER HOURS</h4>
+	<h4 class="modal-title">Edit User Hours</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="modal-body">
-	<form  name="formWorker" id="formWorker" role="form" method="post" >
-		<input type="hidden" id="hddIdentificador" name="hddIdentificador" value="<?php echo $information["id_task"]; ?>"/>
+	<p class="text-danger"><small><i class="icon fa fa-exclamation-triangle"></i> Fields with * are required.</small></p>
+	<form name="form" id="form" role="form" method="post" >
+		<input type="hidden" id="hddIdentificador" name="hddIdentificador" value="<?php echo $information["id_payroll"]; ?>"/>
 		<input type="hidden" id="hddObservation" name="hddObservation" value="<?php echo $information["observation"]; ?>"/>
 
 <?php 
-
 $inicio = $information['start'];
 $fechaInicio = substr($inicio, 0, 10); 
 $horaInicio = substr($inicio, 11, 2);
@@ -21,8 +23,8 @@ $fin = $information['finish'];
 $fechaFin = substr($fin, 0, 10); 
 $horaFin = substr($fin, 11, 2);
 $minutosFin = substr($fin, 14, 2);
-
 ?>
+
 		<!-- se pasan los datos anteriores para compararlos con los nuevos -->
 		<input type="hidden" id="hddInicio" name="hddInicio" value="<?php echo $inicio; ?>"/>
 		<input type="hidden" id="hddFin" name="hddFin" value="<?php echo $fin; ?>"/>
@@ -33,29 +35,23 @@ $minutosFin = substr($fin, 14, 2);
 		<input type="hidden" id="hddfechaFin" name="hddfechaFin" value="<?php echo $fechaFin; ?>"/>
 		<input type="hidden" id="hddhoraFin" name="hddhoraFin" value="<?php echo $horaFin; ?>"/>
 		<input type="hidden" id="hddminutosFin" name="hddminutosFin" value="<?php echo $minutosFin; ?>"/>
-
-				
+		
 		<div class="row">
-			<div class="col-sm-4">		
+			<div class="col-sm-4">
 				<div class="form-group text-left">
-				
-<script>
-	$( function() {
-		$( "#start_date" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'yy-mm-dd'
-		});
-	});
-</script>
-					<label class="control-label" for="start_date">Start date: *</label>
-					<input type="text" class="form-control" id="start_date" name="start_date" value="<?php echo $fechaInicio; ?>" placeholder="Start date" required />
+					<label class="control-label" for="firstName">Start date: *</label>
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" id="start_date" name="start_date" data-target="#reservationdate" value="<?php echo $fechaInicio; ?>" placeholder="Start date" required/>
+                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
 				</div>
 			</div>
 			
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label for="type" class="control-label">Start hour: *</label>
+					<label class="control-label" for="lastName">Start hour: *</label>
 					<select name="start_hour" id="start_hour" class="form-control" required>
 						<option value='' >Select...</option>
 						<?php
@@ -72,10 +68,10 @@ $minutosFin = substr($fin, 14, 2);
 					</select>
 				</div>
 			</div>
-				
+
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label for="type" class="control-label">Start minutes: *</label>
+					<label class="control-label" for="lastName">Start minutes: *</label>
 					<select name="start_min" id="start_min" class="form-control" required>
 						<?php
 						for ($xxx = 0; $xxx < 60; $xxx++) {
@@ -92,28 +88,23 @@ $minutosFin = substr($fin, 14, 2);
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row">
-			<div class="col-sm-4">		
+			<div class="col-sm-4">
 				<div class="form-group text-left">
-				
-<script>
-	$( function() {
-		$( "#finish_date" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'yy-mm-dd'
-		});
-	});
-</script>
-					<label class="control-label" for="finish_date">Finish date: *</label>
-					<input type="text" class="form-control" id="finish_date" name="finish_date" value="<?php echo $fechaFin; ?>" placeholder="Start date" required />
+					<label class="control-label" for="firstName">End date: *</label>
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" id="finish_date" name="finish_date" data-target="#reservationdate" value="<?php echo $fechaFin; ?>" placeholder="End date" required/>
+                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
 				</div>
 			</div>
 			
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label for="type" class="control-label">Finish hour: *</label>
+					<label class="control-label" for="lastName">End hour: *</label>
 					<select name="finish_hour" id="finish_hour" class="form-control" required>
 						<option value='' >Select...</option>
 						<?php
@@ -130,10 +121,10 @@ $minutosFin = substr($fin, 14, 2);
 					</select>
 				</div>
 			</div>
-				
+
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label for="type" class="control-label">Finish minutes: *</label>
+					<label class="control-label" for="lastName">End minutes: *</label>
 					<select name="finish_min" id="finish_min" class="form-control" required>
 						<?php
 						for ($xxx = 0; $xxx < 60; $xxx++) {
@@ -150,22 +141,7 @@ $minutosFin = substr($fin, 14, 2);
 				</div>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="form-group text-left">
-					<label class="control-label" for="observation">Observation: *</label>
-					<textarea id="observation" name="observation" class="form-control" rows="1"></textarea>
-				</div>
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
-				Save <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-			</button> 
-		</div>
-		
+				
 		<div class="form-group">
 			<div id="div_load" style="display:none">		
 				<div class="progress progress-striped active">
@@ -175,9 +151,27 @@ $minutosFin = substr($fin, 14, 2);
 				</div>
 			</div>
 			<div id="div_error" style="display:none">			
-				<div class="alert alert-danger"><span class="glyphicon glyphicon-remove" id="span_msj">&nbsp;</span></div>
+				<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<div id="span_msj"></div>
+				</div>
 			</div>	
 		</div>
-		
+			
 	</form>
 </div>
+<div class="modal-footer justify-content-between">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
+		Save <span class="fa fa-save" aria-hidden="true">
+	</button> 
+</div>
+
+<script>
+  $(function () {
+    //Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+   });
+ </script>
