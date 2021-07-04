@@ -319,6 +319,74 @@ class Settings extends CI_Controller {
 				}
 			}
     }
+
+	/**
+	 * clients List
+     * @since 4/7/2021
+     * @author BMOTTAG
+	 */
+	public function param_clients($status=1)
+	{			
+			$data['status'] = $status;
+			
+			$arrParam = array("status" => $status);			
+			$data['info'] = $this->general_model->get_param_clients($arrParam);
+			$data['pageHeaderTitle'] = "Settings - Clients";
+
+			$data["view"] = 'param_clients';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario Client
+     * @since 4/7/2021
+     */
+    public function cargarModalParamClients() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idParamClient"] = $this->input->post("idParamClient");	
+			
+			if ($data["idParamClient"] != 'x') {
+				$arrParam = array(
+					"idParamClient" => $data["idParamClient"]
+				);
+				$data['information'] = $this->general_model->get_param_clients($arrParam);
+			}
+
+			$this->load->view("param_clients_modal", $data);
+    }
+	
+	/**
+	 * Update Client
+     * @since 12/6/2021
+     * @author BMOTTAG
+	 */
+	public function save_param_client()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idClient = $this->input->post('hddId');
+
+			$msj = "The Client was added!";
+			$data["status"] = 1;
+			if ($idClient != '') {
+				$msj = "The Client was updated!";
+				$data["status"] = $this->input->post('status');
+			}			
+
+			if ($this->settings_model->saveParamClient()) {
+				$data["result"] = true;					
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
+			} else {
+				$data["result"] = "error";					
+				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+			}
+			echo json_encode($data);
+    }
+	
 	
 
 	

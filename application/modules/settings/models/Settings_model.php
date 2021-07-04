@@ -171,6 +171,40 @@
 			}
 		}
 
+		/**
+		 * Add/Edit USER
+		 * @since 4/7/2021
+		 */
+		public function saveParamClient() 
+		{
+				$idClient = $this->input->post('hddId');
+				
+				$data = array(
+					'param_client_name' => $this->input->post('clientName'),
+					'param_client_contact' => $this->input->post('contact'),
+					'param_client_movil' => $this->input->post('movilNumber'),
+					'param_client_email' => $this->input->post('email'),
+					'param_client_address' => $this->input->post('address')
+				);	
+
+				//revisar si es para adicionar o editar
+				if ($idClient == '') {
+					$data['fk_id_app_client'] = $this->session->userdata("idClient");
+					$data['param_client_status'] = 1;
+					$data['date_issue'] = date("Y-m-d");
+					$query = $this->db->insert('param_client', $data);
+				}else{
+					$data['param_client_status'] = $this->input->post('status');
+					$this->db->where('id_param_client', $idClient);
+					$query = $this->db->update('param_client', $data);
+				}
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
 		
 	    
 	}

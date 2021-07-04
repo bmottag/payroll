@@ -1,7 +1,7 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/clients.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/settings/param_clients.js"); ?>"></script>
 
 <div class="modal-header">
-	<h4 class="modal-title">APP Clients Form</h4>
+	<h4 class="modal-title">Clients Form</h4>
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		<span aria-hidden="true">&times;</span>
 	</button>
@@ -10,20 +10,20 @@
 <div class="modal-body">
 	<p class="text-danger"><small><i class="icon fa fa-exclamation-triangle"></i> Fields with * are required.</small></p>
 	<form name="form" id="form" role="form" method="post" >
-		<input type="hidden" id="hddId" name="hddId" value="<?php echo $information?$information[0]["id_client"]:""; ?>"/>
+		<input type="hidden" id="hddId" name="hddId" value="<?php echo $information?$information[0]["id_param_client"]:""; ?>"/>
 		
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="clientName">Company Name: *</label>
-					<input type="text" id="clientName" name="clientName" class="form-control" value="<?php echo $information?$information[0]["client_name"]:""; ?>" placeholder="Company Name" required >
+					<input type="text" id="clientName" name="clientName" class="form-control" value="<?php echo $information?$information[0]["param_client_name"]:""; ?>" placeholder="Company Name" required >
 				</div>
 			</div>
 			
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="contact">Contact: *</label>
-					<input type="text" id="contact" name="contact" class="form-control" value="<?php echo $information?$information[0]["client_contact"]:""; ?>" placeholder="Contact" required >
+					<input type="text" id="contact" name="contact" class="form-control" value="<?php echo $information?$information[0]["param_client_contact"]:""; ?>" placeholder="Contact" required >
 				</div>
 			</div>
 		</div>
@@ -32,14 +32,14 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="movilNumber">Movil number: *</label>
-					<input type="number" id="movilNumber" name="movilNumber" class="form-control" value="<?php echo $information?$information[0]["client_movil"]:""; ?>" placeholder="Movil number" required >
+					<input type="number" id="movilNumber" name="movilNumber" class="form-control" value="<?php echo $information?$information[0]["param_client_movil"]:""; ?>" placeholder="Movil number" required >
 				</div>
 			</div>
 			
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="email">Email: *</label>
-					<input type="email" class="form-control" id="email" name="email" value="<?php echo $information?$information[0]["client_email"]:""; ?>" placeholder="Email" />
+					<input type="email" class="form-control" id="email" name="email" value="<?php echo $information?$information[0]["param_client_email"]:""; ?>" placeholder="Email" />
 				</div>
 			</div>
 		</div>
@@ -48,27 +48,18 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="address">Address:</label>
-					<input type="text" class="form-control" id="address" name="address" value="<?php echo $information?$information[0]["client_address"]:""; ?>" placeholder="Address" />
+					<input type="text" class="form-control" id="address" name="address" value="<?php echo $information?$information[0]["param_client_address"]:""; ?>" placeholder="Address" />
 				</div>
 			</div>
 
-			<div class="col-sm-6">
-				<div class="form-group text-left">
-					<label class="control-label" for="address">GST:</label>
-					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["client_gst"]:""; ?>" placeholder="GST" />
-				</div>
-			</div>
-		</div>
-			
-		<div class="row">
 	<?php if($information){ ?>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="status">Status: *</label>
 					<select name="status" id="status" class="form-control" required>
 						<option value=''>Seleccione...</option>
-						<option value=1 <?php if($information[0]["client_status"] == 1) { echo "selected"; }  ?>>Active</option>
-						<option value=2 <?php if($information[0]["client_status"] == 2) { echo "selected"; }  ?>>Inactive</option>
+						<option value=1 <?php if($information[0]["param_client_status"] == 1) { echo "selected"; }  ?>>Active</option>
+						<option value=2 <?php if($information[0]["param_client_status"] == 2) { echo "selected"; }  ?>>Inactive</option>
 					</select>
 				</div>
 			</div>

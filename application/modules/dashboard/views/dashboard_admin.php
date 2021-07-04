@@ -51,7 +51,7 @@
 								<select name="id_client" id="id_client" class="form-control" required>
 									<option value="">Seleccione...</option>
 									<?php for ($i = 0; $i < count($clients); $i++) { ?>
-										<option value="<?php echo $clients[$i]["id_client"]; ?>"><?php echo $clients[$i]["client_name"]; ?></option>	
+										<option value="<?php echo $clients[$i]["id_client"]; ?>" <?php if($clients[$i]["id_client"] == $this->session->userdata("idClient")) { echo "selected"; }  ?>><?php echo $clients[$i]["client_name"]; ?></option>	
 									<?php } ?>
 								</select>
 							</div>

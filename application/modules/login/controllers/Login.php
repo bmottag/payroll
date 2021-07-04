@@ -48,7 +48,7 @@ class Login extends CI_Controller {
 						$rolInfo = $this->general_model->get_roles($arrParam);
 						//busco info de la empresa para el usuarios						
 						$arrParam = array("idClient" => $user["idClient"]);
-						$clientInfo = $this->general_model->get_clients($arrParam);
+						$clientInfo = $this->general_model->get_app_clients($arrParam);
 
 						$sessionData = array(
 							"auth" => "OK",

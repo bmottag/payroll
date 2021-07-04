@@ -297,8 +297,8 @@ class Access extends CI_Controller {
 			$data['status'] = $status;
 			
 			$arrParam = array("status" => $status);			
-			$data['info'] = $this->general_model->get_clients($arrParam);
-			$data['pageHeaderTitle'] = "Manage System Access - Clients";
+			$data['info'] = $this->general_model->get_app_clients($arrParam);
+			$data['pageHeaderTitle'] = "Manage System Access - APP Clients";
 
 			$data["view"] = 'clients';
 			$this->load->view("layout", $data);
@@ -322,7 +322,7 @@ class Access extends CI_Controller {
 				$arrParam = array(
 					"idClient" => $data["idClient"]
 				);
-				$data['information'] = $this->general_model->get_clients($arrParam);
+				$data['information'] = $this->general_model->get_app_clients($arrParam);
 			}
 			
 			$this->load->view("clients_modal", $data);

@@ -70,9 +70,10 @@ $(function(){
 						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr>
-									<th class="text-center">Menu name</th>
-									<th class="text-center">Link name</th>
+									<th>Menu name</th>
+									<th>Link name</th>
 									<th class="text-center">Rol name</th>
+									<th class="text-center">Order</th>
 									<th class="text-center">Edit/Delete</th>
 								</tr>
 							</thead>
@@ -85,6 +86,7 @@ $(function(){
 									echo "<td class='text-center'>";
 									echo '<p class="' . $lista['style'] . '"><strong>' . $lista['role_name'] . '</strong></p>';
 									echo "</td>";
+									echo "<td class='text-center'>" . $lista['order'] . "</td>";
 									
 									echo "<td class='text-center'>";
 						?>

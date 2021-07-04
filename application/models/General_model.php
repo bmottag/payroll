@@ -339,7 +339,7 @@ class General_model extends CI_Model {
 	 * Client list
 	 * @since 12/6/2020
 	 */
-	public function get_clients($arrData) 
+	public function get_app_clients($arrData) 
 	{			
 		$this->db->select();
 		if (array_key_exists("status", $arrData)) {
@@ -395,6 +395,30 @@ class General_model extends CI_Model {
         $query = $this->db->query($sql);
         $row = $query->row();
         return $row->CONTEO;
+	}
+
+	/**
+	 * Client list
+	 * @since 12/6/2020
+	 */
+	public function get_param_clients($arrData) 
+	{			
+		$this->db->select();
+		$this->db->where('fk_id_app_client', $this->session->idClient);
+		if (array_key_exists("status", $arrData)) {
+			$this->db->where('C.param_client_status', $arrData["status"]);
+		}
+		if (array_key_exists("idParamClient", $arrData)) {
+			$this->db->where('C.id_param_client', $arrData["idParamClient"]);
+		}
+		$this->db->order_by("param_client_name", "ASC");
+		$query = $this->db->get("param_client C");
+
+		if ($query->num_rows() >= 1) {
+			return $query->result_array();
+		}else{
+			return false;
+		}
 	}
 
 

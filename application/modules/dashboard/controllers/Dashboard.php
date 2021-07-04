@@ -17,7 +17,7 @@ class Dashboard extends CI_Controller {
 			$data['noClients'] = $this->general_model->countCients();
 
 			$arrParam = array("status" => 1);
-			$data['clients'] = $this->general_model->get_clients($arrParam);
+			$data['clients'] = $this->general_model->get_app_clients($arrParam);
 			$data['pageHeaderTitle'] = "Dashboard SUPER ADMIN";
 
 			$data["view"] = "dashboard_admin";
@@ -43,7 +43,7 @@ class Dashboard extends CI_Controller {
 	{
 			$idClient = $this->input->post("id_client");
 			$arrParam = array("idClient" => $idClient);
-			$clients = $this->general_model->get_clients($arrParam);
+			$clients = $this->general_model->get_app_clients($arrParam);
 
 			$sessionData = array(
 				'idClient' => $idClient,
