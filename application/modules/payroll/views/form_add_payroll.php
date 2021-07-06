@@ -31,12 +31,19 @@
 				</div>
 				<div class="form-group">
 					<label for="jobName">Job Code/Name: *</label>
+					<?php if($jobs){ ?>
 					<select name="jobName" id="jobName" class="form-control" >
 						<option value=''>Select...</option>
 						<?php for ($i = 0; $i < count($jobs); $i++) { ?>
 							<option value="<?php echo $jobs[$i]["id_job"]; ?>" ><?php echo $jobs[$i]["job_description"]; ?></option>	
 						<?php } ?>
 					</select>
+					<?php }else{
+                echo '<div class="col-lg-12">
+                    <p class="text-danger"><span class="fa fa-alert" aria-hidden="true"></span> Ask the manager to add jobs!</p>
+                  </div>';
+									echo '<input id="jobName" name="jobName" type="hidden">';
+					} ?>
 				</div>
 				<div class="form-group">
 					<label for="taskDescription">Task/Report Description	</label>

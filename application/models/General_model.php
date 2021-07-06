@@ -278,8 +278,9 @@ class General_model extends CI_Model {
 		$sql = "SELECT count(id_payroll) CONTEO";
 		$sql.= " FROM payroll P";
 		$sql.= " INNER JOIN param_jobs J ON J.id_job = P.fk_id_job";
+		$sql.= " INNER JOIN param_client C ON C.id_param_client = J.fk_id_param_client";
 		$sql.= " WHERE P.start >= '$firstDay'";
-		$sql.= " AND J.fk_id_client = $idClient";
+		$sql.= " AND C.fk_id_app_client = $idClient";
 		
 		if($userRol == 2){ //If it is a normal user, just show the records of the user session
 			$sql.= " AND P.fk_id_user = $idUser";
@@ -439,7 +440,7 @@ class General_model extends CI_Model {
 		if (array_key_exists("idInvoice", $arrData)) {
 			$this->db->where('I.id_invoice', $arrData["idInvoice"]);
 		}
-		$this->db->order_by("invoice_date", "DESC");
+		$this->db->order_by("invoice_number", "DESC");
 		$query = $this->db->get("invoice I");
 
 		if ($query->num_rows() >= 1) {

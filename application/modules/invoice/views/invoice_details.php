@@ -91,7 +91,7 @@ $(function(){
             <?php                     
               if(!$invoiceDetails){ 
                 echo '<div class="col-lg-12">
-                    <p class="text-danger"><span class="fa fa-alert" aria-hidden="true"></span> No data was found.</p>
+                    <p class="text-danger"><span class="fa fa-alert" aria-hidden="true"></span> You must enter the services to finish the invoice!</p>
                   </div>';
               }else{
             ?>
@@ -143,6 +143,9 @@ $(function(){
           <!-- /.col -->
           <div class="col-6">
             <div class="table-responsive">
+            <?php                     
+              if($invoiceDetails){ 
+            ?>
               <table class="table">
                 <tr>
                   <th style="width:50%">Subtotal:</th>
@@ -159,13 +162,22 @@ $(function(){
                   <td>$<?php echo $total; ?></td>
                 </tr>
               </table>
+            <?php                     
+              }
+            ?>
             </div>
           </div>
         </div>
 
         <div class="row no-print">
           <div class="col-12">
+            <?php                     
+              if($invoiceDetails){ 
+            ?>
             <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+            <?php                     
+              }
+            ?>
           </div>
         </div>
       </div>
@@ -184,3 +196,7 @@ $(function(){
 	</div>
 </div>                       
 <!--FIN Modal -->
+
+<script>
+  window.addEventListener("load", window.print());
+</script>
