@@ -77,7 +77,7 @@ class General_model extends CI_Model {
 		if (array_key_exists("columnOrder", $arrData)) {
 			$this->db->order_by($arrData["columnOrder"], 'asc');
 		}else{
-			$this->db->order_by('menu_order', 'asc');
+			$this->db->order_by('menu_type, menu_order', 'asc');
 		}
 		
 		$query = $this->db->get('param_menu');
@@ -300,7 +300,8 @@ class General_model extends CI_Model {
         $this->db->select("T.*, CONCAT(first_name, ' ', last_name) name, id_user, fk_id_client_app, first_name, last_name, log_user, J.job_description job_start");
         $this->db->join('user U', 'U.id_user = T.fk_id_user', 'INNER');
 		$this->db->join('param_jobs J', 'J.id_job = T.fk_id_job', 'INNER');
-		$this->db->where('J.fk_id_client', $this->session->userdata("idClient"));
+		$this->db->join('param_client C', 'C.id_param_client = J.fk_id_param_client', 'INNER');
+		$this->db->where('C.fk_id_app_client', $this->session->idClient);
 		
         if (array_key_exists("idUser", $arrData)) {
             $this->db->where('U.id_user', $arrData["idUser"]);
@@ -414,6 +415,54 @@ class General_model extends CI_Model {
 		}
 		$this->db->order_by("param_client_name", "ASC");
 		$query = $this->db->get("param_client C");
+
+		if ($query->num_rows() >= 1) {
+			return $query->result_array();
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * Invoice list
+	 * @since 12/6/2020
+	 */
+	public function get_invoice($arrData) 
+	{			
+		$this->db->select();
+		$this->db->join('param_client C', 'C.id_param_client = I.fk_id_param_client_i', 'INNER');
+		$this->db->where('fk_id_app_client', $this->session->idClient);
+		if (array_key_exists("idParamClient", $arrData)) {
+			$this->db->where('C.id_param_client', $arrData["idParamClient"]);
+		}
+		if (array_key_exists("idInvoice", $arrData)) {
+			$this->db->where('I.id_invoice', $arrData["idInvoice"]);
+		}
+		$this->db->order_by("invoice_date", "DESC");
+		$query = $this->db->get("invoice I");
+
+		if ($query->num_rows() >= 1) {
+			return $query->result_array();
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * Invoice details
+	 * @since 12/6/2020
+	 */
+	public function get_invoice_details($arrData) 
+	{			
+		$this->db->select('S.*');
+		$this->db->join('invoice I', 'I.id_invoice = S.fk_id_invoice', 'INNER');
+		$this->db->join('param_client C', 'C.id_param_client = I.fk_id_param_client_i', 'INNER');
+		$this->db->where('fk_id_app_client', $this->session->idClient);
+		if (array_key_exists("idInvoice", $arrData)) {
+			$this->db->where('S.fk_id_invoice', $arrData["idInvoice"]);
+		}
+		$this->db->order_by("id_invoice_service", "ASC");
+		$query = $this->db->get("invoice_services S");
 
 		if ($query->num_rows() >= 1) {
 			return $query->result_array();

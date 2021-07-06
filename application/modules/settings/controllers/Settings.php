@@ -270,7 +270,7 @@ class Settings extends CI_Controller {
 
 			if ($idJob = $this->settings_model->saveJob()) {
 				$data["result"] = true;		
-				$this->session->set_flashdata('retornoExito', $msj);
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 			} else {
 				$data["result"] = "error";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
