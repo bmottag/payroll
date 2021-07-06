@@ -15,7 +15,9 @@ $(function () {
       contact:        { required: true, minlength: 3, maxlength:60 },
       movilNumber:    { required: true, minlength: 10, maxlength:10 },
       email:          { required: true, email: true, minlength: 6, maxlength:50 },
-      gst:            { minlength: 5, maxlength:12 }
+      gst:            { minlength: 5, maxlength:12 },
+      idCountry:      { required: true },
+      idCity:         { required: true }
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {

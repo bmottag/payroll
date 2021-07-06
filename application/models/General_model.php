@@ -343,14 +343,15 @@ class General_model extends CI_Model {
 	public function get_app_clients($arrData) 
 	{			
 		$this->db->select();
+		$this->db->join('app_param_cities C', 'C.id_city = APP.fk_id_city', 'INNER');
 		if (array_key_exists("status", $arrData)) {
-			$this->db->where('C.client_status', $arrData["status"]);
+			$this->db->where('APP.client_status', $arrData["status"]);
 		}
 		if (array_key_exists("idClient", $arrData)) {
-			$this->db->where('C.id_client', $arrData["idClient"]);
+			$this->db->where('APP.id_client', $arrData["idClient"]);
 		}
 		$this->db->order_by("client_name", "ASC");
-		$query = $this->db->get("app_client C");
+		$query = $this->db->get("app_client APP");
 
 		if ($query->num_rows() >= 1) {
 			return $query->result_array();
@@ -471,6 +472,44 @@ class General_model extends CI_Model {
 		if ($query->num_rows() >= 1) {
 			return $query->result_array();
 		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * Countries list
+	 * Modules: MENU
+	 * @since 2/4/2020
+	 */
+	public function get_countries($arrData) 
+	{		
+		$this->db->select();
+		$this->db->order_by('country', 'asc');
+		$query = $this->db->get('app_param_countries');
+
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Cities list
+	 * @since 6/7/2021
+	 */
+	public function get_cities($arrData) 
+	{		
+		$this->db->select();		
+		if (array_key_exists("idCountry", $arrData)) {
+			$this->db->where('fk_id_contry', $arrData["idCountry"]);
+		}		
+		$this->db->order_by('C.city', 'asc');
+		$query = $this->db->get('app_param_cities C');
+
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		} else {
 			return false;
 		}
 	}

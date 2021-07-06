@@ -85,7 +85,7 @@ $(function(){
 								<th>Contact</th>
 								<th class="text-center">Movil</th>
 								<th>Email</th>
-								<th>Address</th>
+								<th>City</th>
 								<th class="text-center">Status</th>
 								<th class="text-center">Edit</th>								
 								</tr>
@@ -115,7 +115,7 @@ if($count == 10){
 								
 									echo "<td class='text-center'>" . $resultado . "</td>";
 									echo "<td>" . $lista['client_email'] . "</td>";
-									echo "<td>" . $lista['client_address'] . "</td>";
+									echo "<td>" . $lista['city'] . "</td>";
 									
 									echo "<td class='text-center'>";
 									switch ($lista['client_status']) {

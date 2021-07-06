@@ -315,14 +315,18 @@ class Access extends CI_Controller {
 			$data['information'] = FALSE;
 			$data["idClient"] = $this->input->post("idClient");	
 			
-			$arrParam = array("filtro" => TRUE);
-			$data['roles'] = $this->general_model->get_roles($arrParam);
+			$arrParam = array();
+			$data['infoCountries'] = $this->general_model->get_countries($arrParam);
 
 			if ($data["idClient"] != 'x') {
 				$arrParam = array(
 					"idClient" => $data["idClient"]
 				);
 				$data['information'] = $this->general_model->get_app_clients($arrParam);
+
+				//busca lista de links para el menu guardado
+				$arrParam = array("idCountry" => $data['information'][0]['fk_id_contry']);
+				$data['citiesList'] = $this->general_model->get_cities($arrParam);
 			}
 			
 			$this->load->view("clients_modal", $data);
@@ -357,7 +361,28 @@ class Access extends CI_Controller {
 			echo json_encode($data);
     }
 	
+	/**
+	 * Cities list by country
+     * @since 6/7/2021
+     * @author BMOTTAG
+	 */
+    public function citiesListInfo() {
+        header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+        $idCountry = $this->input->post('idCountry');
+				
+		//busco listado de links activos para un menu
+		$arrParam = array(
+			"idCountry" => $idCountry
+		);
+		$citiesList = $this->general_model->get_cities($arrParam);
 
+        echo "<option value=''>Seleccione...</option>";
+        if ($citiesList) {
+            foreach ($citiesList as $fila) {
+                echo "<option value='" . $fila["id_city"] . "' >" . $fila["city"] . "</option>";
+            }
+        }
+    }	
 
 	
 }

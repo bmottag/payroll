@@ -180,7 +180,8 @@
 					'client_movil' => $this->input->post('movilNumber'),
 					'client_email' => $this->input->post('email'),
 					'client_address' => $this->input->post('address'),
-					'client_gst' => $this->input->post('gst')
+					'client_gst' => $this->input->post('gst'),
+					'fk_id_city' => $this->input->post('idCity')
 				);	
 
 				//revisar si es para adicionar o editar

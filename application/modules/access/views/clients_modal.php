@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/clients.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/access/ajaxCities.js"); ?>"></script>
 
 <div class="modal-header">
 	<h4 class="modal-title">APP Clients Form</h4>
@@ -47,15 +48,48 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="address">Address:</label>
-					<input type="text" class="form-control" id="address" name="address" value="<?php echo $information?$information[0]["client_address"]:""; ?>" placeholder="Address" />
+					<label class="control-label" for="address">GST:</label>
+					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["client_gst"]:""; ?>" placeholder="GST" />
 				</div>
 			</div>
 
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="address">GST:</label>
-					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["client_gst"]:""; ?>" placeholder="GST" />
+					<label class="control-label" for="address">Address:</label>
+					<input type="text" class="form-control" id="address" name="address" value="<?php echo $information?$information[0]["client_address"]:""; ?>" placeholder="Address" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<label class="control-label" for="idCountry">Country: *</label>
+					<select name="idCountry" id="idCountry" class="form-control" required>
+						<option value="">Select...</option>
+						<?php for ($i = 0; $i < count($infoCountries); $i++) { ?>
+							<option value="<?php echo $infoCountries[$i]["id_country"]; ?>" <?php if($information && $information[0]["fk_id_contry"] == $infoCountries[$i]["id_country"]) { echo "selected"; }  ?>><?php echo $infoCountries[$i]["country"]; ?></option>	
+						<?php } ?>
+					</select>
+				</div>
+			</div>
+
+<?php 
+	$mostrar = "none";
+	if($information && !IS_NULL($information[0]["fk_id_city"]) && $information[0]["fk_id_city"] > 0 && $citiesList){
+		$mostrar = "inline";
+	}
+?>
+
+			<div class="col-sm-6" id="div_city" style="display:<?php echo $mostrar; ?>">
+				<div class="form-group text-left">
+					<label class="control-label" for="idCity">City: *</label>
+					<select name="idCity" id="idCity" class="form-control" required>
+						<option value="">Select...</option>
+						<?php for ($i = 0; $i < count($citiesList); $i++) { ?>
+							<option value="<?php echo $citiesList[$i]["id_city"]; ?>" <?php if($information && $information[0]["fk_id_city"] == $citiesList[$i]["id_city"]) { echo "selected"; }  ?>><?php echo $citiesList[$i]["city"]; ?></option>	
+						<?php } ?>
+					</select>
 				</div>
 			</div>
 		</div>
