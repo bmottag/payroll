@@ -1,6 +1,8 @@
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/invoice/invoice_service.js"); ?>"></script>
+
 <script>
 $(function(){ 		
-	$(".btn-danger").click(function () {	
+	$(".btn-success").click(function () {	
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
@@ -101,6 +103,7 @@ $(function(){
                   <th>Description</th>
                   <th class='text-center'>Rate</th>
                   <th class='text-center'>Subtotal</th>
+                  <th class='text-center'>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -114,6 +117,13 @@ $(function(){
                   echo "<td>" . $lista['description'] . "</td>";
                   echo "<td class='text-center'>$" . $lista['rate'] . "</td>";
                   echo "<td class='text-center'>$" . $lista['value'] . "</td>";
+                  echo "<td class='text-center'>";
+                ?>
+                  <button type="button" id="<?php echo $lista['id_invoice_service']; ?>" class='btn btn-danger btn-xs' title="Delete">
+                      <i class="fa fa-trash"></i>
+                  </button>
+                <?php
+                  echo "</td>";
                   echo "</tr>";
                 endforeach;
                 ?>
@@ -126,7 +136,7 @@ $(function(){
         <div class="row">
           <!-- accepted payments column -->
           <div class="col-6">
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal" id="<?php echo $invoiceInfo[0]['id_invoice']; ?>" >
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="<?php echo $invoiceInfo[0]['id_invoice']; ?>" >
               Add Service <i class="fas fa-edit"></i>
             </button>  
           </div>

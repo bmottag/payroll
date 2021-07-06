@@ -458,8 +458,12 @@ class General_model extends CI_Model {
 		$this->db->join('invoice I', 'I.id_invoice = S.fk_id_invoice', 'INNER');
 		$this->db->join('param_client C', 'C.id_param_client = I.fk_id_param_client_i', 'INNER');
 		$this->db->where('fk_id_app_client', $this->session->idClient);
+		$this->db->where('invoice_service_status', 1);
 		if (array_key_exists("idInvoice", $arrData)) {
 			$this->db->where('S.fk_id_invoice', $arrData["idInvoice"]);
+		}
+		if (array_key_exists("idInvoiceService", $arrData)) {
+			$this->db->where('S.id_invoice_service', $arrData["idInvoiceService"]);
 		}
 		$this->db->order_by("id_invoice_service", "ASC");
 		$query = $this->db->get("invoice_services S");

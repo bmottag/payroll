@@ -146,5 +146,31 @@ class Invoice extends CI_Controller {
 			echo json_encode($data);
     }
 
+	/**
+	 * Delete programming
+     * @since 5/7/2021
+	 */
+	public function delete_invoice_service()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$arrParam = array('idInvoiceService' =>$this->input->post('identificador'));
+			$data['invoiceDetails'] = $this->general_model->get_invoice_details($arrParam);//invoice details
+			$data["idRecord"] = $data['invoiceDetails'][0]['fk_id_invoice'];
+
+			if ($this->invoice_model->inactiveInvoiceService()) 
+			{				
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> The record was deleted!');
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Contactarse con el Administrador.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}				
+
+			echo json_encode($data);
+    }
+
 	
 }

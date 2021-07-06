@@ -70,7 +70,25 @@
 				}
 		}
 		
+		/**
+		 * Inactive invoice service
+		 * @since 5/7/2021
+		 */
+		public function inactiveInvoiceService() 
+		{
+			$idInvoiceService = $this->input->post('identificador');
 		
+			$data = array('invoice_service_status' => 2); //inactive status
+			
+			$this->db->where('id_invoice_service', $idInvoiceService);
+			$query = $this->db->update('invoice_services', $data);
+						
+			if ($query) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 		
 		
 		
