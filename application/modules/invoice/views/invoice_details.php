@@ -62,6 +62,11 @@ $(function(){
               From
               <address>
                 <strong><?php echo $appClient[0]['client_name']; ?> </strong><br>
+                <?php
+                if($appClient[0]['client_gst']){
+                  echo '<strong>GST </strong>' . $appClient[0]['client_gst'] . '<br>';
+                }
+                ?>
                 <?php echo $appClient[0]['client_address']; ?><br>
                 Phone: <?php echo $appClient[0]['client_movil']; ?><br>
                 Email: <?php echo $appClient[0]['client_email']; ?>

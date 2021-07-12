@@ -48,8 +48,8 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="address">GST:</label>
-					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["client_gst"]:""; ?>" placeholder="GST" />
+					<label class="control-label" for="address">GST Number:</label>
+					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["client_gst"]:""; ?>" placeholder="GST Number" />
 				</div>
 			</div>
 
