@@ -52,6 +52,15 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group text-left">
+					<label class="control-label" for="terms">Terms: </label>
+					<textarea id="terms" name="terms" placeholder="Terms" class="form-control" rows="3" ><?php echo $information?$information[0]["terms"]:""; ?></textarea>
+				</div>
+			</div>
+		</div>
 									
 		<div class="form-group">
 			<div id="div_load" style="display:none">		

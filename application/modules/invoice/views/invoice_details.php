@@ -81,7 +81,9 @@ $(function(){
             <div class="col-sm-4 invoice-col">
               <b>Invoice #<?php echo $invoiceInfo[0]['invoice_number']; ?></b><br>
               <br>
-              <b>TERMS:</b> 4F3S8J
+              <?php if($invoiceInfo[0]['invoice_number']){ ?>
+              <b>TERMS:</b> <?php echo $invoiceInfo[0]['terms']; ?>
+            <?php } ?>
             </div>
           </div>
 
@@ -200,3 +202,11 @@ $(function(){
 <script>
   window.addEventListener("load", window.print());
 </script>
+
+<style type="text/css" media="print">
+    @page 
+    {
+        size: auto;   /* auto is the initial value */
+        margin: 0mm;  /* this affects the margin in the printer settings */
+    }
+</style>

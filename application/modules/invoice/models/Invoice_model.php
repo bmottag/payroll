@@ -17,6 +17,7 @@
 				$data = array(
 					'fk_id_param_client_i' => $this->input->post('idClient'),
 					'invoice_number' => $this->input->post('invoiceNumber'),
+					'terms' => $this->input->post('terms'),
 					'invoice_date' => $this->input->post('invoiceDate')
 				);			
 
