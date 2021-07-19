@@ -391,6 +391,132 @@ class Settings extends CI_Controller {
 			}
 			echo json_encode($data);
     }
+
+	/**
+	 * Company info
+     * @since 12/7/2021
+     * @author BMOTTAG
+	 */
+	public function company($error = '')
+	{			
+			$arrParam = array('idClient' =>$this->session->idClient);
+			$data['appClient'] = $this->general_model->get_app_clients($arrParam);//app client info
+			$data['pageHeaderTitle'] = "Settings - Company Information";
+
+			$data['error'] = $error; //se usa para mostrar los errores al cargar la imagen 
+			$data["view"] = 'company_info';
+			$this->load->view("layout", $data);
+	}
+
+    /**
+     * Cargo modal- formulario para editar info del APP CLIENT
+     * @since 13/7/2021
+     */
+    public function cargarModalUpdateAPPClient() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['idClient'] = $this->input->post('idClient');
+
+			$arrParam = array("idClient" => $data["idClient"]);
+			$data['information'] = $this->general_model->get_app_clients($arrParam);
+
+			$arrParam = array();
+			$data['infoCountries'] = $this->general_model->get_countries($arrParam);
+
+			//busca lista de links para el menu guardado
+			$arrParam = array("idCountry" => $data['information'][0]['fk_id_contry']);
+			$data['citiesList'] = $this->general_model->get_cities($arrParam);
+						
+			$this->load->view("app_company_modal", $data);
+    }
+	
+	/**
+	 * Save company info
+     * @since 19/7/2021
+     * @author BMOTTAG
+	 */
+	public function update_company()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+						
+			$msj = "The Company was updated!";
+
+			if ($idInvoice = $this->settings_model->saveCompany()) {
+				$data["result"] = true;		
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+			
+			echo json_encode($data);
+    }
+	
+    //FUNCIÓN PARA SUBIR LA IMAGEN 
+    function do_upload() 
+	{
+			$config['upload_path'] = './images/users/';
+			$config['overwrite'] = true;
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['max_size'] = '3000';
+			$config['max_width'] = '2024';
+			$config['max_height'] = '2008';
+			$idUser = $this->session->userdata("idUser");
+			$config['file_name'] = $idUser;
+
+			$this->load->library('upload', $config);
+			//SI LA IMAGEN FALLA AL SUBIR MOSTRAMOS EL ERROR EN LA VISTA 
+			if (!$this->upload->do_upload()) {
+				$error = $this->upload->display_errors();
+pr($error);
+pr($_FILES); exit;
+
+				$this->profile($error);
+			} else {
+				$file_info = $this->upload->data();//subimos la imagen
+				
+				//USAMOS LA FUNCIÓN create_thumbnail Y LE PASAMOS EL NOMBRE DE LA IMAGEN,
+				//ASÍ YA TENEMOS LA IMAGEN REDIMENSIONADA
+				$this->_create_thumbnail($file_info['file_name']);
+				$data = array('upload_data' => $this->upload->data());
+				$imagen = $file_info['file_name'];
+				$path = "images/users/thumbs/" . $imagen;
+				
+				//actualizamos el campo photo
+				$arrParam = array(
+					"table" => "user",
+					"primaryKey" => "id_user",
+					"id" => $idUser,
+					"column" => "photo",
+					"value" => $path
+				);				
+				if($this->general_model->updateRecord($arrParam))
+				{
+					$this->session->set_flashdata('retornoExito', '<strong>Nice!</strong> User photo updated');
+				}else{
+					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+				}
+				redirect('users/profile');
+			}
+    }
+	
+    //FUNCIÓN PARA CREAR LA MINIATURA A LA MEDIDA QUE LE DIGAMOS
+    function _create_thumbnail($filename) 
+	{
+        $config['image_library'] = 'gd2';
+        //CARPETA EN LA QUE ESTÁ LA IMAGEN A REDIMENSIONAR
+        $config['source_image'] = 'images/users/' . $filename;
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = TRUE;
+        //CARPETA EN LA QUE GUARDAMOS LA MINIATURA
+        $config['new_image'] = 'images/users/thumbs/';
+        $config['width'] = 150;
+        $config['height'] = 150;
+        $this->load->library('image_lib', $config);
+        $this->image_lib->resize();
+    }
 	
 	
 

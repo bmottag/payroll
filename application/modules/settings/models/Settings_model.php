@@ -206,6 +206,33 @@
 				}
 		}
 
+		/**
+		 * Update company information
+		 * @since 19/7/2021
+		 */
+		public function saveCompany() 
+		{
+				$idClient = $this->input->post('hddId');
+				
+				$data = array(
+					'client_name' => $this->input->post('clientName'),
+					'client_contact' => $this->input->post('contact'),
+					'client_movil' => $this->input->post('movilNumber'),
+					'client_address' => $this->input->post('address'),
+					'client_gst' => $this->input->post('gst'),
+					'fk_id_city' => $this->input->post('idCity')
+				);	
+
+				$this->db->where('id_client', $idClient);
+				$query = $this->db->update('app_client', $data);
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
 		
 	    
 	}
