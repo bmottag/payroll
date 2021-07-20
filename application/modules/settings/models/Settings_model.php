@@ -43,7 +43,7 @@
 				//revisar si es para adicionar o editar
 				if ($idUser == '') 
 				{
-					$data['fk_id_client_app'] = $this->session->userdata("idClient");
+					$data['fk_id_app_company_u'] = $this->session->userdata("idCompany");
 					$data['status'] = 0;//si es para adicionar se coloca estado inicial como usuario nuevo
 					$data['password'] = 'e10adc3949ba59abbe56e057f20f883e';//123456
 					$query = $this->db->insert('user', $data);
@@ -151,7 +151,7 @@
 			if($status == 1){
 				//update all status to inactive
 				$data['status'] = 2;
-				$this->db->where('fk_id_client', $this->session->userdata("idClient"));
+				$this->db->where('fk_id_client', $this->session->userdata("idCompany"));///ERRORRRRRR
 				$query = $this->db->update('param_jobs', $data);
 			}
 
@@ -190,7 +190,7 @@
 
 				//revisar si es para adicionar o editar
 				if ($idClient == '') {
-					$data['fk_id_app_client'] = $this->session->userdata("idClient");
+					$data['fk_id_app_company'] = $this->session->userdata("idCompany");
 					$data['param_client_status'] = 1;
 					$data['date_issue'] = date("Y-m-d");
 					$query = $this->db->insert('param_client', $data);
@@ -212,19 +212,19 @@
 		 */
 		public function saveCompany() 
 		{
-				$idClient = $this->input->post('hddId');
+				$idCompany = $this->input->post('hddId');
 				
 				$data = array(
-					'client_name' => $this->input->post('clientName'),
-					'client_contact' => $this->input->post('contact'),
-					'client_movil' => $this->input->post('movilNumber'),
-					'client_address' => $this->input->post('address'),
-					'client_gst' => $this->input->post('gst'),
+					'company_name' => $this->input->post('companyName'),
+					'company_contact' => $this->input->post('contact'),
+					'company_movil' => $this->input->post('movilNumber'),
+					'company_address' => $this->input->post('address'),
+					'company_gst' => $this->input->post('gst'),
 					'fk_id_city' => $this->input->post('idCity')
 				);	
 
-				$this->db->where('id_client', $idClient);
-				$query = $this->db->update('app_client', $data);
+				$this->db->where('id_company', $idCompany);
+				$query = $this->db->update('app_company', $data);
 
 				if ($query) {
 					return true;

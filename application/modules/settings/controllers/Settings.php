@@ -25,7 +25,7 @@ class Settings extends CI_Controller {
 			}
 			$idRole = $this->session->idRole;
 			if($idRole != 99){
-				$arrParam['idClient'] = $this->session->idClient;
+				$arrParam['idCompany'] = $this->session->idCompany;
 			}
 			$data['info'] = $this->general_model->get_user($arrParam);
 			$data['pageHeaderTitle'] = "Settings - Users";
@@ -307,11 +307,11 @@ class Settings extends CI_Controller {
 			if (empty($idPayroll) ) {
 				show_error('ERROR!!! - You are in the wrong place.');
 			}else{
-				$idClient = $this->session->idClient;
+				$idCompany = $this->session->idCompany;
 				$arrParam = array("idPayroll" => $idPayroll);
 				$data['info'] = $this->general_model->get_payroll($arrParam);
 
-				if($data['info'][0]['fk_id_client_app']!=$idClient){
+				if($data['info'][0]['fk_id_app_company_u']!=$idCompany){
 					show_error('ERROR!!! - You are in the wrong place.');
 				}else{		
 					$data["titulo"] = "<i class='fa fa-book fa-fw'></i> PAYROLL REPORT";
@@ -399,8 +399,8 @@ class Settings extends CI_Controller {
 	 */
 	public function company($error = '')
 	{			
-			$arrParam = array('idClient' =>$this->session->idClient);
-			$data['appClient'] = $this->general_model->get_app_clients($arrParam);//app client info
+			$arrParam = array('idCompany' =>$this->session->idCompany);
+			$data['appCompany'] = $this->general_model->get_app_company($arrParam);//app client info
 			$data['pageHeaderTitle'] = "Settings - Company Information";
 
 			$data['error'] = $error; //se usa para mostrar los errores al cargar la imagen 
@@ -412,14 +412,14 @@ class Settings extends CI_Controller {
      * Cargo modal- formulario para editar info del APP CLIENT
      * @since 13/7/2021
      */
-    public function cargarModalUpdateAPPClient() 
+    public function cargarModalUpdateAPPCompany() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
-			$data['idClient'] = $this->input->post('idClient');
+			$data['idCompany'] = $this->input->post('idCompany');
 
-			$arrParam = array("idClient" => $data["idClient"]);
-			$data['information'] = $this->general_model->get_app_clients($arrParam);
+			$arrParam = array("idCompany" => $data["idCompany"]);
+			$data['information'] = $this->general_model->get_app_company($arrParam);
 
 			$arrParam = array();
 			$data['infoCountries'] = $this->general_model->get_countries($arrParam);

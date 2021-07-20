@@ -11,20 +11,20 @@
 <div class="modal-body">
 	<p class="text-danger"><small><i class="icon fa fa-exclamation-triangle"></i> Fields with * are required.</small></p>
 	<form name="form" id="form" role="form" method="post" >
-		<input type="hidden" id="hddId" name="hddId" value="<?php echo $information?$information[0]["id_client"]:""; ?>"/>
+		<input type="hidden" id="hddId" name="hddId" value="<?php echo $information?$information[0]["id_company"]:""; ?>"/>
 		
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="clientName">Company Name: *</label>
-					<input type="text" id="clientName" name="clientName" class="form-control" value="<?php echo $information?$information[0]["client_name"]:""; ?>" placeholder="Company Name" required >
+					<label class="control-label" for="companyName">Company Name: *</label>
+					<input type="text" id="companyName" name="companyName" class="form-control" value="<?php echo $information?$information[0]["company_name"]:""; ?>" placeholder="Company Name" required >
 				</div>
 			</div>
 			
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="contact">Contact: *</label>
-					<input type="text" id="contact" name="contact" class="form-control" value="<?php echo $information?$information[0]["client_contact"]:""; ?>" placeholder="Contact" required >
+					<input type="text" id="contact" name="contact" class="form-control" value="<?php echo $information?$information[0]["company_contact"]:""; ?>" placeholder="Contact" required >
 				</div>
 			</div>
 		</div>
@@ -33,14 +33,14 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="movilNumber">Movil number: *</label>
-					<input type="number" id="movilNumber" name="movilNumber" class="form-control" value="<?php echo $information?$information[0]["client_movil"]:""; ?>" placeholder="Movil number" required >
+					<input type="number" id="movilNumber" name="movilNumber" class="form-control" value="<?php echo $information?$information[0]["company_movil"]:""; ?>" placeholder="Movil number" required >
 				</div>
 			</div>
 			
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="address">GST Number:</label>
-					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["client_gst"]:""; ?>" placeholder="GST Number" />
+					<input type="text" class="form-control" id="gst" name="gst" value="<?php echo $information?$information[0]["company_gst"]:""; ?>" placeholder="GST Number" />
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="address">Address:</label>
-					<input type="text" class="form-control" id="address" name="address" value="<?php echo $information?$information[0]["client_address"]:""; ?>" placeholder="Address" />
+					<input type="text" class="form-control" id="address" name="address" value="<?php echo $information?$information[0]["company_address"]:""; ?>" placeholder="Address" />
 				</div>
 			</div>
 		</div>

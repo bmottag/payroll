@@ -14,10 +14,10 @@ class Dashboard extends CI_Controller {
 	 */
 	public function super_admin()
 	{	
-			$data['noClients'] = $this->general_model->countCients();
+			$data['noCompanies'] = $this->general_model->countCompanies();
 
 			$arrParam = array("status" => 1);
-			$data['clients'] = $this->general_model->get_app_clients($arrParam);
+			$data['companyInfo'] = $this->general_model->get_app_company($arrParam);
 			$data['pageHeaderTitle'] = "Dashboard SUPER ADMIN";
 
 			$data["view"] = "dashboard_admin";
@@ -39,18 +39,18 @@ class Dashboard extends CI_Controller {
 			$this->load->view("layout", $data);
 	}
 
-	public function change_client()
+	public function change_company()
 	{
-			$idClient = $this->input->post("id_client");
-			$arrParam = array("idClient" => $idClient);
-			$clients = $this->general_model->get_app_clients($arrParam);
+			$idCompany = $this->input->post("id_company");
+			$arrParam = array("idCompany" => $idCompany);
+			$company = $this->general_model->get_app_company($arrParam);
 
 			$sessionData = array(
-				'idClient' => $idClient,
-				'companyName' => $clients[0]['client_name']
+				'idCompany' => $idCompany,
+				'companyName' => $company[0]['company_name']
 			);
 			$this->session->set_userdata($sessionData);	
-			$this->session->set_flashdata('retornoExito', "The Client was changed!");
+			$this->session->set_flashdata('retornoExito', "The Company was changed!");
 
 			$dashboardURL = $this->session->userdata("dashboardURL");
 			redirect(base_url($dashboardURL), 'refresh');

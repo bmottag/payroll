@@ -133,8 +133,8 @@ class General_model extends CI_Model {
 		if (array_key_exists("idUser", $arrData)) {
 			$this->db->where('U.id_user', $arrData["idUser"]);
 		}
-		if (array_key_exists("idClient", $arrData)) {
-			$this->db->where('U.fk_id_client_app', $arrData["idClient"]);
+		if (array_key_exists("idCompany", $arrData)) {
+			$this->db->where('U.fk_id_app_company_u', $arrData["idCompany"]);
 		}
 		if (array_key_exists("idRole", $arrData)) {
 			$this->db->where('U.fk_id_user_role', $arrData["idRole"]);
@@ -268,7 +268,7 @@ class General_model extends CI_Model {
 	 */
 	public function countPayroll()
 	{
-		$idClient = $this->session->userdata("idClient");
+		$idCompany = $this->session->userdata("idCompany");
 		$userRol = $this->session->userdata("idRole");
 		$idUser = $this->session->userdata("idUser");
 
@@ -280,7 +280,7 @@ class General_model extends CI_Model {
 		$sql.= " INNER JOIN param_jobs J ON J.id_job = P.fk_id_job";
 		$sql.= " INNER JOIN param_client C ON C.id_param_client = J.fk_id_param_client";
 		$sql.= " WHERE P.start >= '$firstDay'";
-		$sql.= " AND C.fk_id_app_client = $idClient";
+		$sql.= " AND C.fk_id_app_company = $idCompany";
 		
 		if($userRol == 2){ //If it is a normal user, just show the records of the user session
 			$sql.= " AND P.fk_id_user = $idUser";
@@ -298,11 +298,11 @@ class General_model extends CI_Model {
      */
     public function get_payroll($arrData) 
 	{
-        $this->db->select("T.*, CONCAT(first_name, ' ', last_name) name, id_user, fk_id_client_app, first_name, last_name, log_user, J.job_description job_start");
+        $this->db->select("T.*, CONCAT(first_name, ' ', last_name) name, id_user, fk_id_app_company_u, first_name, last_name, log_user, J.job_description job_start");
         $this->db->join('user U', 'U.id_user = T.fk_id_user', 'INNER');
 		$this->db->join('param_jobs J', 'J.id_job = T.fk_id_job', 'INNER');
 		$this->db->join('param_client C', 'C.id_param_client = J.fk_id_param_client', 'INNER');
-		$this->db->where('C.fk_id_app_client', $this->session->idClient);
+		$this->db->where('C.fk_id_app_company', $this->session->idCompany);
 		
         if (array_key_exists("idUser", $arrData)) {
             $this->db->where('U.id_user', $arrData["idUser"]);
@@ -341,18 +341,18 @@ class General_model extends CI_Model {
 	 * Client list
 	 * @since 12/6/2020
 	 */
-	public function get_app_clients($arrData) 
+	public function get_app_company($arrData) 
 	{			
 		$this->db->select();
 		$this->db->join('app_param_cities C', 'C.id_city = APP.fk_id_city', 'INNER');
 		if (array_key_exists("status", $arrData)) {
-			$this->db->where('APP.client_status', $arrData["status"]);
+			$this->db->where('APP.company_status', $arrData["status"]);
 		}
-		if (array_key_exists("idClient", $arrData)) {
-			$this->db->where('APP.id_client', $arrData["idClient"]);
+		if (array_key_exists("idCompany", $arrData)) {
+			$this->db->where('APP.id_company', $arrData["idCompany"]);
 		}
-		$this->db->order_by("client_name", "ASC");
-		$query = $this->db->get("app_client APP");
+		$this->db->order_by("company_name", "ASC");
+		$query = $this->db->get("app_company APP");
 
 		if ($query->num_rows() >= 1) {
 			return $query->result_array();
@@ -369,7 +369,7 @@ class General_model extends CI_Model {
 	{			
 		$this->db->select();
 		$this->db->join('param_client C', 'C.id_param_client = J.fk_id_param_client', 'INNER');
-		$this->db->where('fk_id_app_client', $this->session->idClient);
+		$this->db->where('fk_id_app_company', $this->session->idCompany);
 		if (array_key_exists("idJob", $arrData)) {
 			$this->db->where('id_job', $arrData["idJob"]);
 		}
@@ -386,15 +386,15 @@ class General_model extends CI_Model {
 	}
 
 	/**
-	 * Contar clientes activos
+	 * Count active companies
 	 * @author BMOTTAG
 	 * @since  16/6/2021
 	 */
-	public function countCients()
+	public function countCompanies()
 	{
-		$sql = "SELECT count(id_client) CONTEO";
-		$sql.= " FROM app_client A";
-		$sql.= " WHERE client_status = 1";
+		$sql = "SELECT count(id_company) CONTEO";
+		$sql.= " FROM app_company A";
+		$sql.= " WHERE company_status = 1";
 		
         $query = $this->db->query($sql);
         $row = $query->row();
@@ -408,7 +408,7 @@ class General_model extends CI_Model {
 	public function get_param_clients($arrData) 
 	{			
 		$this->db->select();
-		$this->db->where('fk_id_app_client', $this->session->idClient);
+		$this->db->where('fk_id_app_company', $this->session->idCompany);
 		if (array_key_exists("status", $arrData)) {
 			$this->db->where('C.param_client_status', $arrData["status"]);
 		}
@@ -433,7 +433,7 @@ class General_model extends CI_Model {
 	{			
 		$this->db->select();
 		$this->db->join('param_client C', 'C.id_param_client = I.fk_id_param_client_i', 'INNER');
-		$this->db->where('fk_id_app_client', $this->session->idClient);
+		$this->db->where('fk_id_app_company', $this->session->idCompany);
 		if (array_key_exists("idParamClient", $arrData)) {
 			$this->db->where('C.id_param_client', $arrData["idParamClient"]);
 		}
@@ -459,7 +459,7 @@ class General_model extends CI_Model {
 		$this->db->select('S.*');
 		$this->db->join('invoice I', 'I.id_invoice = S.fk_id_invoice', 'INNER');
 		$this->db->join('param_client C', 'C.id_param_client = I.fk_id_param_client_i', 'INNER');
-		$this->db->where('fk_id_app_client', $this->session->idClient);
+		$this->db->where('fk_id_app_company', $this->session->idCompany);
 		$this->db->where('invoice_service_status', 1);
 		if (array_key_exists("idInvoice", $arrData)) {
 			$this->db->where('S.fk_id_invoice', $arrData["idInvoice"]);

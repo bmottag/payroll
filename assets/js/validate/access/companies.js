@@ -5,13 +5,13 @@ $(function () {
     }
   });
 
-  $("#clientName").bloquearNumeros().maxlength(60);
+  $("#companyName").bloquearNumeros().maxlength(60);
   $("#contact").bloquearNumeros().maxlength(60);   
   $("#movilNumber").bloquearTexto().maxlength(10);
   $("#contact").convertirMayuscula();
   $('#form').validate({
     rules: {
-      clientName:     { required: true, minlength: 3, maxlength:60 },
+      companyName:     { required: true, minlength: 3, maxlength:60 },
       contact:        { required: true, minlength: 3, maxlength:60 },
       movilNumber:    { required: true, minlength: 10, maxlength:10 },
       email:          { required: true, email: true, minlength: 6, maxlength:50 },
@@ -43,7 +43,7 @@ $(function () {
       
         $.ajax({
           type: "POST", 
-          url: base_url + "access/save_client", 
+          url: base_url + "access/save_company", 
           data: $("#form").serialize(),
           dataType: "json",
           contentType: "application/x-www-form-urlencoded;charset=UTF-8",
@@ -65,7 +65,7 @@ $(function () {
               $("#div_load").css("display", "none");
               $('#btnSubmit').removeAttr('disabled');
 
-              var url = base_url + "access/clients/" + data.status;
+              var url = base_url + "access/companies/" + data.status;
               $(location).attr("href", url);
             }
             else

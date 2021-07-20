@@ -28,7 +28,7 @@
 	    		foreach($query->result() as $row){
 	    				$user["valid"] = true;
 	    				$user["idUser"] = $row->id_user;
-	    				$user["idClient"] = $row->fk_id_client_app;
+	    				$user["idCompany"] = $row->fk_id_app_company_u;
 	    				$user["idRole"] = $row->fk_id_user_role;
 	    				$user["firstname"] = $row->first_name;
 	    				$user["lastname"] = $row->last_name;

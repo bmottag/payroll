@@ -288,70 +288,70 @@ class Access extends CI_Controller {
     }
 
 	/**
-	 * clients List
+	 * Companies List
      * @since 12/6/2021
      * @author BMOTTAG
 	 */
-	public function clients($status=1)
+	public function companies($status=1)
 	{			
 			$data['status'] = $status;
 			
 			$arrParam = array("status" => $status);			
-			$data['info'] = $this->general_model->get_app_clients($arrParam);
-			$data['pageHeaderTitle'] = "Manage System Access - APP Clients";
+			$data['info'] = $this->general_model->get_app_company($arrParam);
+			$data['pageHeaderTitle'] = "Manage System Access - APP Companies";
 
-			$data["view"] = 'clients';
+			$data["view"] = 'companies';
 			$this->load->view("layout", $data);
 	}
 	
     /**
-     * Cargo modal - formulario Client
+     * Cargo modal - formulario Companies
      * @since 12/6/2021
      */
-    public function cargarModalClients() 
+    public function cargarModalCompanies() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
 			$data['information'] = FALSE;
-			$data["idClient"] = $this->input->post("idClient");	
+			$data["idCompany"] = $this->input->post("idCompany");	
 			
 			$arrParam = array();
 			$data['infoCountries'] = $this->general_model->get_countries($arrParam);
 
-			if ($data["idClient"] != 'x') {
+			if ($data["idCompany"] != 'x') {
 				$arrParam = array(
-					"idClient" => $data["idClient"]
+					"idCompany" => $data["idCompany"]
 				);
-				$data['information'] = $this->general_model->get_app_clients($arrParam);
+				$data['information'] = $this->general_model->get_app_company($arrParam);
 
 				//busca lista de links para el menu guardado
 				$arrParam = array("idCountry" => $data['information'][0]['fk_id_contry']);
 				$data['citiesList'] = $this->general_model->get_cities($arrParam);
 			}
 			
-			$this->load->view("clients_modal", $data);
+			$this->load->view("companies_modal", $data);
     }
 	
 	/**
-	 * Update Client
+	 * Update Company
      * @since 12/6/2021
      * @author BMOTTAG
 	 */
-	public function save_client()
+	public function save_company()
 	{			
 			header('Content-Type: application/json');
 			$data = array();
 			
-			$idClient = $this->input->post('hddId');
+			$idCompany = $this->input->post('hddId');
 
-			$msj = "The Client was added!";
+			$msj = "The Company was added!";
 			$data["status"] = 1;
-			if ($idClient != '') {
-				$msj = "The Client was updated!";
+			if ($idCompany != '') {
+				$msj = "The Company was updated!";
 				$data["status"] = $this->input->post('status');
 			}			
 
-			if ($this->access_model->saveClient()) {
+			if ($this->access_model->saveCompany()) {
 				$data["result"] = true;					
 				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
 			} else {

@@ -167,32 +167,32 @@
 		}
 	
 		/**
-		 * Add/Edit USER
+		 * Add/Edit COMPNAY
 		 * @since 12/6/2021
 		 */
-		public function saveClient() 
+		public function saveCompany() 
 		{
-				$idClient = $this->input->post('hddId');
+				$idCompany= $this->input->post('hddId');
 				
 				$data = array(
-					'client_name' => $this->input->post('clientName'),
-					'client_contact' => $this->input->post('contact'),
-					'client_movil' => $this->input->post('movilNumber'),
-					'client_email' => $this->input->post('email'),
-					'client_address' => $this->input->post('address'),
-					'client_gst' => $this->input->post('gst'),
+					'company_name' => $this->input->post('companyName'),
+					'company_contact' => $this->input->post('contact'),
+					'company_movil' => $this->input->post('movilNumber'),
+					'company_email' => $this->input->post('email'),
+					'company_address' => $this->input->post('address'),
+					'company_gst' => $this->input->post('gst'),
 					'fk_id_city' => $this->input->post('idCity')
 				);	
 
 				//revisar si es para adicionar o editar
-				if ($idClient == '') {
-					$data['client_status'] = 1;
+				if ($idCompany == '') {
+					$data['company_status'] = 1;
 					$data['start_date'] = date("Y-m-d");
-					$query = $this->db->insert('app_client', $data);
+					$query = $this->db->insert('app_company', $data);
 				}else{
-					$data['client_status'] = $this->input->post('status');
-					$this->db->where('id_client', $idClient);
-					$query = $this->db->update('app_client', $data);
+					$data['company_status'] = $this->input->post('status');
+					$this->db->where('id_company', $idCompany);
+					$query = $this->db->update('app_company', $data);
 				}
 				if ($query) {
 					return true;

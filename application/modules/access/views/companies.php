@@ -4,8 +4,8 @@ $(function(){
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-								url: base_url + 'access/cargarModalClients',
-                data: {'idClient': oID},
+								url: base_url + 'access/cargarModalCompanies',
+                data: {'idCompany': oID},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -48,13 +48,13 @@ $(function(){
 					<div class="card-header">
 						<div class="btn-group btn-group-toggle">
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
-									<span class="fa fa-plus" aria-hidden="true"></span> Add APP Client
+									<span class="fa fa-plus" aria-hidden="true"></span> Add APP Company
 							</button>
-			                <a type="button" class="btn btn-danger swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("access/clients/1"); ?>">
-			                  Active Client
+			                <a type="button" class="btn btn-danger swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("access/companies/1"); ?>">
+			                  Active Company
 			                </a>
-			                <a type="button" class="btn btn-danger swalDefaultInfo <?php if($status == 2){ echo 'active';} ?>" href="<?php echo base_url("access/clients/2"); ?>">
-			                  Inactive Client
+			                <a type="button" class="btn btn-danger swalDefaultInfo <?php if($status == 2){ echo 'active';} ?>" href="<?php echo base_url("access/companies/2"); ?>">
+			                  Inactive Company
 			                </a>
 						</div>
 						<div class="card-tools">
@@ -94,10 +94,10 @@ $(function(){
 							<?php
 							foreach ($info as $lista):
 									echo "<tr>";
-									echo "<td class='text-center'>" . $lista['id_client'] . "</td>";
-									echo "<td>" . $lista['client_name'] . "</td>";
-									echo "<td>" . $lista['client_contact'] . "</td>";
-$movil = $lista["client_movil"];
+									echo "<td class='text-center'>" . $lista['id_company'] . "</td>";
+									echo "<td>" . $lista['company_name'] . "</td>";
+									echo "<td>" . $lista['company_contact'] . "</td>";
+$movil = $lista["company_movil"];
 // Separa en grupos de tres 
 $count = strlen($movil); 
 	
@@ -114,11 +114,11 @@ if($count == 10){
 }
 								
 									echo "<td class='text-center'>" . $resultado . "</td>";
-									echo "<td>" . $lista['client_email'] . "</td>";
+									echo "<td>" . $lista['company_email'] . "</td>";
 									echo "<td>" . $lista['city'] . "</td>";
 									
 									echo "<td class='text-center'>";
-									switch ($lista['client_status']) {
+									switch ($lista['company_status']) {
 										case 1:
 											$valor = 'Active';
 											$clase = "text-success";
@@ -132,7 +132,7 @@ if($count == 10){
 									echo "</td>";
 									echo "<td class='text-center'>";
 						?>
-									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_client']; ?>" >
+									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_company']; ?>" >
 										Edit <span class="fa fa-edit" aria-hidden="true">
 									</button>
 						<?php

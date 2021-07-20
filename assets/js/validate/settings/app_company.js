@@ -5,13 +5,13 @@ $(function () {
     }
   });
 
-  $("#clientName").bloquearNumeros().maxlength(60);
+  $("#companyName").bloquearNumeros().maxlength(60);
   $("#contact").bloquearNumeros().maxlength(60);   
   $("#movilNumber").bloquearTexto().maxlength(10);
   $("#contact").convertirMayuscula();
   $('#form').validate({
     rules: {
-      clientName:     { required: true, minlength: 3, maxlength:60 },
+      companyName:     { required: true, minlength: 3, maxlength:60 },
       contact:        { required: true, minlength: 3, maxlength:60 },
       movilNumber:    { required: true, minlength: 10, maxlength:10 },
       gst:            { minlength: 5, maxlength:12 },

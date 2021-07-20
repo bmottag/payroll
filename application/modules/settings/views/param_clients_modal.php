@@ -15,8 +15,8 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="clientName">Company Name: *</label>
-					<input type="text" id="clientName" name="clientName" class="form-control" value="<?php echo $information?$information[0]["param_client_name"]:""; ?>" placeholder="Company Name" required >
+					<label class="control-label" for="clientName">Client Name: *</label>
+					<input type="text" id="clientName" name="clientName" class="form-control" value="<?php echo $information?$information[0]["param_client_name"]:""; ?>" placeholder="Client Name" required >
 				</div>
 			</div>
 			

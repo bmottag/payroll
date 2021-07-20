@@ -6,8 +6,8 @@ $(function(){
       var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-                url: base_url + 'settings/cargarModalUpdateAPPClient',
-                data: {'idClient': oID},
+                url: base_url + 'settings/cargarModalUpdateAPPCompany',
+                data: {'idCompany': oID},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -49,28 +49,28 @@ $(function(){
 				<div class="card card-primary card-outline">
 					<div class="card-body box-profile">
 						<div class="text-center">
-							<?php if($appClient[0]['client_logo']){ ?>
-								<img class="profile-user-img img-fluid img-circle" src="<?php echo base_url($appClient[0]['client_logo']); ?>" alt="User profile picture">
+							<?php if($appCompany[0]['company_logo']){ ?>
+								<img class="profile-user-img img-fluid img-circle" src="<?php echo base_url($appCompany[0]['company_logo']); ?>" alt="User profile picture">
 							<?php } ?>
 						</div>
-						<h3 class="profile-username text-center"><?php echo $appClient[0]['client_name']; ?></h3>
+						<h3 class="profile-username text-center"><?php echo $appCompany[0]['company_name']; ?></h3>
 
 						<ul class="list-group list-group-unbordered mb-3">
 							<li class="list-group-item">
-							<b>Contact:</b> <a class="float-right"><?php echo $appClient[0]['client_contact']; ?></a>
+							<b>Contact:</b> <a class="float-right"><?php echo $appCompany[0]['company_contact']; ?></a>
 							</li>
 							<li class="list-group-item">
-							<b>Movil Number:</b> <a class="float-right"><?php echo $appClient[0]['client_movil']; ?></a>
+							<b>Movil Number:</b> <a class="float-right"><?php echo $appCompany[0]['company_movil']; ?></a>
 							</li>
 							<li class="list-group-item">
-							<b>Email:</b> <a class="float-right"><?php echo $appClient[0]['client_email']; ?></a>
+							<b>Email:</b> <a class="float-right"><?php echo $appCompany[0]['company_email']; ?></a>
 							</li>
               <li class="list-group-item">
-              <b>Address:</b> <a class="float-right"><?php echo $appClient[0]['client_address']; ?></a>
+              <b>Address:</b> <a class="float-right"><?php echo $appCompany[0]['company_address']; ?></a>
               </li>
 						</ul>
             <p class="text-center">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="<?php echo $appClient[0]['id_client']; ?>" >
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="<?php echo $appCompany[0]['id_company']; ?>" >
               Edit Info <i class="fas fa-edit"></i>
             </button>
             </p>
