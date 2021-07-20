@@ -16,9 +16,9 @@
 				
 				$data = array(
 					'fk_id_param_client_i' => $this->input->post('idClient'),
-					'invoice_number' => $this->input->post('invoiceNumber'),
-					'terms' => $this->input->post('terms'),
-					'invoice_date' => $this->input->post('invoiceDate')
+					'invoice_number' => addslashes($this->security->xss_clean($this->input->post('invoiceNumber'))),
+					'terms' => addslashes($this->security->xss_clean($this->input->post('terms'))),
+					'invoice_date' => addslashes($this->security->xss_clean($this->input->post('invoiceDate')))
 				);			
 
 				//revisar si es para adicionar o editar

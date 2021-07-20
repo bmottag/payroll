@@ -32,11 +32,11 @@
 				$idUser = $this->input->post('hddId');
 				
 				$data = array(
-					'first_name' => $this->input->post('firstName'),
-					'last_name' => $this->input->post('lastName'),
-					'log_user' => $this->input->post('user'),
-					'movil' => $this->input->post('movilNumber'),
-					'email' => $this->input->post('email'),
+					'first_name' => addslashes($this->security->xss_clean($this->input->post('firstName'))),
+					'last_name' => addslashes($this->security->xss_clean($this->input->post('lastName'))),
+					'log_user' => addslashes($this->security->xss_clean($this->input->post('user'))),
+					'movil' => addslashes($this->security->xss_clean($this->input->post('movilNumber'))),
+					'email' => addslashes($this->security->xss_clean($this->input->post('email'))),
 					'fk_id_user_role' => $this->input->post('id_role')
 				);	
 
@@ -121,7 +121,7 @@
 				
 				$data = array(
 					'fk_id_param_client' => $this->input->post('idClient'),
-					'job_description' => $this->input->post('jobName')
+					'job_description' => addslashes($this->security->xss_clean($this->input->post('jobName')))
 				);			
 
 				//revisar si es para adicionar o editar
@@ -183,11 +183,11 @@
 				$idClient = $this->input->post('hddId');
 				
 				$data = array(
-					'param_client_name' => $this->input->post('clientName'),
-					'param_client_contact' => $this->input->post('contact'),
-					'param_client_movil' => $this->input->post('movilNumber'),
-					'param_client_email' => $this->input->post('email'),
-					'param_client_address' => $this->input->post('address')
+					'param_client_name' => addslashes($this->security->xss_clean($this->input->post('clientName'))),
+					'param_client_contact' => addslashes($this->security->xss_clean($this->input->post('contact'))),
+					'param_client_movil' => addslashes($this->security->xss_clean($this->input->post('movilNumber'))),
+					'param_client_email' => addslashes($this->security->xss_clean($this->input->post('email'))),
+					'param_client_address' => addslashes($this->security->xss_clean($this->input->post('address')))
 				);	
 
 				//revisar si es para adicionar o editar
@@ -217,11 +217,11 @@
 				$idCompany = $this->input->post('hddId');
 				
 				$data = array(
-					'company_name' => $this->input->post('companyName'),
-					'company_contact' => $this->input->post('contact'),
-					'company_movil' => $this->input->post('movilNumber'),
-					'company_address' => $this->input->post('address'),
-					'company_gst' => $this->input->post('gst'),
+					'company_name' => addslashes($this->security->xss_clean($this->input->post('companyName'))),
+					'company_contact' => addslashes($this->security->xss_clean($this->input->post('contact'))),
+					'company_movil' => addslashes($this->security->xss_clean($this->input->post('movilNumber'))),
+					'company_address' => addslashes($this->security->xss_clean($this->input->post('address'))),
+					'company_gst' => addslashes($this->security->xss_clean($this->input->post('gst'))),
 					'fk_id_city' => $this->input->post('idCity')
 				);	
 
