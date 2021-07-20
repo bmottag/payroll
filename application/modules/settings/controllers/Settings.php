@@ -217,11 +217,11 @@ class Settings extends CI_Controller {
      * @since 15/12/2016
      * @author BMOTTAG
 	 */
-	public function job($status=1)
+	public function job($jobStatus=1)
 	{
-			$data['status'] = $status;
+			$data['jobStatus'] = $jobStatus;
 		
-			$arrParam = array("status" => $status);
+			$arrParam = array("jobStatus" => $jobStatus);
 			$data['info'] = $this->general_model->get_jobs($arrParam);
 			$data['pageHeaderTitle'] = "Settings - JOB CODE/NAME ";
 			

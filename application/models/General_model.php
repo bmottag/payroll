@@ -367,16 +367,19 @@ class General_model extends CI_Model {
 	 */
 	public function get_jobs($arrData) 
 	{			
-		$this->db->select();
+		$this->db->select('J.*, param_client_name');
 		$this->db->join('param_client C', 'C.id_param_client = J.fk_id_param_client', 'INNER');
 		$this->db->where('fk_id_app_company', $this->session->idCompany);
 		if (array_key_exists("idJob", $arrData)) {
 			$this->db->where('id_job', $arrData["idJob"]);
 		}
-		if (array_key_exists("status", $arrData)) {
-			$this->db->where('status', $arrData["status"]);
+		if (array_key_exists("jobStatus", $arrData)) {
+			$this->db->where('J.status', $arrData["jobStatus"]);
 		}
-		$this->db->order_by("job_description", "ASC");
+		if (array_key_exists("clientStatus", $arrData)) {
+			$this->db->where('C.param_client_status', $arrData["clientStatus"]);
+		}
+		$this->db->order_by("C.param_client_name, J.job_description", "ASC");
 		$query = $this->db->get("param_jobs J");
 
 		if ($query->num_rows() >= 1) {

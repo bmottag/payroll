@@ -150,9 +150,11 @@
 			//else do nothing and continue with the activation
 			if($status == 1){
 				//update all status to inactive
-				$data['status'] = 2;
-				$this->db->where('fk_id_client', $this->session->userdata("idCompany"));///ERRORRRRRR
-				$query = $this->db->update('param_jobs', $data);
+				$sql = "UPDATE param_jobs J";
+				$sql.= " INNER JOIN param_client C ON C.id_param_client = J.fk_id_param_client";
+				$sql.= " SET status = 2";
+				$sql.= " WHERE C.fk_id_app_company  = " . $this->session->userdata("idCompany");
+				$query = $this->db->query($sql);
 			}
 
 			//update status

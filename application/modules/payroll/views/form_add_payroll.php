@@ -35,7 +35,7 @@
 					<select name="jobName" id="jobName" class="form-control" >
 						<option value=''>Select...</option>
 						<?php for ($i = 0; $i < count($jobs); $i++) { ?>
-							<option value="<?php echo $jobs[$i]["id_job"]; ?>" ><?php echo $jobs[$i]["job_description"]; ?></option>	
+							<option value="<?php echo $jobs[$i]["id_job"]; ?>" ><?php echo strtoupper($jobs[$i]["param_client_name"]) . " - " . $jobs[$i]["job_description"]; ?></option>	
 						<?php } ?>
 					</select>
 					<?php }else{

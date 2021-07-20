@@ -63,10 +63,10 @@ function deseleccionar_todo(){
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" id="x">
 									<span class="fa fa-plus" aria-hidden="true"></span> Add Job Code/Name
 							</button>
-							<a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/job/1"); ?>">
+							<a type="button" class="btn btn-info swalDefaultInfo <?php if($jobStatus == 1){ echo 'active';} ?>" href="<?php echo base_url("settings/job/1"); ?>">
 								Active Job Code/Name
 							</a>
-							<a type="button" class="btn btn-info swalDefaultInfo <?php if($status == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/job/2"); ?>">
+							<a type="button" class="btn btn-info swalDefaultInfo <?php if($jobStatus == 2){ echo 'active';} ?>" href="<?php echo base_url("settings/job/2"); ?>">
 								Inactive Job Code/Name
 							</a>
 						</div>
@@ -91,7 +91,7 @@ function deseleccionar_todo(){
 								</div>';
 						}else{
 					?>			
-<form  name="jobs_status" id="jobs_status" method="post" action="<?php echo base_url("settings/jobs_status/$status"); ?>">
+<form  name="jobs_status" id="jobs_status" method="post" action="<?php echo base_url("settings/jobs_status/$jobStatus"); ?>">
 
 						<div class="btn-group">
 							<a class="btn btn-default" href="javascript:seleccionar_todo()">Check all</a>
