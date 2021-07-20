@@ -338,7 +338,7 @@ class General_model extends CI_Model {
     }
 
 	/**
-	 * Client list
+	 * Company list
 	 * @since 12/6/2020
 	 */
 	public function get_app_company($arrData) 

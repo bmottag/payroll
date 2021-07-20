@@ -96,7 +96,8 @@ class Invoice extends CI_Controller {
 					$data['invoiceDetails'] = $this->general_model->get_invoice_details($arrParam);//invoice details
 
 					$arrParam = array('idCompany' =>$this->session->idCompany);
-					$data['appClient'] = $this->general_model->get_app_company($arrParam);//app client info
+					$data['appCompany'] = $this->general_model->get_app_company($arrParam);//app company info
+					$data['taxInfo'] = $this->general_model->get_taxes($arrParam);//tax info
 					$data['pageHeaderTitle'] = "Invoice - Details";
 
 					$data["view"] = 'invoice_details';

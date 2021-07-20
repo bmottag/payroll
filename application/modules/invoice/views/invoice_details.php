@@ -51,7 +51,7 @@ $(function(){
           <div class="row">
             <div class="col-12">
               <h4>
-                <i class="fas fa-globe"></i> <?php echo $appClient[0]['client_name']; ?> 
+                <i class="fas fa-globe"></i> <?php echo $appCompany[0]['company_name']; ?> 
                 <small class="float-right">Date:  <?php echo $invoiceInfo[0]['invoice_date']; ?></small>
               </h4>
             </div>
@@ -61,15 +61,15 @@ $(function(){
             <div class="col-sm-4 invoice-col">
               From
               <address>
-                <strong><?php echo $appClient[0]['client_name']; ?> </strong><br>
+                <strong><?php echo $appCompany[0]['company_name']; ?> </strong><br>
                 <?php
-                if($appClient[0]['client_gst']){
-                  echo '<strong>GST </strong>' . $appClient[0]['client_gst'] . '<br>';
+                if($appCompany[0]['company_gst']){
+                  echo '<strong>GST </strong>' . $appCompany[0]['company_gst'] . '<br>';
                 }
                 ?>
-                <?php echo $appClient[0]['client_address']; ?><br>
-                Phone: <?php echo $appClient[0]['client_movil']; ?><br>
-                Email: <?php echo $appClient[0]['client_email']; ?>
+                <?php echo $appCompany[0]['company_address']; ?><br>
+                Phone: <?php echo $appCompany[0]['company_movil']; ?><br>
+                Email: <?php echo $appCompany[0]['company_email']; ?>
               </address>
             </div>
                 <!-- /.col -->
@@ -158,14 +158,25 @@ $(function(){
                   <th style="width:50%">Subtotal:</th>
                   <td>$<?php echo $subtotal; ?></td>
                 </tr>
-                <tr>
-                  <th>GST (5%)</th>
-                  <?php $gst = $subtotal * 5 / 100; ?>
-                  <td>$<?php echo $gst ?></td>
-                </tr>
+
+                <?php 
+                //informacion de los taxes si tiene configurados en la empresa
+                $acomulado = 0;
+                if($taxInfo){
+                  foreach ($taxInfo as $lista): 
+                    echo "<tr>";
+                    echo "<th>" . $lista['taxes_description'] . "(" . $lista['taxes_value'] . "%)</th>";
+                    $gst = ($subtotal * $lista['taxes_value'] / 100);
+                    $acomulado = $gst + $acomulado;
+                    echo "<td>$" . $gst . "</td>";
+                    echo "</tr>";
+                  endforeach;
+                }
+                ?>
+
                 <tr>
                   <th>Total:</th>
-                  <?php $total = $subtotal + $gst; ?>
+                  <?php $total = $subtotal + $acomulado; ?>
                   <td>$<?php echo $total; ?></td>
                 </tr>
               </table>
@@ -203,15 +214,3 @@ $(function(){
 	</div>
 </div>                       
 <!--FIN Modal -->
-
-<script>
-  window.addEventListener("load", window.print());
-</script>
-
-<style type="text/css" media="print">
-    @page 
-    {
-        size: auto;   /* auto is the initial value */
-        margin: 0mm;  /* this affects the margin in the printer settings */
-    }
-</style>
