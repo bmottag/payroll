@@ -235,6 +235,35 @@
 				}
 		}
 
+		/**
+		 * Update taxes
+		 * @since 20/7/2021
+		 */
+		public function saveTax() 
+		{
+				$idTax = $this->input->post('hddId');
+				
+				$data = array(
+					'taxes_description' => addslashes($this->security->xss_clean($this->input->post('taxes_description'))),
+					'taxes_value' => addslashes($this->security->xss_clean($this->input->post('taxes_value')))
+				);	
+
+				if ($idTax == '') 
+				{
+					$data['fk_id_app_company_t'] = $this->session->userdata("idCompany");
+					$query = $this->db->insert('param_company_taxes', $data);
+				} else {
+					$this->db->where('id_param_company_taxes', $idTax);
+					$query = $this->db->update('param_company_taxes', $data);
+				}
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
 		
 	    
 	}

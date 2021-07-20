@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/password.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/settings/tax.js"); ?>"></script>
 
 <script>
 $(function(){     
@@ -8,6 +8,19 @@ $(function(){
                 type: 'POST',
                 url: base_url + 'settings/cargarModalUpdateAPPCompany',
                 data: {'idCompany': oID},
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                }
+            });
+  });
+
+  $(".btn-primary").click(function () { 
+      var oID = $(this).attr("id");
+            $.ajax ({
+                type: 'POST',
+                url: base_url + 'settings/cargarModalAddTax',
+                data: {'idTax': oID},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -77,6 +90,50 @@ $(function(){
 					</div>
 				</div>
 			</div>
+
+      <div class="col-md-3">
+        <div class="card card-primary card-outline">
+          <div class="card-body box-profile">
+            <div class="text-center">
+              <?php if($appCompany[0]['company_logo']){ ?>
+                <img class="profile-user-img img-fluid img-circle" src="<?php echo base_url($appCompany[0]['company_logo']); ?>" alt="User profile picture">
+              <?php } ?>
+            </div>
+            <h3 class="profile-username text-center">Taxes to use on invoices</h3>
+
+            <?php 
+            if($taxInfo){
+              echo '<table class="table text-nowrap">';
+              echo '<tbody>';
+                foreach ($taxInfo as $lista): 
+                  echo "<tr>";
+                    echo "<td>" . $lista['taxes_description'] . "</td>";
+                    echo "<td class='text-center'>" . $lista['taxes_value'] . " %</td>";
+                    echo "<td class='text-center'>";
+                  ?>
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_param_company_taxes']; ?>" title="Edit">
+                        <i class="fa fa-edit"></i>
+                    </button> 
+                    <button type="button" class='btn btn-danger btn-xs' id="<?php echo $lista['id_param_company_taxes']; ?>" title="Delete">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                  <?php
+                    echo "</td>";
+                    echo "</tr>";
+                endforeach;
+              echo '</tbody>';
+            echo '</table>';
+            } ?>
+            <br>
+            <p class="text-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" id="x" >
+              Add tax <i class="fas fa-plus"></i>
+            </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
 			<div class="col-md-9">
 				<div class="card card-primary">
 					<div class="card-header">

@@ -384,8 +384,9 @@ class General_model extends CI_Model {
 
 		if ($query->num_rows() >= 1) {
 			return $query->result_array();
-		} else
+		} else{
 			return false;
+		}
 	}
 
 	/**
@@ -514,6 +515,27 @@ class General_model extends CI_Model {
 		if ($query->num_rows() > 0) {
 			return $query->result_array();
 		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Taxes list
+	 * @since 20/7/2021
+	 */
+	public function get_taxes($arrData) 
+	{			
+		$this->db->select();
+		$this->db->where('fk_id_app_company_t ', $this->session->idCompany);
+		if (array_key_exists("idTax", $arrData)) {
+			$this->db->where('id_param_company_taxes', $arrData["idTax"]);
+		}
+		$this->db->order_by("taxes_description", "ASC");
+		$query = $this->db->get("param_company_taxes T");
+
+		if ($query->num_rows() >= 1) {
+			return $query->result_array();
+		} else{
 			return false;
 		}
 	}

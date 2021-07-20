@@ -400,7 +400,9 @@ class Settings extends CI_Controller {
 	public function company($error = '')
 	{			
 			$arrParam = array('idCompany' =>$this->session->idCompany);
-			$data['appCompany'] = $this->general_model->get_app_company($arrParam);//app client info
+			$data['appCompany'] = $this->general_model->get_app_company($arrParam);//app company info
+
+			$data['taxInfo'] = $this->general_model->get_taxes($arrParam);//tax info
 			$data['pageHeaderTitle'] = "Settings - Company Information";
 
 			$data['error'] = $error; //se usa para mostrar los errores al cargar la imagen 
@@ -424,7 +426,7 @@ class Settings extends CI_Controller {
 			$arrParam = array();
 			$data['infoCountries'] = $this->general_model->get_countries($arrParam);
 
-			//busca lista de links para el menu guardado
+			//busca lista de ciudades para el pais
 			$arrParam = array("idCountry" => $data['information'][0]['fk_id_contry']);
 			$data['citiesList'] = $this->general_model->get_cities($arrParam);
 						
@@ -441,7 +443,7 @@ class Settings extends CI_Controller {
 			header('Content-Type: application/json');
 			$data = array();
 						
-			$msj = "The Company was updated!";
+			$msj = "The Company information was updated!";
 
 			if ($idInvoice = $this->settings_model->saveCompany()) {
 				$data["result"] = true;		
@@ -449,6 +451,80 @@ class Settings extends CI_Controller {
 			} else {
 				$data["result"] = "error";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+			
+			echo json_encode($data);
+    }
+
+    /**
+     * Cargo modal- formulario para adicionar taxes
+     * @since 20/7/2021
+     */
+    public function cargarModalAddTax() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+
+			$data['information'] = FALSE;
+			$data['idTax'] = $this->input->post('idTax');
+
+			if ($data["idTax"] != 'x') {
+				$arrParam = array("idTax" => $data["idTax"]);
+				$data['information'] = $this->general_model->get_taxes($arrParam);
+			}
+
+			$this->load->view("tax_modal", $data);
+    }
+	
+	/**
+	 * Add taxes
+     * @since 20/7/2021
+     * @author BMOTTAG
+	 */
+	public function save_tax()
+	{			
+			header('Content-Type: application/json');
+
+			$idTax = $this->input->post('hddId');
+			$msj = "The Tax was added!";
+			if ($idTax != '') {
+				$msj = "The Tax was updated!";
+			}	
+
+			if ($idInvoice = $this->settings_model->saveTax()) {
+				$data["result"] = true;		
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> ' . $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+			
+			echo json_encode($data);
+    }
+
+	/**
+	 * Delete taxe
+     * @since 20/7/2021
+	 */
+	public function delete_tax()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			$idTax = $this->input->post('identificador');
+			
+			$arrParam = array(
+				"table" => "param_company_taxes",
+				"primaryKey" => "id_param_company_taxes",
+				"id" => $idTax
+			);
+			
+			if ($this->general_model->deleteRecord($arrParam)) 
+			{
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', '<strong>Right!</strong> Tax was removed.');
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Ask for help.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
 			}
 			
 			echo json_encode($data);

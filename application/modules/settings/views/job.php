@@ -149,6 +149,7 @@ function deseleccionar_todo(){
 										</button>										
 							<?php
 										echo "</td>";
+										echo "</tr>";
 								endforeach;
 							?>
 							</tbody>
