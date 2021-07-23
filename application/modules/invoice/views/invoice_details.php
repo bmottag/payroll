@@ -192,7 +192,7 @@ $(function(){
             <?php                     
               if($invoiceDetails){ 
             ?>
-            <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+            <a href="<?php echo base_url('report/generaInvoicePDF/' . $invoiceInfo[0]['id_invoice']); ?>" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
             <?php                     
               }
             ?>
