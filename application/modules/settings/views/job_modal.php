@@ -16,12 +16,23 @@
 			<div class="col-sm-12">
 				<div class="form-group text-left">
 					<label class="control-label" for="idClient">Client: *</label>
+					<?php 
+						if(!$infoClients){
+			               echo '<div class="col-lg-12">
+			                    	<p class="text-danger"><span class="fa fa-alert" aria-hidden="true"></span> Ask the manager to add Clients!</p>
+			                  	</div>';
+			                echo '<input id="idClient" name="idClient" type="hidden">';
+						}else{
+					?>
 					<select name="idClient" id="idClient" class="form-control" >
 						<option value=''>Select...</option>
 						<?php for ($i = 0; $i < count($infoClients); $i++) { ?>
 							<option value="<?php echo $infoClients[$i]["id_param_client"]; ?>" <?php if($information && $infoClients[$i]["id_param_client"] == $information[0]['fk_id_param_client']) { echo "selected"; }  ?>><?php echo $infoClients[$i]["param_client_name"]; ?></option>	
 						<?php } ?>
 					</select>
+					<?php 
+						}
+					?>
 				</div>
 			</div>
 		</div>
