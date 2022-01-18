@@ -33,7 +33,7 @@ class Payroll extends CI_Controller {
 			$view = 'form_add_payroll';
 			
 			//if the last record doesn't have finish time
-			if($data['record'] && $data['record'][0]['finish'] == 0){
+			if($data['record'] && $data['record'][0]['finish'] == '0000-00-00 00:00:00'){
 				$view = 'form_end_payroll';
 			}
 			$data['pageHeaderTitle'] = "Time Stamp";
